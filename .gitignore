@@ -1,6 +1,9 @@
-# Application
+### Application
 web/app/plugins/*
 !web/app/plugins/.gitkeep
+# Premium plugins is still under version control
+!web/app/plugins/gravityforms
+
 web/app/mu-plugins/*/
 web/app/upgrade
 web/app/uploads/*
@@ -29,3 +32,22 @@ node_modules
 # Vagrant
 bin
 .vagrant
+
+
+### IDE / editor files ###
+
+# JetBrains files
+.idea/
+
+# Vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+
+# SublimeText
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
