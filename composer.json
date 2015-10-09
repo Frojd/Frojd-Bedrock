@@ -25,6 +25,9 @@
         "psr-0": {"Frojd\\Bedrock\\EnvFileCreator": "scripts"}
     },
     "scripts": {
+        "post-create-project-cmd": [
+            "scripts/Frojd/Bedrock/install-theme.sh"
+        ],
         "pre-install-cmd": [
             "Frojd\\Bedrock\\EnvFileCreator::createIfNotExists"
         ]
