@@ -30,7 +30,8 @@
             "scripts/Frojd/Bedrock/install-gulp.sh"
         ],
         "pre-install-cmd": [
-            "Frojd\\Bedrock\\EnvFileCreator::createIfNotExists"
+            "Frojd\\Bedrock\\EnvFileCreator::createIfNotExists",
+            "npm install"
         ]
     },
     "repositories": [

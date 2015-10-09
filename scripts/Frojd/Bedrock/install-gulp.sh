@@ -5,5 +5,6 @@ rm master.zip
 
 mv Frojd-Gulp-master/gulp gulp
 mv Frojd-Gulp-master/gulpfile.js gulpfile.js
+mv Frojd-Gulp-master/package.json package.json
 mv gulp/config.template.js gulp/config.js
 rm -rf Frojd-Gulp-master

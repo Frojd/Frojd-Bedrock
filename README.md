@@ -17,6 +17,8 @@ Much of the philosophy behind Bedrock is inspired by the [Twelve-Factor App](htt
 
 * PHP >= 5.5
 * Composer - [Install](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
+* NPM
+* gulp
 
 ## Installation
 
