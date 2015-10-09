@@ -66,6 +66,9 @@ define('AUTOMATIC_UPDATER_DISABLED', true);
 define('DISABLE_WP_CRON', true);
 define('DISALLOW_FILE_EDIT', true);
 
+
+define('WP_MEMORY_LIMIT', '124M');
+
 /**
  * Bootstrap WordPress
  */

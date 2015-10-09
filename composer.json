@@ -21,6 +21,14 @@
     "config": {
         "preferred-install": "dist"
     },
+    "autoload": {
+        "psr-0": {"Frojd\\Bedrock\\EnvFileCreator": "scripts"}
+    },
+    "scripts": {
+        "pre-install-cmd": [
+            "Frojd\\Bedrock\\EnvFileCreator::createIfNotExists"
+        ]
+    },
     "repositories": [
         {
             "type": "composer",
