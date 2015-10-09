@@ -25,11 +25,11 @@
         "psr-0": {"Frojd\\Bedrock\\EnvFileCreator": "scripts"}
     },
     "scripts": {
-        "post-create-project-cmd": [
+        "post-root-package-install": [
             "scripts/Frojd/Bedrock/install-theme.sh",
             "scripts/Frojd/Bedrock/install-gulp.sh"
         ],
-        "pre-install-cmd": [
+        "post-install-cmd": [
             "Frojd\\Bedrock\\EnvFileCreator::createIfNotExists",
             "npm install"
         ]
