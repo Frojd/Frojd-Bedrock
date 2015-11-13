@@ -35,8 +35,6 @@ Official bedrock documentation is available at [https://roots.io/bedrock/docs/](
 ### .htaccess
 
 ```
-#!htaccess
-
 RewriteEngine On
 RewriteBase /
 RewriteRule ^index\.php$ - [L]
@@ -63,7 +61,6 @@ RewriteRule . index.php [L]
 ### wp-config.php
 
 ```
-#!php
 define('WP_ALLOW_MULTISITE', true);
 define('DOMAIN_CURRENT_SITE', getenv('DOMAIN_CURRENT_SITE'));
 define('MULTISITE', true);
@@ -77,7 +74,6 @@ define('UPLOADBLOGSDIR', '../app/uploads/sites');
 ### .env för Bedrock multisites
 
 ```
-#!bash
 DOMAIN_CURRENT_SITE=www.current-site.com
 ```
 
