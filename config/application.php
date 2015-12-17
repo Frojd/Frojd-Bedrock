@@ -1,6 +1,6 @@
 <?php
 $root_dir = dirname(__DIR__);
-$webroot_dir = $root_dir . '/web';
+$webroot_dir = $root_dir . '/src';
 
 /**
  * Use Dotenv to set required environment variables and load .env file in root
