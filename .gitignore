@@ -1,17 +1,17 @@
 ### Application
-web/app/plugins/*
-!web/app/plugins/.gitkeep
+src/app/plugins/*
+!src/app/plugins/.gitkeep
 # Premium plugins is still under version control
-!web/app/plugins/gravityforms
+!src/app/plugins/gravityforms
 
-web/app/mu-plugins/*/
-web/app/upgrade
-web/app/uploads/*
-!web/app/uploads/.gitkeep
+src/app/mu-plugins/*/
+src/app/upgrade
+src/app/uploads/*
+!src/app/uploads/.gitkeep
 
 # WordPress
-web/wp
-web/.htaccess
+src/wp
+src/.htaccess
 
 # WP-CLI
 db-sync
