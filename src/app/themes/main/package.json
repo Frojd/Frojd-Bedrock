@@ -21,6 +21,7 @@
     "build": "webpack --progress --config assets/build/webpack.config.js",
     "build:production": "npm run build -s -- -p",
     "start": "npm run build -s -- --watch",
+    "watch": "npm start",
     "clean": "rimraf dist",
     "lint": "eslint assets/scripts assets/build",
     "test": "npm run lint -s"
