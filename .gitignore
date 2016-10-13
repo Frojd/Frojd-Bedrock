@@ -51,3 +51,7 @@ Session.vim
 *.tmPreferences.cache
 *.stTheme.cache
 *.sublime-workspace
+
+### OSX specific  ###
+
+.DS_Store
