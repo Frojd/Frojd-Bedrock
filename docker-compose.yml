@@ -8,7 +8,11 @@ services:
             - "./docker/files/db-dumps/:/docker-entrypoint-initdb.d/"
         env_file: "./docker/config/db.env"
     web:
-        build: .
+        build:
+            context: .
+            args:
+                - XDEBUG_REMOTE_HOST=${XDEBUG_REMOTE_HOST}
+                - XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
         ports:
             - "8080:80"
         links:
