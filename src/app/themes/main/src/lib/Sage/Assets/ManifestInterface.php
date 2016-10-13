@@ -7,8 +7,7 @@ namespace Roots\Sage\Assets;
  * @package Roots\Sage
  * @author QWp6t
  */
-interface ManifestInterface
-{
+interface ManifestInterface {
     /**
      * Get the cache-busted filename
      *

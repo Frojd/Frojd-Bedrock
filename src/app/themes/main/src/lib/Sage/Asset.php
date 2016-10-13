@@ -9,8 +9,7 @@ use Roots\Sage\Assets\ManifestInterface;
  * @package Roots\Sage
  * @author QWp6t
  */
-class Asset
-{
+class Asset {
     public static $dist = '/dist';
 
     /** @var ManifestInterface Currently used manifest */
@@ -20,19 +19,16 @@ class Asset
 
     protected $dir;
 
-    public function __construct($file, ManifestInterface $manifest = null)
-    {
+    public function __construct($file, ManifestInterface $manifest = null) {
         $this->manifest = $manifest;
         $this->asset = $file;
     }
 
-    public function __toString()
-    {
+    public function __toString() {
         return $this->getUri();
     }
 
-    public function getUri()
-    {
+    public function getUri() {
         $file = ($this->manifest ? $this->manifest->get($this->asset) : $this->asset);
         return get_template_directory_uri() . self::$dist . "/$file";
     }

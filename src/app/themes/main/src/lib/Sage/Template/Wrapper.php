@@ -7,8 +7,7 @@ namespace Roots\Sage\Template;
  * @package Roots\Sage
  * @author QWp6t
  */
-class Wrapper implements WrapperInterface
-{
+class Wrapper implements WrapperInterface {
     /** @var string Wrapper slug */
     protected $slug;
 
@@ -24,8 +23,7 @@ class Wrapper implements WrapperInterface
      * @param string $template Template file, as from Template Hierarchy; e.g., `page.php`, `single.php`, `singular.php`
      * @param string $base Wrapper's base template, this is what will wrap around $template
      */
-    public function __construct($template, $base = 'layouts/base.php')
-    {
+    public function __construct($template, $base = 'layouts/base.php') {
         $this->slug = sanitize_title(basename($base, '.php'));
         $this->wrapper = [$base];
         $this->template = $template;
@@ -37,27 +35,23 @@ class Wrapper implements WrapperInterface
      * @return string
      * @see getTemplate
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->unwrap();
     }
 
     /** {@inheritdoc} */
-    public function wrap()
-    {
+    public function wrap() {
         $wrappers = apply_filters('sage/wrap_' . $this->slug, $this->wrapper) ?: $this->wrapper;
         return locate_template($wrappers);
     }
 
     /** {@inheritdoc} */
-    public function slug()
-    {
+    public function slug() {
         return $this->slug;
     }
 
     /** {@inheritdoc} */
-    public function unwrap()
-    {
+    public function unwrap() {
         $template = apply_filters('sage/unwrap_' . $this->slug, $this->template) ?: $this->template;
         return locate_template($template) ?: $template;
     }

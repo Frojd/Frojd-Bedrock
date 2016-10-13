@@ -2,23 +2,20 @@
 
 namespace Roots\Sage\Template;
 
-class Partial
-{
+class Partial {
     protected static $cache = [];
 
     public $main;
     public $template;
     public $delimiter = '-';
 
-    public function __construct($template, $main = '')
-    {
+    public function __construct($template, $main = '') {
         $this->template = $template;
         $this->main = $main;
     }
 
-    public function __toString()
-    {
-        return (string) $this->path();
+    public function __toString() {
+        return (string)$this->path();
     }
 
     /**
@@ -29,8 +26,7 @@ class Partial
      *   // => ['partials/content-single-audio.php', 'partials/content-single.php', 'partials/content.php']
      * @return array Array of parts to pass to locate_template()
      */
-    public function parts()
-    {
+    public function parts() {
         if ($parts = $this->cache('parts')) {
             return $parts;
         }
@@ -54,16 +50,14 @@ class Partial
      * Passes $this->parts() to locate_template() to retrieve template location
      * @return string Location of template
      */
-    public function path()
-    {
+    public function path() {
         if (!$path = $this->cache('path')) {
             $path = $this->cache('path', locate_template($this->parts()));
         }
         return apply_filters('sage/partial_' . basename($path, '.php'), $path, $this->parts()) ?: $path;
     }
 
-    protected function cache($key, $value = null)
-    {
+    protected function cache($key, $value = null) {
         if ($value !== null) {
             self::$cache[$this->template][$key] = $value;
         }

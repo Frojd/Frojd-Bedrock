@@ -7,8 +7,7 @@ namespace Roots\Sage\Assets;
  * @package Roots\Sage
  * @author QWp6t
  */
-class JsonManifest implements ManifestInterface
-{
+class JsonManifest implements ManifestInterface {
     /** @var array */
     protected $manifest = [];
 
@@ -16,20 +15,17 @@ class JsonManifest implements ManifestInterface
      * JsonManifest constructor
      * @param string $manifestPath Local filesystem path to JSON-encoded manifest
      */
-    public function __construct($manifestPath)
-    {
+    public function __construct($manifestPath) {
         $this->manifest = file_exists($manifestPath) ? json_decode(file_get_contents($manifestPath), true) : [];
     }
 
     /** @inheritdoc */
-    public function get($file)
-    {
+    public function get($file) {
         return isset($this->manifest[$file]) ? $this->manifest[$file] : $file;
     }
 
     /** @inheritdoc */
-    public function getAll()
-    {
+    public function getAll() {
         return $this->manifest;
     }
 }

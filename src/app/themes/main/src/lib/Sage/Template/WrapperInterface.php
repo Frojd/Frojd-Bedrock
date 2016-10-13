@@ -7,8 +7,7 @@ namespace Roots\Sage\Template;
  * @package Roots\Sage
  * @author QWp6t
  */
-interface WrapperInterface
-{
+interface WrapperInterface {
 
     /**
      * Get wrapper template file
