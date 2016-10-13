@@ -22,7 +22,10 @@
         "preferred-install": "dist"
     },
     "autoload": {
-        "psr-0": {"Frojd\\Bedrock\\EnvFileCreator": "scripts"}
+        "psr-0": {"Frojd\\Bedrock\\EnvFileCreator": "scripts"},
+        "psr-4": {
+            "Roots\\Sage\\": "src/app/themes/main/src/lib/Sage/"
+        }
     },
     "repositories": [
         {
