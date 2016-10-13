@@ -22,7 +22,6 @@
         "preferred-install": "dist"
     },
     "autoload": {
-        "psr-0": {"Frojd\\Bedrock\\EnvFileCreator": "scripts"},
         "psr-4": {
             "Roots\\Sage\\": "src/app/themes/main/src/lib/Sage/"
         }
@@ -65,10 +64,5 @@
             "src/app/themes/{$name}/": ["type:wordpress-theme"]
         },
         "wordpress-install-dir": "src/wp"
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "Frojd\\Bedrock\\EnvFileCreator::createIfNotExists"
-        ]
     }
 }

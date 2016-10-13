@@ -1,0 +1,22 @@
+version: '2'
+services:
+    db:
+        image: mysql:latest
+        ports:
+            - "3307:3306"
+        volumes:
+            - "./docker/files/db-dumps/:/docker-entrypoint-initdb.d/"
+        env_file: "./docker/config/db.env"
+    web:
+        build: .
+        ports:
+            - "8080:80"
+        links:
+          - db
+        volumes:
+            - "./src:/app/src:rw"
+            - "./composer.json:/app/composer.json"
+            - "./config:/app/config"
+            - "./wp-cli.yml:/app/wp-cli.yml"
+            - "./docker/config/web.env:/app/.env"
+            - "./docker/files/logs:/app/logs:rw"
