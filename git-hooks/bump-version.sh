@@ -23,8 +23,8 @@ ROOTDIR=$(git rev-parse --show-toplevel)
 
 # Bump theme version
 
-sed -i.bak 's/^Version:.*/Version: '$VERSION'/' $ROOTDIR/src/wp-content/themes/main/style.css
-rm $ROOTDIR/src/wp-content/themes/main/style.css.bak
+sed -i.bak 's/^Version:.*/Version: '$VERSION'/' $ROOTDIR/src/app/themes/main/style.css
+rm $ROOTDIR/src/app/themes/main/style.css.bak
 
 # Commit changes
 git commit -a -m "Bump version: $VERSION"
