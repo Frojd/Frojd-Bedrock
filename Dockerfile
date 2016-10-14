@@ -27,7 +27,8 @@ ARG XDEBUG_IDEKEY
 RUN echo "xdebug.remote_enable=on" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
     && echo "xdebug.remote_host="${XDEBUG_REMOTE_HOST} >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
-    && echo "xdebug.idekey="${XDEBUG_IDEKEY} >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini
+    && echo "xdebug.idekey="${XDEBUG_IDEKEY} >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
+    && rm /etc/php/7.0/cli/conf.d/20-xdebug.ini
 
 
 # Open ports, multiple separated with space, e.g. EXPOSE 80 22 443
