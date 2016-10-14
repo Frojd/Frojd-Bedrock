@@ -16,26 +16,23 @@ COPY docker/files/config/supervisord.conf /etc/supervisor/conf.d/supervisord.con
 COPY docker/files/config/nginx.conf /etc/nginx/sites-enabled/default
 
 
-# Install php dependencies
-
-COPY ./composer.json /app
-COPY ./composer.lock /app
-
-WORKDIR /app
-RUN composer install
-
 # Permission hack
+
 RUN usermod -u 1000 www-data
+
+# Set up remote debugging for xdebug
 
 ARG XDEBUG_REMOTE_HOST
 ARG XDEBUG_IDEKEY
-# Set up remote debugging for xdebug
 RUN echo "xdebug.remote_enable=on" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
     && echo "xdebug.remote_host="${XDEBUG_REMOTE_HOST} >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
     && echo "xdebug.idekey="${XDEBUG_IDEKEY} >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini
 
 
+# Open ports, multiple separated with space, e.g. EXPOSE 80 22 443
+
 EXPOSE 80
 
-CMD ["supervisord"]
+# Default command for machine
+CMD cd /app; composer install; supervisord

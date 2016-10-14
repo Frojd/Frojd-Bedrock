@@ -20,7 +20,9 @@ services:
         volumes:
             - "./src:/app/src:rw"
             - "./composer.json:/app/composer.json"
+            - "./composer.lock:/app/composer.lock"
             - "./config:/app/config"
+            - "./vendor:/app/vendor"
             - "./wp-cli.yml:/app/wp-cli.yml"
             - "./docker/config/web.env:/app/.env"
             - "./docker/files/logs:/app/logs:rw"
