@@ -6,8 +6,15 @@ LABEL version="v1.0.0"
 # apt-get install All the things!
 
 RUN apt-get update && apt-get -y install supervisor nginx \
-    php-fpm php-zip php-xdebug php-mysql php-simplexml composer vim \
+    php-fpm php-zip php-xdebug php-mysql php-simplexml \
+    php-gd php-imagick \
+    composer vim curl \
     && mkdir -p /var/run/php /var/log/supervisor /var/log/nginx /app
+
+# wp-cli
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp
 
 
 # Install configurations
