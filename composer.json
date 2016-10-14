@@ -2,7 +2,7 @@
     "name": "frojd/frojd-bedrock",
     "type": "project",
     "license": "MIT",
-    "description": "A modern WordPress stack",
+    "description": "WordPress boilerplate with modern development tools, easier configuration, and an improved folder structure",
     "homepage": "https://roots.io/bedrock/",
     "authors": [
         {
@@ -12,7 +12,7 @@
         }
     ],
     "keywords": [
-        "bedrock", "roots", "wordpress", "stack", "composer", "vagrant", "wp"
+        "bedrock", "roots", "wordpress", "stack", "composer", "docker", "wp"
     ],
     "support": {
         "issues": "https://github.com/roots/bedrock/issues",
@@ -22,28 +22,20 @@
         "preferred-install": "dist"
     },
     "autoload": {
-        "psr-0": {"Frojd\\Bedrock\\EnvFileCreator": "scripts"}
-    },
-    "scripts": {
-        "post-root-package-install": [
-            "scripts/Frojd/Bedrock/install-theme.sh",
-            "scripts/Frojd/Bedrock/install-gulp.sh"
-        ],
-        "post-install-cmd": [
-            "Frojd\\Bedrock\\EnvFileCreator::createIfNotExists",
-            "npm install"
-        ]
+        "psr-4": {
+            "Roots\\Sage\\": "src/app/themes/main/src/lib/Sage/"
+        }
     },
     "repositories": [
         {
             "type": "composer",
-            "url": "http://wpackagist.org"
+            "url": "https://wpackagist.org"
         },
         {
             "type": "package",
             "package": {
                 "name": "advanced-custom-fields/advanced-custom-fields-pro",
-                "version": "5.0",
+                "version": "5.4.6",
                 "type": "wordpress-muplugin",
                 "dist": {
                     "type": "zip",

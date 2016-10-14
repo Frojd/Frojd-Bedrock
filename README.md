@@ -1,36 +1,149 @@
 # Frojd-bedrock
 The Fröjd fork of [Bedrock](https://roots.io/bedrock/)
 
-Bedrock is a modern WordPress stack that helps you get started with the best development tools and project structure.
+Bedrock is a modern WordPress stack inspired by [Twelve-Factor App](http://12factor.net/) including the [WordPress specific version](https://roots.io/twelve-factor-wordpress/).
 
-Much of the philosophy behind Bedrock is inspired by the [Twelve-Factor App](http://12factor.net/) methodology including the [WordPress specific version](https://roots.io/twelve-factor-wordpress/).
-
-## Features
-
-* Better folder structure
-* Dependency management with [Composer](http://getcomposer.org)
-* Easy WordPress configuration with environment specific files
-* Environment variables with [Dotenv](https://github.com/vlucas/phpdotenv)
-* Autoloader for mu-plugins (use regular plugins as mu-plugins)
 
 ## Requirements
 
-* PHP >= 5.5
-* Composer - [Install](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
-* NPM
-* gulp
+* Docker (Only tested using [Docker toolbox](https://www.docker.com/products/docker-toolbox))
 
 ## Installation
 
-1. Run `composer create-project frojd/frojd-bedrock project_name` and fill in the requested credentials
-2. Set your site vhost document root to `/path/to/site/web/` (`/path/to/site/current/web/` if using deploys)
-3. Access WP admin at `http://example.com/wp/wp-admin`
 
-## Documentation
+1. Clone repo 
+2. Add your docker-machine ip to your /etc/hosts
+3. Copy docker/config/db.example.env > docker/config/db.env & docker/config/web.example.env ->  docker/config/web.env (might need some editing, keep the example-file updated if you add/change variables)
+4. run `docker-compose up`
+5. wp-admin available at http://domain:port(default 8080)/wp/wp-admin
 
-Official bedrock documentation is available at [https://roots.io/bedrock/docs/](https://roots.io/bedrock/docs/).
+Copy-paste version
+```
+git clone git@github.com:Frojd/Frojd-Bedrock.git myproject.dev
 
-## Multisite configuration
+cd myproject.dev/docker/config
+cp db.example.env db.env
+cp web.example.env web.env
+
+cd ../../
+docker-compose up
+```
+
+### Remote debugging for xdebug
+If you want remote-debugging for xdebug you need to make sure some ENV-vars is available 
+when docker-compose build.
+You could either add them to your local environment (e.g. .zshrc) or add a .env-file in the 
+project root.
+```
+XDEBUG_REMOTE_HOST="111.111.111.111"
+XDEBUG_IDEKEY="PHPSTORM"
+```
+
+
+## Git hooks
+
+These hooks will automatically bump the application version when using `git flow release ...`
+
+```bash
+chmod 755 $PWD/git-hooks/bump-version.sh
+
+ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-release-start
+ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-hotfix-start
+```
+
+## Theme (Sage)
+
+Default theme is based on [Sage](https://github.com/roots/sage/tree/master/). (version 9 alpha)
+
+### Requirements
+* [Node.js](http://nodejs.org/) >= 4.5
+
+### Theme installation
+
+1. Run `npm install` from the theme root directory
+2. Edit `src/setup.php` to enable/disable theme features
+
+### Build commands
+
+* `npm start` — Compile assets when file changes are made, start BrowserSync session
+* `npm run build` — Compile and optimize the files in your assets directory
+* `npm run build:production` — Compile assets for production
+
+#### Additional commands
+
+* `npm run clean` — Remove your `dist/` folder
+* `npm run lint` — Run eslint against your assets and build scripts
+* `composer test` — Check your PHP for code smells with `phpmd` and PSR-2 compliance with `phpcs`
+
+
+### Using BrowserSync
+
+To use BrowserSync during `npm start` you need to update `devUrl` at the bottom of `assets/config.json` to reflect your local development hostname.
+
+If your local development URL is `https://project-name.dev`, update the file to read:
+```json
+...
+  "devUrl": "https://project-name.dev",
+...
+```
+
+If you are not using [Bedrock](https://roots.io/bedrock/), update `publicPath` to reflect your folder structure:
+
+```json
+...
+  "publicPath": "/wp-content/themes/sage/"
+...
+```
+
+By default, BrowserSync will use webpack's [HMR](https://webpack.github.io/docs/hot-module-replacement.html), which won't trigger a page reload in your browser.
+
+If you would like to force BrowserSync to reload the page whenever certain file types are edited, then add them to `watch` in `assets/config.json`.
+
+```json
+...
+  "watch": [
+    "assets/scripts/**/*.js",
+    "templates/**/*.php",
+    "src/**/*.php"
+  ],
+...
+```
+
+
+### Theme structure
+
+```shell
+themes/main/              # → Root of your Sage based theme
+├── assets                # → Front-end assets
+│   ├── config.json       # → Settings for compiled assets
+│   ├── build/            # → Webpack and ESLint config
+│   ├── fonts/            # → Theme fonts
+│   ├── images/           # → Theme images
+│   ├── scripts/          # → Theme JS
+│   └── styles/           # → Theme stylesheets
+├── composer.json         # → Autoloading for `src/` files
+├── composer.lock         # → Composer lock file (never edit)
+├── dist/                 # → Built theme assets (never edit)
+├── functions.php         # → Composer autoloader, theme includes
+├── index.php             # → Never manually edit
+├── node_modules/         # → Node.js packages (never edit)
+├── package.json          # → Node.js dependencies and scripts
+├── screenshot.png        # → Theme screenshot for WP admin
+├── src/                  # → Theme PHP
+│   ├── lib/Sage/         # → Theme wrapper, asset manifest
+│   ├── admin.php         # → Theme customizer setup
+│   ├── filters.php       # → Theme filters
+│   ├── helpers.php       # → Helper functions
+│   └── setup.php         # → Theme setup
+├── style.css             # → Theme meta information
+├── templates/            # → Theme templates
+│   ├── layouts/          # → Base templates
+│   └── partials/         # → Partial templates
+└── vendor/               # → Composer packages (never edit)
+```
+
+## Multisite configuration - Apache
+Might be outdated. Written before docker.
 
 ### .htaccess
 
@@ -71,9 +184,16 @@ define('BLOG_ID_CURRENT_SITE', 1);
 define('UPLOADBLOGSDIR', '../app/uploads/sites');
 ```
 
-### .env för Bedrock multisites
+### web.env 
 
 ```
 DOMAIN_CURRENT_SITE=www.current-site.com
 ```
 
+## Multisite configuration - Nginx
+Please fill this out if you figure out how :)
+
+## Documentation
+
+* [Bedrock docs](https://roots.io/bedrock/docs/)
+* [Sage docs](https://roots.io/sage/docs/)

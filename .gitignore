@@ -29,9 +29,17 @@ vendor/*
 # Node Package Manager
 node_modules
 
-# Vagrant
-bin
-.vagrant
+### Docker ###
+
+docker/files/logs/*
+!docker/files/logs/.gitkeep
+
+docker/files/db-dumps/*
+!docker/files/db-dumps/.gitkeep
+
+docker/config/db.env
+docker/config/web.env
+
 
 
 ### IDE / editor files ###
@@ -51,3 +59,7 @@ Session.vim
 *.tmPreferences.cache
 *.stTheme.cache
 *.sublime-workspace
+
+### OSX specific  ###
+
+.DS_Store
