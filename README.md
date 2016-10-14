@@ -39,9 +39,17 @@ XDEBUG_REMOTE_HOST="111.111.111.111"
 XDEBUG_IDEKEY="PHPSTORM"
 ```
 
-## Documentation
 
-Official bedrock documentation is available at [https://roots.io/bedrock/docs/](https://roots.io/bedrock/docs/).
+## Git hooks
+
+These hooks will automatically bump the application version when using `git flow release ...`
+
+```bash
+chmod 755 $PWD/git-hooks/bump-version.sh
+
+ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-release-start
+ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-hotfix-start
+```
 
 ## Theme (Sage)
 
@@ -184,3 +192,8 @@ DOMAIN_CURRENT_SITE=www.current-site.com
 
 ## Multisite configuration - Nginx
 Please fill this out if you figure out how :)
+
+## Documentation
+
+* [Bedrock docs](https://roots.io/bedrock/docs/)
+* [Sage docs](https://roots.io/sage/docs/)
