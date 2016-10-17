@@ -39,7 +39,7 @@
                 "type": "wordpress-muplugin",
                 "dist": {
                     "type": "zip",
-                    "url": "http://connect.advancedcustomfields.com/index.php?p=pro&a=download&k=YOURKEYHERE"
+                    "url": "https://connect.advancedcustomfields.com/index.php?p=pro&a=download&k=YOURKEYHERE"
                 }
             }
         }
