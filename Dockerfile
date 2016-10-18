@@ -7,7 +7,7 @@ LABEL version="v1.0.0"
 
 RUN apt-get update && apt-get -y install supervisor nginx \
     php-fpm php-zip php-xdebug php-mysql php-simplexml \
-    php-gd php-imagick \
+    php-gd php-imagick php-mbstring \
     composer vim curl mysql-client \
     && mkdir -p /var/run/php /var/log/supervisor /var/log/nginx /app
 
