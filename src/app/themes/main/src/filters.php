@@ -58,7 +58,7 @@ add_filter('template_include', function ($main) {
  * Hide acf in production
  */
 add_filter('acf/settings/show_admin', function () {
-    return WP_ENV != 'development';
+    return WP_ENV == 'development';
 });
 
 /**
