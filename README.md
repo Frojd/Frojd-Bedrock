@@ -12,10 +12,11 @@ Bedrock is a modern WordPress stack inspired by [Twelve-Factor App](http://12fac
 
 
 1. Clone repo 
-2. Add your docker-machine ip to your /etc/hosts
-3. Copy docker/config/db.example.env > docker/config/db.env & docker/config/web.example.env ->  docker/config/web.env (might need some editing, keep the example-file updated if you add/change variables)
-4. run `docker-compose up`
-5. wp-admin available at http://domain:port(default 8080)/wp/wp-admin
+2. Make sure docker-machine is running and in your environment `docker-machine start && eval $(docker-machine env)`
+3. Add your docker-machine ip to your /etc/hosts
+4. Copy docker/config/db.example.env > docker/config/db.env & docker/config/web.example.env ->  docker/config/web.env (might need some editing, keep the example-file updated if you add/change variables)
+5. run `docker-compose up`
+6. wp-admin available at http://domain:port(default 8080)/wp/wp-admin
 
 Copy-paste version
 ```
