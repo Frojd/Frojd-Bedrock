@@ -40,6 +40,11 @@ XDEBUG_REMOTE_HOST="111.111.111.111"
 XDEBUG_IDEKEY="PHPSTORM"
 ```
 
+.zshrc version, supporting dynamic IP´s:
+```
+export XDEBUG_REMOTE_HOST=$(ifconfig | grep "inet " | grep broadcast | head -n 1 | awk '{print $2}')
+export XDEBUG_IDEKEY="PHPSTORM"
+```
 
 ## Git hooks
 
