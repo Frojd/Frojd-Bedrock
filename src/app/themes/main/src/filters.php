@@ -71,3 +71,10 @@ add_filter('acf/settings/save_json', function ($path) {
 add_filter('acf/settings/load_json', function ($path) {
     return [get_template_directory() .'/acf-json/'];
 });
+
+/**
+ * Sanetize filenames on upload
+ */
+add_filter('sanitize_file_name', function($filename) {
+    return preg_replace('/[^a-zA-Z-_]/', '', $filename);
+}, 20);
