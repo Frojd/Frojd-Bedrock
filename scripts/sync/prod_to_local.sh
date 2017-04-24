@@ -22,7 +22,7 @@ ssh $LIVE_USERNAME@$LIVE_HOSTNAME "cd $LIVE_SRC_PATH;
 scp $LIVE_USERNAME@$LIVE_HOSTNAME:/tmp/latest.sql docker/files/db-dumps/latest.sql
 
 ./scripts/wp.sh db import /app/db-dumps/latest.sql
-./scripts/wp.sh search-replace $LIVE_HOSTNAME $LOCAL_HOSTNAME
+./scripts/wp.sh search-replace $LIVE_DOMAIN $LOCAL_DOMAIN
 ./scripts/wp.sh option set ep_host http://search:9200
 ./scripts/wp.sh cache flush
 ./scripts/wp.sh elasticpress index

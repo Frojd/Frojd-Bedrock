@@ -22,7 +22,7 @@ ssh $STAGE_USERNAME@$STAGE_HOSTNAME "cd $STAGE_SRC_PATH;
 scp $STAGE_USERNAME@$STAGE_HOSTNAME:/tmp/latest.sql docker/files/db-dumps/latest.sql
 
 ./scripts/wp.sh db import /app/db-dumps/latest.sql
-./scripts/wp.sh search-replace $STAGE_HOSTNAME $LOCAL_HOSTNAME
+./scripts/wp.sh search-replace $STAGE_DOMAIN $LOCAL_DOMAIN
 ./scripts/wp.sh option set ep_host http://search:9200
 ./scripts/wp.sh cache flush
 ./scripts/wp.sh elasticpress index

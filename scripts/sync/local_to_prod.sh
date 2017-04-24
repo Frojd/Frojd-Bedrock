@@ -21,7 +21,7 @@ docker-compose run web bash -c "cd /app; wp --allow-root db export db-dumps/late
 scp docker/files/db-dumps/latest.sql $LIVE_USERNAME@$LIVE_HOSTNAME:/tmp/latest.sql
 ssh $LIVE_USERNAME@$LIVE_HOSTNAME "cd $LIVE_SRC_PATH;
     wp --allow-root db import /tmp/latest.sql;
-    wp --allow-root search-replace $LOCAL_HOSTNAME $LIVE_HOSTNAME;
+    wp --allow-root search-replace $LOCAL_DOMAIN $LIVE_DOMAIN;
     wp --allow-root option set ep_host http://localhost:9200;
     wp --allow-root cache flush;
     wp --allow-root elasticpress index;"
