@@ -46,6 +46,6 @@ $sage_includes = [
 ];
 array_walk($sage_includes, function ($file) {
     if (!locate_template($file, true, true)) {
-        trigger_error(sprintf(__('Error locating %s for inclusion', 'sage'), $file), E_USER_ERROR);
+        trigger_error(sprintf('Error locating %s for inclusion', $file), E_USER_ERROR);
     }
 });
