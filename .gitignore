@@ -66,3 +66,9 @@ Session.vim
 
 ### Docker volumes ###
 db
+
+### Deploy ###
+.circlerc
+deploy/venv
+*.pyc
+deploy/fabricrc.txt

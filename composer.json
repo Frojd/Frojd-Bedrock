@@ -72,5 +72,8 @@
             "src/app/themes/{$name}/": ["type:wordpress-theme"]
         },
         "wordpress-install-dir": "src/wp"
+    },
+    "scripts": {
+        "build": "cd src/app/themes/main && npm install && npm run build:production"
     }
 }
