@@ -77,12 +77,14 @@ add_action('after_setup_theme', function () {
     /**
      * Register acf setting pages
      */
-    acf_add_options_page([
-        'page_title' 	=> __('Site settings', 'sage'),
-        'menu_title' 	=> __('Site settings', 'sage'),
-        'menu_slug' 	=> 'site-settings',
-        'parent_slug' 	=> 'options-general.php',
-    ]);
+    if (function_exists('\acf_add_options_page')) {
+        \acf_add_options_page([
+            'page_title' 	=> __('Site settings', 'sage'),
+            'menu_title' 	=> __('Site settings', 'sage'),
+            'menu_slug' 	=> 'site-settings',
+            'parent_slug' 	=> 'options-general.php',
+        ]);
+    }
 });
 
 /**
