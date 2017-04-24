@@ -53,7 +53,7 @@ function title() {
         return sprintf(__('Search Results for %s', 'sage'), get_search_query());
     }
     if (is_404()) {
-        return __('Not Found', 'sage');
+        return get_field('404_title', 'option');
     }
     return get_the_title();
 }
