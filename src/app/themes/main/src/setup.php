@@ -73,6 +73,16 @@ add_action('after_setup_theme', function () {
      * Localize
      */
     load_theme_textdomain('sage', get_template_directory() . '/lang' );
+
+    /**
+     * Register acf setting pages
+     */
+    acf_add_options_page([
+        'page_title' 	=> __('Site settings', 'sage'),
+        'menu_title' 	=> __('Site settings', 'sage'),
+        'menu_slug' 	=> 'site-settings',
+        'parent_slug' 	=> 'options-general.php',
+    ]);
 });
 
 /**
