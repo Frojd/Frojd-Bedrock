@@ -57,7 +57,10 @@
         "wpackagist-plugin/wordpress-seo": "*",
         "wpackagist-plugin/filenames-to-latin": "*",
         "wpackagist-plugin/redirection": "*",
-        "wpackagist-plugin/google-analytics-for-wordpress": "*"
+        "wpackagist-plugin/duracelltomi-google-tag-manager": "*",
+        "wpackagist-plugin/elasticpress": "*",
+        "wpackagist-plugin/nginx-cache": "*",
+        "wpackagist-plugin/redis-cache": "*"
     },
     "require-dev": {
         "wpackagist-plugin/debug-bar": "*"
