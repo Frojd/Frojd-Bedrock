@@ -8,6 +8,7 @@ services:
             - "./docker/files/db-dumps/:/docker-entrypoint-initdb.d/"
             - "./db/:/var/lib/mysql"
         env_file: "./docker/config/db.env"
+        user: "1000:50"
     web:
         build:
             context: .

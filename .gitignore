@@ -63,3 +63,6 @@ Session.vim
 ### OSX specific  ###
 
 .DS_Store
+
+### Docker volumes ###
+db
