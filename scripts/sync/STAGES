@@ -1,0 +1,14 @@
+STAGE_USERNAME=root
+STAGE_HOSTNAME=hostname
+STAGE_SRC_PATH=/mnt/persist/www/base/current
+STAGE_UPLOAD_PATH=/mnt/persist/www/base/upload
+STAGE_HOSTNAME=bedrock.live
+
+LIVE_USERNAME=root
+LIVE_HOSTNAME=hostname
+LIVE_SRC_PATH=/mnt/persist/www/base/current
+LIVE_UPLOAD_PATH=/mnt/persist/www/base/upload
+LIVE_HOSTNAME=bedrock.stage
+
+LOCAL_HOSTNAME=bedrock.dev:8010
+
