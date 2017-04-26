@@ -3,10 +3,10 @@
     "title": "Settings page",
     "fields": [
         {
-            "key": "field_58fdd4963fcc1",
+            "key": "field_59008cd7338e1",
             "label": "Social media",
             "name": "",
-            "type": "message",
+            "type": "tab",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -15,9 +15,8 @@
                 "class": "",
                 "id": ""
             },
-            "message": "",
-            "new_lines": "wpautop",
-            "esc_html": 0
+            "placement": "top",
+            "endpoint": 0
         },
         {
             "key": "field_58fdd4fe3fcc2",
@@ -68,10 +67,10 @@
             "placeholder": ""
         },
         {
-            "key": "field_58fdd54934e2e",
+            "key": "field_59008ce4338e2",
             "label": "404 page",
             "name": "",
-            "type": "message",
+            "type": "tab",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -80,9 +79,8 @@
                 "class": "",
                 "id": ""
             },
-            "message": "",
-            "new_lines": "wpautop",
-            "esc_html": 0
+            "placement": "top",
+            "endpoint": 0
         },
         {
             "key": "field_58fdd55534e2f",
@@ -123,10 +121,10 @@
             "new_lines": "wpautop"
         },
         {
-            "key": "field_58fdd58b4754b",
+            "key": "field_59008cbf69b14",
             "label": "Misc",
             "name": "",
-            "type": "message",
+            "type": "tab",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -135,9 +133,8 @@
                 "class": "",
                 "id": ""
             },
-            "message": "",
-            "new_lines": "wpautop",
-            "esc_html": 0
+            "placement": "top",
+            "endpoint": 0
         },
         {
             "key": "field_58fdd59c4754c",
@@ -195,5 +192,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1493030406
+    "modified": 1493208304
 }
