@@ -57,3 +57,7 @@ foreach (glob(__DIR__.'/src/posttypes/*') as $file) {
 foreach (glob(__DIR__.'/src/taxonomies/*') as $file) {
     require_once $file;
 }
+
+foreach (glob(__DIR__.'/src/walkers/*') as $file) {
+    require_once $file;
+}
