@@ -49,3 +49,11 @@ array_walk($sage_includes, function ($file) {
         trigger_error(sprintf('Error locating %s for inclusion', $file), E_USER_ERROR);
     }
 });
+
+foreach (glob(__DIR__.'/src/posttypes/*') as $file) {
+    require_once $file;
+}
+
+foreach (glob(__DIR__.'/src/taxonomies/*') as $file) {
+    require_once $file;
+}
