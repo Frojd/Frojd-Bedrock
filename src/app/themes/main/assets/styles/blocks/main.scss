@@ -1,0 +1,7 @@
+.main {
+    @include u-wrap(site);
+
+    .js-state-menu-open & {
+        display: none;
+    }
+}

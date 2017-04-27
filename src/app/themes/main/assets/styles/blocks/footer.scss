@@ -1,0 +1,10 @@
+.footer {
+    
+    .js-state-menu-open & {
+        display: none;
+    }
+
+    &__container {
+        @include u-wrap(site);
+    }
+}

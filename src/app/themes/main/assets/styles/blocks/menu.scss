@@ -1,0 +1,8 @@
+.menu {
+    padding: 10px 0;
+
+    @include media(md) {
+        padding: 0;
+        display: flex;
+    }
+}

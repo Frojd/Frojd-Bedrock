@@ -1,0 +1,18 @@
+
+$maxwidths: (
+    site: 1280px,
+);
+
+$breakpoints: (
+    sm: 480px,
+    md: 768px,
+    lg: 1024px,
+);
+
+$fontfamilies: (
+    sans: #{Arial, sans-serif},
+    serif: #{Times, serif},
+);
+
+$base-color: #000;
+$base-font: map-get($fontfamilies, 'sans');
