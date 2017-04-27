@@ -22,6 +22,7 @@ function template_part($template, array $context = [], $layout = 'base') {
 function asset_path($filename) {
     static $manifest;
     isset($manifest) || $manifest = new JsonManifest(get_template_directory() . '/' . Asset::$dist . '/assets.json');
+
     return (string)new Asset($filename, $manifest);
 }
 

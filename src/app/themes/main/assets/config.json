@@ -3,9 +3,6 @@
     "main": [
       "./scripts/main.js",
       "./styles/main.scss"
-    ],
-    "customizer": [
-      "./scripts/customizer.js"
     ]
   },
   "watch": [
@@ -15,5 +12,15 @@
   "publicPath": "/app/themes/sage",
   "devUrl": "http://bedrock.dev:8080",
   "proxyUrl": "http://localhost:3000",
-  "cacheBusting": "[name]_[hash:8]"
+  "cacheBusting": "[name]_[hash:8]",
+  "browserSyncOptions": {
+    "snippetOptions": {
+      "ignorePaths": "/wp/wp-admin/**"
+    }
+  },
+  "browsers": [
+    "last 2 versions",
+    "android 4",
+    "opera 12"
+  ]
 }

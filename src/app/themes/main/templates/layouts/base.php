@@ -30,6 +30,7 @@
         </div>
 
         <?php
+        get_template_part('partials/cookie-popup');
         do_action('get_footer');
         get_template_part('partials/footer');
         wp_footer();

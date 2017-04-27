@@ -1,23 +1,19 @@
-// import external dependencies
-import 'jquery';
-import 'bootstrap/dist/js/bootstrap';
+/* eslint no-unused-vars: 0 */
+import initCookiePopup from './cookie-popup';
+import initScrollTo from './scroll-to';
 
-// import local dependencies
-import Router from './util/router';
-import common from './routes/Common';
-import home from './routes/Home';
-import aboutUs from './routes/About';
+// Pick what browserify tests you need
+require('browsernizr/test/css/flexbox');
+const Modernizr = require('browsernizr');
 
-// Use this variable to set up the common and page specific functions. If you
-// rename this variable, you will also need to rename the namespace below.
-const routes = {
-  // All pages
-  common,
-  // Home page
-  home,
-  // About us page, note the change from about-us to aboutUs.
-  aboutUs,
-};
+$(document).ready(() => {
+    const $cookiePopup = $('.cookie-popup');
+    if ($cookiePopup.length) {
+        $cookiePopup.map((i, v) => initCookiePopup(v));
+    }
 
-// Load Events
-document.addEventListener('DOMContentLoaded', () => new Router(routes).loadEvents());
+    const $jsScrollTo = $('.js-scroll-to');
+    if ($jsScrollTo.length) {
+        $jsScrollTo.map((i, v) => initScrollTo(v));
+    }
+});
