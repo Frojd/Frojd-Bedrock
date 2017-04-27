@@ -3,6 +3,7 @@ import $ from 'jquery';
 
 import initCookiePopup from './cookie-popup';
 import initScrollTo from './scroll-to';
+import mobileMenu from './mobile-menu';
 
 // Pick what browserify tests you need
 require('browsernizr/test/css/flexbox');
@@ -17,5 +18,10 @@ $(document).ready(() => {
     const $jsScrollTo = $('.js-scroll-to');
     if ($jsScrollTo.length) {
         $jsScrollTo.map((i, v) => initScrollTo(v));
+    }
+
+    const $jsMobileMenu = $('.js-toggle-menu');
+    if ($jsMobileMenu.length) {
+        $jsMobileMenu.map((i, v) => mobileMenu(v));
     }
 });

@@ -16,17 +16,8 @@
         get_template_part('partials/header');
         ?>
 
-        <div class="wrap container" role="document">
-            <div class="content row">
-                <main class="main">
-                    <?php include App\template()->main(); ?>
-                </main>
-                <?php if (App\display_sidebar()) : ?>
-                    <aside class="sidebar">
-                        <?php App\template_part('partials/sidebar'); ?>
-                    </aside>
-                <?php endif; ?>
-            </div>
+        <div class="main" role="document">
+            <?php include App\template()->main(); ?>
         </div>
 
         <?php
