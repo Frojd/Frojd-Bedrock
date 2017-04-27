@@ -1,8 +1,14 @@
 .menu {
     padding: 10px 0;
 
-    @include media(md) {
+    @include media($mobile-menu) {
         padding: 0;
         display: flex;
+    }
+
+    &__item {
+        &--hidden {
+            display: none;
+        }
     }
 }

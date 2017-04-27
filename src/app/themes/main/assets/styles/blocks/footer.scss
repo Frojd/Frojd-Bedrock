@@ -2,6 +2,10 @@
     
     .js-state-menu-open & {
         display: none;
+
+        @include media($mobile-menu) {
+            display: block;
+        }
     }
 
     &__container {

@@ -11,7 +11,7 @@
     &__content {
         position: relative;
 
-        @include media(md) {
+        @include media($mobile-menu) {
             display: flex;
         }
     }
@@ -26,7 +26,7 @@
         padding-right: 40px;
         display: none;
 
-        @include media(md) {
+        @include media($mobile-menu) {
             padding-right: 0;
             flex: 1 0 auto;
             display: flex;
@@ -36,7 +36,7 @@
         .js-state-menu-open & {
             display: block;
 
-            @include media(md) {
+            @include media($mobile-menu) {
                 display: flex;
             }
         }
@@ -67,8 +67,27 @@
             top: 60%;
         }
 
-        @include media(md) {
+        @include media($mobile-menu) {
             display: none;
+        }
+
+        .js-state-menu-open & {
+            background: white;
+
+            &::before,
+            &::after {
+                height: 2px;
+                transform: rotate(45deg);
+                transform-origin: center;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                background: black;
+            }
+
+            &::after {
+                transform: rotate(-45deg);
+            }
         }
     }
 }
