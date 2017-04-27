@@ -40,7 +40,8 @@ add_action('after_setup_theme', function () {
      * @link http://codex.wordpress.org/Function_Reference/register_nav_menus
      */
     register_nav_menus([
-        'primary_navigation' => __('Primary Navigation', 'sage')
+        'primary_navigation' => __('Primary Navigation', 'sage'),
+        'service_navigation' => __('Service Navigation', 'sage'),
     ]);
 
     /**

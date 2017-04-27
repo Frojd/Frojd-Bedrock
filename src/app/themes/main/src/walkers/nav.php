@@ -6,7 +6,7 @@ class Nav extends \Walker_Nav_Menu {
 
     public function start_lvl(&$output, $depth = 0, $args = array()) {
         $indent = str_repeat("\t", $depth);
-        $class = isset($args['menu_class']) ? $args['menu_class'] : 'nav';
+        $class = isset($args['menu_class']) ? $args['menu_class'] : 'menu';
         $output .= "\n$indent<ul class=\"" . $class . "__children\">\n";
     }
 
@@ -16,7 +16,8 @@ class Nav extends \Walker_Nav_Menu {
             $args = (object) $args;
         }
 
-        $class = isset($args->menu_class) ? $args->menu_class : 'nav';
+        $class = isset($args->menu_class) ? $args->menu_class : 'menu';
+        $class = isset($args->class) ? $args->class : $class;
 
         $classes = array('item');
 
