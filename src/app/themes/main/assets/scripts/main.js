@@ -1,4 +1,6 @@
 /* eslint no-unused-vars: 0 */
+import $ from 'jquery';
+
 import initCookiePopup from './cookie-popup';
 import initScrollTo from './scroll-to';
 

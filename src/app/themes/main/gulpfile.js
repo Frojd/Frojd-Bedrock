@@ -18,14 +18,14 @@ elixir(function(mix) {
     publicPath += publicPath.endsWith("/") ? "" : "/";
     assetsPath += assetsPath.endsWith("/") ? "" : "/";
 
-    mix.sass(assetsPath + 'styles/main.scss')
+    mix.sass(assetsPath + 'styles/main.scss', publicPath + 'styles/main.css')
 
     .eslint([
         'scripts',
         '!scripts/libs/**'
     ])
 
-    .browserify(assetsPath + 'scripts/main.js')
+    .browserify(assetsPath + 'scripts/main.js', publicPath + 'scripts/main.js')
 
     .browserSync({proxy: 'bedrock.dev:8080'})
 
