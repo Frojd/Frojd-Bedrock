@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const path = require('path');
 const qs = require('qs');
 const autoprefixer = require('autoprefixer');
 const CleanPlugin = require('clean-webpack-plugin');
@@ -22,7 +21,7 @@ const jsLoader = {
   loaders: [{
     loader: 'babel',
     query: {
-      presets: [[path.resolve('./node_modules/babel-preset-es2015'), { modules: false }]],
+      presets: ['es2015', 'stage-0'],
       cacheDirectory: true,
     },
   }],
@@ -47,6 +46,10 @@ const webpackConfig = {
         test: /\.js?$/,
         include: config.paths.assets,
         loader: 'eslint',
+      },
+      {
+        test: /\.scss/,
+        loader: 'import-glob-loader',
       },
     ],
     loaders: [
@@ -166,7 +169,7 @@ const webpackConfig = {
       postcss: [
         autoprefixer({
           browsers: [
-            'last 2 versions',
+            'last 3 versions',
             'android 4',
             'opera 12',
           ],
