@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bedrock\n"
-"POT-Creation-Date: 2017-04-24 10:33+0200\n"
+"POT-Creation-Date: 2017-05-04 16:15+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Fröjd\n"
@@ -9,10 +9,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 1.8.8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_x\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_n:1,2;_c;_ex:1,2c;_nx:4c,1,2;"
+"_nc:4c,1,2;_n_noop:1,2;_nx_noop:4c,1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"esc_html__;esc_html_e;esc_html_x:1,2c;esc_attr__;esc_attr_e;"
+"esc_attr_x:1,2c\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
@@ -23,34 +26,74 @@ msgstr ""
 msgid "Read more"
 msgstr "Läs mer"
 
-#: src/helpers.php:47
+#: src/filters.php:103
+msgid "Facts"
+msgstr "Faktaruta"
+
+#: src/helpers.php:48
 msgid "Latest Posts"
 msgstr "Senaste inläggen"
 
-#: src/helpers.php:53
+#: src/helpers.php:54
 #, php-format
 msgid "Search Results for %s"
 msgstr "Sökresultat för %s"
 
-#: src/helpers.php:56
-msgid "Not Found"
-msgstr "Inga träffar"
+#: src/posttypes/contact.php:6 src/posttypes/contact.php:7
+#: src/posttypes/contact.php:8 src/posttypes/contact.php:34
+msgid "Contact"
+msgstr "Kontakt"
+
+#: src/posttypes/contact.php:35
+msgid "Contact person"
+msgstr "Kontaktperson"
 
 #: src/setup.php:43
 msgid "Primary Navigation"
 msgstr "Primär navigation"
 
-#: src/setup.php:81 src/setup.php:82
+#: src/setup.php:44
+msgid "Service Navigation"
+msgstr "Servicemeny"
+
+#: src/setup.php:77 src/setup.php:78
 msgid "Site settings"
 msgstr "Sajtinställningar"
 
-#: src/setup.php:99
+#: src/setup.php:96
 msgid "Primary"
 msgstr "Huvudmeny"
 
-#: src/setup.php:103
+#: src/setup.php:100
 msgid "Footer"
 msgstr "Sidfot"
+
+#: src/taxonomies/title.php:5 src/taxonomies/title.php:6
+msgid "Title"
+msgstr "Rubrik"
+
+#: src/taxonomies/title.php:7
+msgid "Titles"
+msgstr "Rubriker"
+
+#: templates/index.php:5 templates/search.php:5
+msgid "Sorry, no results were found."
+msgstr "Tyvärr, inga resultat hittades."
+
+#: templates/layouts/base.php:9
+msgid ""
+"You are using an <strong>outdated</strong> browser. Please <a href=\"http://"
+"browsehappy.com/\">upgrade your\n"
+"            browser</a> to improve your experience."
+msgstr ""
+"Du använder en <strong>föråldrad</strong> webbläsare. Vänligen <a href="
+"\"http://browsehappy.com/\">uppgradera din\n"
+"            webbläsare</a> för att förbättra din upplevelse."
+
+#: templates/partials/comments.php:9
+#, php-format
+msgid "One response to &ldquo;%2$s&rdquo;"
+msgstr "Ett svar till &ldquo;%2$s&rdquo;"
 
 #: templates/partials/comments.php:21
 msgid "&larr; Older comments"
@@ -60,249 +103,14 @@ msgstr "Äldre kommentarer"
 msgid "Newer comments &rarr;"
 msgstr "Nyare kommentarer"
 
-#: templates/partials/content-page.php:2
-#: templates/partials/content-single.php:11
-msgid "Pages:"
-msgstr "Sidor:"
+#: templates/partials/comments.php:33
+msgid "Comments are closed."
+msgstr "Kommentarer är stängda."
+
+#: templates/partials/cookie-popup.php:7
+msgid "Close"
+msgstr "Stäng"
 
 #: templates/partials/entry-meta.php:2
 msgid "By"
 msgstr "Av"
-
-#~ msgid "Date"
-#~ msgstr "Datum"
-
-#~ msgid "Publication date"
-#~ msgstr "Publicerad"
-
-#~ msgid "Author"
-#~ msgstr "Författare"
-
-#~ msgid "Events"
-#~ msgstr "Events"
-
-#~ msgid "Event"
-#~ msgstr "Event"
-
-#~ msgid "Guest editor"
-#~ msgstr "Gästredaktör"
-
-#~ msgid "Guest editors"
-#~ msgstr "Gästredaktörer"
-
-#~ msgid "Guest editors for Timbro"
-#~ msgstr "Gästredaktörer"
-
-#~ msgid "Persons"
-#~ msgstr "Personer"
-
-#~ msgid "Person"
-#~ msgstr "Person"
-
-#~ msgid "Contact persons, authors and main-area liable"
-#~ msgstr "Kontaktpersoner, författare och områdesansvariga"
-
-#~ msgid "Global nav"
-#~ msgstr "Globalnavigation"
-
-#~ msgid "Main menu"
-#~ msgstr "Huvudmeny"
-
-#~ msgid "Smedjan menu"
-#~ msgstr "Smedjanmeny"
-
-#~ msgid "Smedjan secondary menu"
-#~ msgstr "Smedjan - sekundärmeny"
-
-#~ msgid "Secondary menu"
-#~ msgstr "Sekundärmeny"
-
-#~ msgid "Publisher"
-#~ msgstr "Förlaget"
-
-#~ msgid "Footer menu - 1"
-#~ msgstr "Meny, sidfot - 1"
-
-#~ msgid "Footer menu - 2"
-#~ msgstr "Meny, sidfot - 2"
-
-#~ msgid "Footer menu - 3"
-#~ msgstr "Meny, sidfot - 3"
-
-#~ msgid "Content type"
-#~ msgstr "Innehållstyp"
-
-#~ msgid "Content types"
-#~ msgstr "Innehållstyper"
-
-#~ msgid "About"
-#~ msgstr "Om"
-
-#~ msgid "Upcoming events"
-#~ msgstr "Kommande event"
-
-#~ msgid "Previous"
-#~ msgstr "Föregående"
-
-#~ msgid "Next"
-#~ msgstr "Nästa"
-
-#~ msgid "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your experience."
-#~ msgstr "Du använder en <strong>utdaterad</strong> webbläsare som inte längre stöds. Vänligen <a href=\"http://browsehappy.com/\">uppgradera din webbläsare</a> för en bättre upplevelse av timbro.se"
-
-#~ msgid "No articles found"
-#~ msgstr "Inga artiklar hittades"
-
-#~ msgid "All about %s"
-#~ msgstr "Allt inom %s"
-
-#~ msgid "View event"
-#~ msgstr "Till eventet"
-
-#~ msgid "Show all"
-#~ msgstr "Visa alla"
-
-#~ msgid "Back"
-#~ msgstr "Tillbaka"
-
-#~ msgid "Published"
-#~ msgstr "Publicerad"
-
-#~ msgid "Sign up for Smedjan posts"
-#~ msgstr "Prenumerera på Smedjans inlägg"
-
-#~ msgid "Follow us"
-#~ msgstr "Följ oss"
-
-#~ msgid "Visit us"
-#~ msgstr "Besök oss"
-
-#~ msgid "Email us"
-#~ msgstr "Maila oss"
-
-#~ msgid "Phone us"
-#~ msgstr "Ring oss"
-
-#~ msgid "Your email"
-#~ msgstr "Din e-post"
-
-#~ msgid "Subscribe"
-#~ msgstr "Prenumerera"
-
-#~ msgid "Displaying %d results for <strong>%s</strong>"
-#~ msgstr "Visar %d sökresultat för <strong>%s</strong>"
-
-#~ msgid "Image missing"
-#~ msgstr "Bild saknas"
-
-#~ msgid "Follow us on instagram"
-#~ msgstr "Vår vardag på Instagram"
-
-#~ msgid "Loading..."
-#~ msgstr "Laddar..."
-
-#~ msgid "Main subjects"
-#~ msgstr "Huvudämnen"
-
-#~ msgid "Services"
-#~ msgstr "Tjänster"
-
-#~ msgid "Pages"
-#~ msgstr "Sidor"
-
-#~ msgid "Current topics"
-#~ msgstr "Aktuella ämnen"
-
-#~ msgid "Recent tags"
-#~ msgstr "Aktuella taggar"
-
-#~ msgid "Menu"
-#~ msgstr "Meny"
-
-#~ msgid "Follow"
-#~ msgstr "Följ"
-
-#~ msgid "Download"
-#~ msgstr "Ladda ner"
-
-#~ msgid "Press images"
-#~ msgstr "Pressbilder"
-
-#~ msgid "Related content"
-#~ msgstr "Relaterat innehåll"
-
-#~ msgid "Share"
-#~ msgstr "Dela"
-
-#~ msgid "Content"
-#~ msgstr "Innehåll"
-
-#~ msgid "Navigate"
-#~ msgstr "Navigera"
-
-#~ msgid "Smedjan"
-#~ msgstr "Smedjan"
-
-#~ msgid "Show more"
-#~ msgstr "Visa fler"
-
-#~ msgid "Follow us on Facebook"
-#~ msgstr "Följ oss på Facebook"
-
-#~ msgid "Selected content"
-#~ msgstr "Utvalt innehåll"
-
-#~ msgid "Find nearby events!"
-#~ msgstr "Kom på våra seminarier"
-
-#~ msgid "Show events"
-#~ msgstr "Visa event"
-
-#~ msgid "Discuss with us on Twitter"
-#~ msgstr "Diskutera med oss på Twitter"
-
-#~ msgid "Sign up to our newsletter"
-#~ msgstr "Få våra inbjudningar"
-
-#~ msgid "Selected articles"
-#~ msgstr "Utvalda artiklar"
-
-#~ msgid "Chronicles"
-#~ msgstr "Krönikor"
-
-#~ msgid "All opinions"
-#~ msgstr "Alla krönikor"
-
-#~ msgid ""
-#~ "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your\n"
-#~ "            browser</a> to improve your experience."
-#~ msgstr ""
-#~ "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/\">upgrade your\n"
-#~ "browser</a> to improve your experience."
-
-#~ msgid "Books"
-#~ msgstr "Böcker"
-
-#~ msgid "By: %s"
-#~ msgstr "Av: %s"
-
-#~ msgid "<p>By: %s</p>"
-#~ msgstr "<p>Av: %s</p>"
-
-#~ msgid "New"
-#~ msgstr "Nytt"
-
-#~ msgid "Play"
-#~ msgstr "Spela"
-
-#~ msgid "Cart"
-#~ msgstr "Varukorg"
-
-#~ msgid "Product categories"
-#~ msgstr "Produktkategorier"
-
-#~ msgid "Related articles"
-#~ msgstr "Utvalda artiklar"
-
-#~ msgid "More"
-#~ msgstr "Mer"
