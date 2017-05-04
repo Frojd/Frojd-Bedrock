@@ -112,3 +112,14 @@ add_filter('tiny_mce_before_init', function ($init) {
     $init['toolbar2'] = 'strikethrough,hr,charmap,pastetext,removeformat,undo,redo,help';
     return $init;
 });
+
+add_filter('get_the_excerpt', function($str) {
+    if(has_excerpt())
+        return $str;
+
+    $preamble = wp_strip_all_tags(get_field('preamble'), true);
+    if(!empty($preamble))
+        return $preamble;
+
+    return $str;
+});
