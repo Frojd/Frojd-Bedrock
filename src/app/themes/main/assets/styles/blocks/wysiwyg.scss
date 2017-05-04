@@ -1,0 +1,223 @@
+.wp-editor {
+    margin: 9px 10px;
+    max-width: 100%;
+    /*overflow-wrap: break-word;
+    word-wrap: break-word;*/
+    color: $base-color;
+    font-family: $base-font;
+}
+
+.wysiwyg,
+.wp-editor {
+    font-size: 1.6rem;
+    line-height: 1.8;
+
+    p {
+        margin: 20px 0;
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 20px 0 5px 0;
+
+        + p,
+        + ol,ul {
+            margin-top: 2px;
+        }
+    }
+
+    h2 {
+        font-size: 2.2rem;
+        line-height: 26px;
+
+        + p,ol,ul,blockquote {
+            margin-top: 10px;
+        }
+
+        + h3,
+        + h4,
+        + h5,
+        + h6 {
+            margin-top: 5px;
+        }
+    }
+
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-size: 1.8rem;
+    }
+
+    strong,
+    bold {
+        font-weight: bold;
+    }
+
+    i,
+    em {
+        font-style: italic;
+    }
+
+    a {
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &[href$=".pdf"],
+        &[href$=".doc"],
+        &[href$=".docx"],
+        &[href$=".ppt"],
+        &[href$=".pptx"],
+        &[href$=".xls"],
+        &[href$=".xlsx"],
+        &[href$=".odt"],
+        &[href$=".eps"],
+        &[href$=".zip"] {
+            position: relative;
+            padding-left: 27px;
+            margin: 0 5px;
+
+            &::before {
+                content: '';
+                width: 17px;
+                height: 14px;
+                margin-right: 10px;
+                position: absolute;
+                top: 3px;
+                left: 0px;
+                display: inline-block;
+                background-repeat: no-repeat;
+                background-image: url('#{path(image, 'download.svg')}');
+                background-size: contain;
+            }
+        }
+    }
+
+    hr {
+        margin: 20px 0;
+        height: 1px;
+        border: none;
+        background: rgba(black, .2);
+    }
+
+    ol,
+    ul {
+        margin: 20px 0;
+        line-height: 1.3;
+
+        li {
+            margin: 10px 0;
+            position: relative;
+        }
+    }
+
+    ul {
+        li {
+            padding-left: 15px;
+
+            &::before {
+                content: '';
+                width: 3px;
+                height: 3px;
+                margin: 0 10px 0 2px;
+                display: inline-block;
+                position: absolute;
+                top: 8px;
+                left: 0;
+                border-radius: 50%;
+                background: black;
+            }
+        }
+    }
+
+    ol {
+        list-style-type: decimal;
+        margin-left: 17px;
+
+        li {
+            padding-left: 5px;
+        }
+    }
+
+    blockquote {
+        max-width: 800px;
+        margin: 30px auto;
+        position: relative;
+        padding: 0 30px;
+
+        &::before,
+        &::after {
+            position: absolute;
+            top: 0;
+            font-size: 6rem;
+            line-height: 100%;
+        }
+
+        &::before {
+            content: '“';
+            left: 0;
+        }
+
+        &::after {
+            content: '”';
+            right: 0;
+        }
+    }
+
+    .wp-caption {
+        max-width: 100%;
+        margin: 40px 0;
+    }
+
+    .wp-caption-text {
+        color: rgba(black, 0.8);
+        font-size: 1.4rem;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .facts {
+        padding: 20px 30px;
+        margin: 30px 0;
+        background: lightgray;
+
+        ul li::before {
+            background: black;
+        }
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        ol,
+        ul {
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:last-child {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

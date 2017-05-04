@@ -53,12 +53,6 @@ add_action('after_setup_theme', function () {
     add_theme_support('post-thumbnails');
 
     /**
-     * Enable post formats
-     * @link http://codex.wordpress.org/Post_Formats
-     */
-    add_theme_support('post-formats', ['aside', 'gallery', 'link', 'image', 'quote', 'video', 'audio']);
-
-    /**
      * Enable HTML5 markup support
      * @link http://codex.wordpress.org/Function_Reference/add_theme_support#HTML5
      */
@@ -68,7 +62,7 @@ add_action('after_setup_theme', function () {
      * Use main stylesheet for visual editor
      * @see assets/styles/layouts/_tinymce.scss
      */
-    add_editor_style(asset_path('styles/main.css'));
+    add_editor_style(asset_path('styles/editor.css'));
 
     /**
      * Localize

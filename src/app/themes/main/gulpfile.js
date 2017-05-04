@@ -20,6 +20,8 @@ elixir(function(mix) {
 
     mix.sass(assetsPath + 'styles/main.scss', publicPath + 'styles/main.css')
 
+    .sass(assetsPath + 'styles/editor.scss', publicPath + 'styles/editor.css')
+
     .eslint([
         'scripts',
         '!scripts/libs/**'
