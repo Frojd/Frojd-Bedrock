@@ -113,13 +113,13 @@ add_filter('tiny_mce_before_init', function ($init) {
     return $init;
 });
 
-add_filter('get_the_excerpt', function($str) {
-    if(has_excerpt())
+add_filter('get_the_excerpt', function($str, $post = null) {
+    if(has_excerpt($post))
         return $str;
 
-    $preamble = wp_strip_all_tags(get_field('preamble'), true);
+    $preamble = wp_strip_all_tags(get_field('preamble', $post->ID), true);
     if(!empty($preamble))
         return $preamble;
 
     return $str;
-});
+}, 10, 2);
