@@ -63,6 +63,7 @@
     }
 
     a {
+        color: $accent-color;
         text-decoration: none;
 
         &:hover {
@@ -93,7 +94,7 @@
                 left: 0px;
                 display: inline-block;
                 background-repeat: no-repeat;
-                background-image: url('#{path(image, 'download.svg')}');
+                background-image: url('../images/download.svg');
                 background-size: contain;
             }
         }
