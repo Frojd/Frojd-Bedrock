@@ -171,6 +171,25 @@
         }
     }
 
+    .alignleft {
+        display: inline;
+        float: left;
+        margin-right: 15px;
+    }
+
+    .alignright {
+        display: inline;
+        float: right;
+        margin-left: 15px;
+    }
+
+    .aligncenter {
+        clear: both;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     .wp-caption {
         max-width: 100%;
         margin: 40px 0;
