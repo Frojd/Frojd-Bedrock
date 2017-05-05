@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bedrock\n"
-"POT-Creation-Date: 2017-05-04 16:15+0200\n"
+"POT-Creation-Date: 2017-05-05 08:30+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Fröjd\n"
@@ -39,7 +39,16 @@ msgstr "Senaste inläggen"
 msgid "Search Results for %s"
 msgstr "Sökresultat för %s"
 
-#: src/posttypes/contact.php:6 src/posttypes/contact.php:7
+#: src/posttypes/contact.php:6
+msgctxt "Post Type General Name"
+msgid "Contact"
+msgstr "Kontaktperson"
+
+#: src/posttypes/contact.php:7
+msgctxt "Post Type Singular Name"
+msgid "Contact"
+msgstr "Kontaktperson"
+
 #: src/posttypes/contact.php:8 src/posttypes/contact.php:34
 msgid "Contact"
 msgstr "Kontakt"
@@ -50,7 +59,7 @@ msgstr "Kontaktperson"
 
 #: src/setup.php:43
 msgid "Primary Navigation"
-msgstr "Primär navigation"
+msgstr "Huvudmeny"
 
 #: src/setup.php:44
 msgid "Service Navigation"
@@ -60,11 +69,7 @@ msgstr "Servicemeny"
 msgid "Site settings"
 msgstr "Sajtinställningar"
 
-#: src/setup.php:96
-msgid "Primary"
-msgstr "Huvudmeny"
-
-#: src/setup.php:100
+#: src/setup.php:97
 msgid "Footer"
 msgstr "Sidfot"
 
@@ -92,8 +97,11 @@ msgstr ""
 
 #: templates/partials/comments.php:9
 #, php-format
+msgctxt "comments title"
 msgid "One response to &ldquo;%2$s&rdquo;"
-msgstr "Ett svar till &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s responses to &ldquo;%2$s&rdquo;"
+msgstr[0] "En respons till &ldquo;%2$s&rdquo;"
+msgstr[1] "%1$s responser till &ldquo;%2$s&rdquo;"
 
 #: templates/partials/comments.php:21
 msgid "&larr; Older comments"
