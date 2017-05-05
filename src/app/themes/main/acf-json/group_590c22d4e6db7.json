@@ -1,10 +1,10 @@
 {
     "key": "group_590c22d4e6db7",
-    "title": "Startsida",
+    "title": "Start page",
     "fields": [
         {
             "key": "field_590c22db455b1",
-            "label": "Anslag",
+            "label": "Hero",
             "name": "hero",
             "type": "repeater",
             "instructions": "",
@@ -87,7 +87,7 @@
         },
         {
             "key": "field_590c3954c85e3",
-            "label": "Puffar",
+            "label": "Blurbs",
             "name": "blurbs",
             "type": "repeater",
             "instructions": "",
@@ -214,5 +214,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1493973500
+    "modified": 1493986918
 }
