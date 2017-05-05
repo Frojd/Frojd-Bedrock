@@ -1,0 +1,29 @@
+.blurbs {
+    &__container {
+        @include u-wrap(content);
+    }
+
+    &__list {
+        @include media(sm) {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -10px;
+        }
+
+        @include media(md) {
+            margin-left: -20px;
+        }
+    }
+
+    &__item {
+        @include media(sm) {
+            width: calc(50% - 10px);
+            margin-left: 10px;
+        }
+
+        @include media(md) {
+            width: calc(25% - 20px);
+            margin-left: 20px;
+        }
+    }
+}

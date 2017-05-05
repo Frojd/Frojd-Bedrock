@@ -17,6 +17,10 @@
         @if contains($list, site) {
             max-width: (map-get($maxwidths, site) + 60px);
         }
+
+        @if contains($list, content) {
+            max-width: (map-get($maxwidths, content) + 60px);
+        }
     } @else {
         @if contains($list, site) {
             max-width: map-get($maxwidths, site);

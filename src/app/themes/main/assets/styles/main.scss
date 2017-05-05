@@ -7,8 +7,11 @@
 
 @import 'utils/wrap';
 
+@import 'blocks/article';
+@import 'blocks/blurbs';
 @import 'blocks/header';
-@import 'blocks/menu';
-@import 'blocks/main';
+@import 'blocks/hero';
 @import 'blocks/footer';
+@import 'blocks/main';
+@import 'blocks/menu';
 @import 'blocks/wysiwyg';
