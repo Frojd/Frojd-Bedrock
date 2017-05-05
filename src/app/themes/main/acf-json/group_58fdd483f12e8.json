@@ -151,14 +151,14 @@
             },
             "default_value": "",
             "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 1,
+            "toolbar": "basic",
+            "media_upload": 0,
             "delay": 0
         },
         {
             "key": "field_58fdd5b34754d",
             "label": "Old browser text",
-            "name": "old_browser_popup_text",
+            "name": "browser_popup_text",
             "type": "wysiwyg",
             "instructions": "",
             "required": 0,
@@ -170,8 +170,8 @@
             },
             "default_value": "",
             "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 1,
+            "toolbar": "basic",
+            "media_upload": 0,
             "delay": 0
         }
     ],
@@ -192,5 +192,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1493208304
+    "modified": 1493988551
 }

@@ -8,7 +8,12 @@ $breakpoints: (
     sm: 480px,
     md: 768px,
     lg: 1024px,
+    wp-sm: 601px,
+    wp-md: 783px,
 );
+
+$wp-admin-bar-height: 46px;
+$wp-admin-bar-height-md: 32px;
 
 $mobile-menu: md;
 

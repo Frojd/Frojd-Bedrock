@@ -10,7 +10,7 @@ require('browsernizr/test/css/flexbox');
 const Modernizr = require('browsernizr');
 
 $(document).ready(() => {
-    const $cookiePopup = $('.cookie-popup');
+    const $cookiePopup = $('.js-cookie-popup');
     if ($cookiePopup.length) {
         $cookiePopup.map((i, v) => initCookiePopup(v));
     }
