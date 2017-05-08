@@ -9,6 +9,7 @@
 
 .wysiwyg,
 .wp-editor {
+    position: relative;
     font-size: 1.6rem;
     line-height: 1.8;
 
@@ -98,6 +99,13 @@
                 background-size: contain;
             }
         }
+
+        @media print {
+            &::after {
+                content: " [" attr(href) "] ";
+            }
+        }
+
     }
 
     hr {
@@ -119,6 +127,12 @@
     }
 
     ul {
+
+        @media print {
+            list-style: initial !important;
+            padding-left: 20px !important;
+        }
+
         li {
             padding-left: 15px;
 
@@ -133,6 +147,10 @@
                 left: 0;
                 border-radius: 50%;
                 background: black;
+            }
+
+            @media print {
+                padding-left: 0px !important;
             }
         }
     }
@@ -255,6 +273,26 @@
             &:last-child {
                 margin-bottom: 10px;
             }
+        }
+    }
+
+    @media print {
+        p,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        img,
+        iframe,
+        .wp-caption,
+        .gallery-item,
+        .wp-caption-text {
+            page-break-before: auto;
+            page-break-after: auto;
+            page-break-inside: avoid;
+            display: block;
+            position: relative; 
         }
     }
 }

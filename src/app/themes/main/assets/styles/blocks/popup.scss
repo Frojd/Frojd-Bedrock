@@ -41,4 +41,8 @@
         right: 20px;
         cursor: pointer;
     }
+
+    @media print {
+        display: none !important;
+    }
 }
