@@ -79,7 +79,7 @@ function the_svg_icon($icon) {
 }
 
 function get_the_svg_icon($icon) {
-    $path = get_template_directory() . '/dist/' . $icon . '.svg';
+    $path = get_template_directory() . '/' . $icon . '.svg';
     if(file_exists($path)) {
         return preg_replace( "/\r|\n/", "", trim(file_get_contents($path)));
     }
