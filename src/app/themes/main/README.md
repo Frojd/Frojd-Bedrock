@@ -56,6 +56,9 @@ themes/your-theme-name/   # → Root of your Sage based theme
 ├── screenshot.png        # → Theme screenshot for WP admin
 ├── src/                  # → Theme PHP
 │   ├── lib/Sage/         # → Theme wrapper, asset manifest
+│   ├── posttypes/        # → Theme custom post types
+│   ├── taxonomies/       # → Theme custom taxonomies
+│   ├── walkers/          # → Theme custom walkers
 │   ├── admin.php         # → Theme customizer setup
 │   ├── filters.php       # → Theme filters
 │   ├── helpers.php       # → Helper functions
@@ -70,6 +73,46 @@ themes/your-theme-name/   # → Root of your Sage based theme
 ## Theme setup
 
 Edit `src/setup.php` to enable or disable theme features, setup navigation menus, post thumbnail sizes, post formats, and sidebars.
+
+## Theme base settings
+
+There is some base functionality and templates in the theme that can be used in your project
+
+### Settings
+
+We use ACF to add a settings page in admin to set some fields:
+* Footer - Flexible content fields that are column based
+* Popups - Fields for text in Browser and Cookie popups
+* 404 - Title and description fields for 404 template
+
+We use ACF to add other settings to posts or pages:
+* Preamble - Added to all pages and posts, used as meta description and in listings
+* Hero & Blurbs - Added to Front page
+* Hide in menu - Added to pages to be able to hide a page in all menus, specifically when using automatic hierarchical menus.
+* Related - Added to posts for selecting related posts
+
+### Templates
+* Front-page - Template used when setting static page, includes hero block, custom blurbs and latest list
+* Single - Used for posts and other custom post types, has a related list block
+* Article - Used for single post/page
+* Item - Used for post/page in lists
+* Footer - Displaying the column based footer settings
+* Header - Primary and service menu included and implemented in header including mobile menu
+* List - Used by for example related, has basic column-based layout of list of items
+* Blurbs - Used by start page for listing custom blurbs
+* Favicons - Prints out favicon links if they exist in favicons-directory
+
+### Custom functions
+* title() - Used for printing out title in content-header template, helps make sure only this templates defines the h1
+* get_field_group() - Used to get a the first item in a ACF repeater field as an object, used when you want to group fields into a single object e.g. hero.
+* the_svg_icon/get_the_svg_icon - Used to print the svg-icon content instead of using as image.
+* the_post_thumbnail_background - Used to print the post thumbnail as background image, includes title attribute if alt-field exists.
+* get_post_thumbnail_data - Collects data about the post thumbnail into an object (title, alt, caption, description, src).
+
+### Filters
+* the_content - Wraps an iframe into a container to make it responsive
+* tiny_mce_before_init - Changes settings in tinymce WYSIWYG to remove some settings, e.g. h1, and add Facts format selection
+* get_the_excerpt - If the excerpt-field is empty it will use preamble instead (in lists, meta description etc), and last use body content.
 
 ## Theme development
 
@@ -88,46 +131,22 @@ You now have all the necessary dependencies to run the build process.
 
 ### Build commands
 
-* `npm start` — Compile assets when file changes are made, start BrowserSync session
-* `npm run build` — Compile and optimize the files in your assets directory
-* `npm run build:production` — Compile assets for production
+* `gulp watch` — Compile assets when file changes are made, start BrowserSync session
+* `gulp` — Compile and optimize the files in your assets directory
+* `gulp --production` — Compile assets for production
 
 #### Additional commands
 
-* `npm run clean` — Remove your `dist/` folder
-* `npm run lint` — Run eslint against your assets and build scripts
 * `composer test` — Check your PHP for code smells with `phpmd` and PSR-2 compliance with `phpcs`
 
 ### Using BrowserSync
 
-To use BrowserSync during `npm start` you need to update `devUrl` at the bottom of `assets/config.json` to reflect your local development hostname.
+To use BrowserSync during `gulp watch` you need to update BrowserSync proxy in `gulpfile.js` to reflect your local development hostname.
 
 If your local development URL is `https://project-name.dev`, update the file to read:
-```json
-...
-  "devUrl": "https://project-name.dev",
-...
 ```
-
-If you are not using [Bedrock](https://roots.io/bedrock/), update `publicPath` to reflect your folder structure:
-
-```json
 ...
-  "publicPath": "/wp-content/themes/sage/"
-...
-```
-
-By default, BrowserSync will use webpack's [HMR](https://webpack.github.io/docs/hot-module-replacement.html), which won't trigger a page reload in your browser.
-
-If you would like to force BrowserSync to reload the page whenever certain file types are edited, then add them to `watch` in `assets/config.json`.
-
-```json
-...
-  "watch": [
-    "assets/scripts/**/*.js",
-    "templates/**/*.php",
-    "src/**/*.php"
-  ],
+    .browserSync({proxy: 'project-name.dev:8080'})
 ...
 ```
 
