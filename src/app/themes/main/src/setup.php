@@ -98,3 +98,14 @@ add_action('widgets_init', function () {
             'id' => 'sidebar-footer'
         ] + $config);
 });
+
+/**
+ * Purge nginx cache on option update
+ */
+add_action('updated_option', function() {
+    if(class_exists('NginxCache')) {
+        $nginx = new \NginxCache;
+        $nginx->purge_zone_once();
+        wp_die('updated');
+    }
+});
