@@ -47,6 +47,7 @@ function register_contact() {
         'exclude_from_search' => true,
         'publicly_queryable' => true,
         'capability_type' => 'page',
+        'menu_icon' => 'dashicons-id-alt',
     );
 
     register_post_type('contact', $args);
