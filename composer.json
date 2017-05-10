@@ -60,7 +60,8 @@
         "wpackagist-plugin/duracelltomi-google-tag-manager": "*",
         "wpackagist-plugin/elasticpress": "*",
         "wpackagist-plugin/nginx-cache": "*",
-        "wpackagist-plugin/redis-cache": "*"
+        "wpackagist-plugin/redis-cache": "*",
+        "sentry/sentry": "*"
     },
     "require-dev": {
         "wpackagist-plugin/debug-bar": "*"

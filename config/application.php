@@ -75,3 +75,12 @@ define('WP_MEMORY_LIMIT', '124M');
 if (!defined('ABSPATH')) {
   define('ABSPATH', $webroot_dir . '/wp/');
 }
+
+/**
+ * Sentry logging
+ */
+$sentryDSN = getenv('SENTRY_DSN');
+if ($sentryDSN) {
+    $client = new Raven_Client($sentryDSN);
+    $client->install();
+}
