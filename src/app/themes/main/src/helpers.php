@@ -74,12 +74,14 @@ function get_field_group($field = '', $postId = null) {
 /**
  * SVG icons
  */
-function the_svg_icon($icon) {
-    echo get_the_svg_icon($icon);
+function the_svg_icon($icon, $relPath = '/dist/images/') {
+    echo get_the_svg_icon($icon, $relPath);
 }
 
-function get_the_svg_icon($icon) {
-    $path = get_template_directory() . '/' . $icon . '.svg';
+function get_the_svg_icon($icon, $relPath = '/dist/images/') {
+    $icon = preg_replace('/\.svg$/', '', $icon);
+
+    $path = get_template_directory() . $relPath . $icon . '.svg';
     if(file_exists($path)) {
         return preg_replace( "/\r|\n/", "", trim(file_get_contents($path)));
     }
