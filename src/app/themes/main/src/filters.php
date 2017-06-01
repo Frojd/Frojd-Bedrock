@@ -76,7 +76,7 @@ add_filter('acf/settings/load_json', function ($path) {
  * Sanetize filenames on upload
  */
 add_filter('sanitize_file_name', function($filename) {
-    return preg_replace('/[^a-zA-Z-_]/', '', $filename);
+    return preg_replace('/[^a-zA-Z0-9-_\.]/', '', $filename);
 }, 20);
 
 /**
