@@ -1,0 +1,13 @@
+STAGE_USERNAME=root
+STAGE_HOSTNAME=stage.hostname
+STAGE_SRC_PATH=/mnt/persist/www/docroot/base/current
+STAGE_UPLOAD_PATH=/mnt/persist/www/docroot/base/upload
+STAGE_DOMAIN=sidev.se
+
+LIVE_USERNAME=root
+LIVE_HOSTNAME=live.hostname
+LIVE_SRC_PATH=/mnt/persist/www/docroot/base/current
+LIVE_UPLOAD_PATH=/mnt/persist/www/docroot/base/upload
+LIVE_DOMAIN=bedrock.stage
+
+LOCAL_DOMAIN=bedrock.dev:8010

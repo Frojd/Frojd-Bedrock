@@ -40,6 +40,11 @@ XDEBUG_REMOTE_HOST="111.111.111.111"
 XDEBUG_IDEKEY="PHPSTORM"
 ```
 
+.zshrc version, supporting dynamic IP´s:
+```
+export XDEBUG_REMOTE_HOST=$(ifconfig | grep "inet " | grep broadcast | head -n 1 | awk '{print $2}')
+export XDEBUG_IDEKEY="PHPSTORM"
+```
 
 ## Git hooks
 
@@ -194,7 +199,24 @@ DOMAIN_CURRENT_SITE=www.current-site.com
 ## Multisite configuration - Nginx
 Please fill this out if you figure out how :)
 
+## Deployment
+This project use [Fabrik](https://github.com/Frojd/Fabrik/) for deployment.
+
+1. `cd deploy`
+2. `pip install -r requirements.txt`
+3. `cp fabricrc.example.txt fabricrc.txt`
+4. Update the fabricrc.txt file
+5. First time - run `fabrik stage setup`
+6. Deploy with `fabrik stage deploy`
+
+If you prefer, you could let circle-ci handle the deployments:
+1. copy .circlerc.example to .circlerc and fill it out
+2. encrypt it with `openssl aes-256-cbc -e -in .circlerc -out .circlerc-crypt -k SOMEENCRYPTIONKEY`
+3. Add SOMEENCRYPTIONKEY on circle as $KEY
+4. Customize circle.yml for your needs
+
 ## Documentation
 
+* [Fabrik docs](https://github.com/Frojd/Fabrik/)
 * [Bedrock docs](https://roots.io/bedrock/docs/)
 * [Sage docs](https://roots.io/sage/docs/)

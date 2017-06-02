@@ -1,0 +1,50 @@
+{
+    "key": "group_590b3a228a14a",
+    "title": "Preamble",
+    "fields": [
+        {
+            "key": "field_590b3a281442f",
+            "label": "Preamble",
+            "name": "preamble",
+            "type": "textarea",
+            "instructions": "This is shown on the page, and is used in lists and as meta description if the specific excerpt is empty.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1493986841
+}

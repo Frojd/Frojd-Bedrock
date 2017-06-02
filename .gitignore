@@ -3,6 +3,8 @@ src/app/plugins/*
 !src/app/plugins/.gitkeep
 # Premium plugins is still under version control
 !src/app/plugins/gravityforms
+# Fröjd plugins
+!src/app/plugins/acf-field-icon
 
 src/app/mu-plugins/*/
 src/app/upgrade
@@ -63,3 +65,12 @@ Session.vim
 ### OSX specific  ###
 
 .DS_Store
+
+### Docker volumes ###
+db
+
+### Deploy ###
+.circlerc
+deploy/venv
+*.pyc
+deploy/fabricrc.txt

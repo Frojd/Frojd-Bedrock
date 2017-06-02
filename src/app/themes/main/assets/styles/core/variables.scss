@@ -1,0 +1,27 @@
+
+$maxwidths: (
+    site: 1280px,
+    content: 800px,
+);
+
+$breakpoints: (
+    sm: 480px,
+    md: 768px,
+    lg: 1024px,
+    wp-sm: 601px,
+    wp-md: 783px,
+);
+
+$wp-admin-bar-height: 46px;
+$wp-admin-bar-height-md: 32px;
+
+$mobile-menu: md;
+
+$fontfamilies: (
+    sans: #{Arial, sans-serif},
+    serif: #{Times, serif},
+);
+
+$base-color: #000;
+$base-font: map-get($fontfamilies, 'sans');
+$accent-color: blue;

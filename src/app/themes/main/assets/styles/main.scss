@@ -1,18 +1,21 @@
-@import "common/variables";
 
-// Import npm dependencies
-@import "~bootstrap/scss/bootstrap";
-@import "~font-awesome/scss/font-awesome";
+@import 'core/functions';
+@import 'core/variables';
+@import 'core/mixins';
+@import 'core/reset';
+@import 'core/global';
 
-@import "common/global";
-@import "components/buttons";
-@import "components/comments";
-@import "components/forms";
-@import "components/grid";
-@import "components/wp-classes";
-@import "layouts/header";
-@import "layouts/sidebar";
-@import "layouts/footer";
-@import "layouts/pages";
-@import "layouts/posts";
-@import "layouts/tinymce";
+@import 'utils/wrap';
+
+@import 'blocks/alert';
+@import 'blocks/article';
+@import 'blocks/blurbs';
+@import 'blocks/content';
+@import 'blocks/footer';
+@import 'blocks/header';
+@import 'blocks/hero';
+@import 'blocks/list';
+@import 'blocks/main';
+@import 'blocks/menu';
+@import 'blocks/popup';
+@import 'blocks/wysiwyg';

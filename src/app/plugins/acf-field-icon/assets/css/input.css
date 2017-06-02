@@ -1,0 +1,67 @@
+.acf-field-icons {
+}
+
+.acf-field-icons-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.acf-field-icons label {
+
+}
+
+.acf-field-icons label:hover {
+    background: #eee;
+}
+
+.acf-field-icons label:hover .acf-field-icon-item {
+    border-color: #eee;
+}
+
+.acf-field-icons input {
+    display: none;
+}
+
+.acf-field-icons input:checked + .acf-field-icon-item {
+    border: 1px solid #ccc;
+}
+
+.acf-field-icons .acf-field-icon-remove {
+    text-align: right;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.acf-field-icons .acf-field-icon-remove:hover {
+    opacity: 1;
+}
+
+.acf-field-icons .acf-field-icon-remove::before {
+    width: 16px;
+    height: 16px;
+    font-weight: bold;
+    font-family: dashicons;
+    line-height: 16px;
+    display: inline-block;
+    position: relative;
+    top: 2px;
+    margin-right: 5px;
+    color: #333;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
+
+.acf-field-icons .acf-field-icon-item {
+    border: 1px solid white;
+    padding: 10px;
+}
+
+.acf-field-icons .acf-field-icon-image {
+    width: 50px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}

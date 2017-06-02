@@ -1,23 +1,27 @@
-// import external dependencies
-import 'jquery';
-import 'bootstrap/dist/js/bootstrap';
+/* eslint no-unused-vars: 0 */
+import $ from 'jquery';
 
-// import local dependencies
-import Router from './util/router';
-import common from './routes/Common';
-import home from './routes/Home';
-import aboutUs from './routes/About';
+import initCookiePopup from './cookie-popup';
+import initScrollTo from './scroll-to';
+import mobileMenu from './mobile-menu';
 
-// Use this variable to set up the common and page specific functions. If you
-// rename this variable, you will also need to rename the namespace below.
-const routes = {
-  // All pages
-  common,
-  // Home page
-  home,
-  // About us page, note the change from about-us to aboutUs.
-  aboutUs,
-};
+// Pick what browserify tests you need
+require('browsernizr/test/css/flexbox');
+const Modernizr = require('browsernizr');
 
-// Load Events
-document.addEventListener('DOMContentLoaded', () => new Router(routes).loadEvents());
+$(document).ready(() => {
+    const $cookiePopup = $('.js-cookie-popup');
+    if ($cookiePopup.length) {
+        $cookiePopup.map((i, v) => initCookiePopup(v));
+    }
+
+    const $jsScrollTo = $('.js-scroll-to');
+    if ($jsScrollTo.length) {
+        $jsScrollTo.map((i, v) => initScrollTo(v));
+    }
+
+    const $jsMobileMenu = $('.js-toggle-menu');
+    if ($jsMobileMenu.length) {
+        $jsMobileMenu.map((i, v) => mobileMenu(v));
+    }
+});

@@ -4,9 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7677d71ebaf5572a118373566da44b42",
-    "content-hash": "a8ca286fd0eddcb6ee9c436a76eb4985",
+    "hash": "9c3b82adae5156f951c9eb6a88ec9149",
+    "content-hash": "09c27991ed6b18f9bdf2b63adcbd03e3",
     "packages": [
+        {
+            "name": "advanced-custom-fields/advanced-custom-fields-pro",
+            "version": "5.5.11",
+            "dist": {
+                "type": "zip",
+                "url": "https://connect.advancedcustomfields.com/index.php?p=pro&a=download&t=5.5.11",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "^1.0",
+                "philippbaschke/acf-pro-installer": "^1.0"
+            },
+            "type": "wordpress-muplugin"
+        },
         {
             "name": "composer/installers",
             "version": "v1.0.25",
@@ -109,20 +124,58 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "4.6.1",
+            "version": "4.7.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "aca8da84b4a699b16b8bcc96d2bc794a4c7b5ae3"
+                "reference": "ca36dbed576d21681efe92851f411ac2315a0ea5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/aca8da84b4a699b16b8bcc96d2bc794a4c7b5ae3",
-                "reference": "aca8da84b4a699b16b8bcc96d2bc794a4c7b5ae3",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/ca36dbed576d21681efe92851f411ac2315a0ea5",
+                "reference": "ca36dbed576d21681efe92851f411ac2315a0ea5",
                 "shasum": ""
             },
             "require": {
+                "johnpbloch/wordpress-core": "4.7.4.1",
                 "johnpbloch/wordpress-core-installer": "~0.2",
+                "php": ">=5.3.2"
+            },
+            "type": "package",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "WordPress Community",
+                    "homepage": "http://wordpress.org/about/"
+                }
+            ],
+            "description": "WordPress is web software you can use to create a beautiful website or blog.",
+            "homepage": "http://wordpress.org/",
+            "keywords": [
+                "blog",
+                "cms",
+                "wordpress"
+            ],
+            "time": "2017-05-01 23:34:21"
+        },
+        {
+            "name": "johnpbloch/wordpress-core",
+            "version": "4.7.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johnpbloch/wordpress-core.git",
+                "reference": "637b1c6e997b28bf8767e6c87611f869e12e246e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/637b1c6e997b28bf8767e6c87611f869e12e246e",
+                "reference": "637b1c6e997b28bf8767e6c87611f869e12e246e",
+                "shasum": ""
+            },
+            "require": {
                 "php": ">=5.3.2"
             },
             "type": "wordpress-core",
@@ -140,9 +193,10 @@
             "homepage": "http://wordpress.org/",
             "keywords": [
                 "blog",
-                "cms"
+                "cms",
+                "wordpress"
             ],
-            "time": "2016-09-07 15:01:47"
+            "time": "2017-05-01 23:28:59"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -191,6 +245,62 @@
                 "wordpress"
             ],
             "time": "2015-06-11 15:15:30"
+        },
+        {
+            "name": "philippbaschke/acf-pro-installer",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PhilippBaschke/acf-pro-installer.git",
+                "reference": "f18e537183958159ef5f6cb1f5b684f59d55f3eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PhilippBaschke/acf-pro-installer/zipball/f18e537183958159ef5f6cb1f5b684f59d55f3eb",
+                "reference": "f18e537183958159ef5f6cb1f5b684f59d55f3eb",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "php": ">=5.5",
+                "vlucas/phpdotenv": "^2.2"
+            },
+            "require-dev": {
+                "composer/composer": "1.0.*",
+                "phpunit/phpunit": "4.8.*",
+                "satooshi/php-coveralls": "1.*",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "PhilippBaschke\\ACFProInstaller\\Plugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "PhilippBaschke\\ACFProInstaller\\": "src/ACFProInstaller"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Philipp Baschke",
+                    "email": "philipp@baschke.com"
+                }
+            ],
+            "description": "An install helper for Advanced Custom Fields PRO",
+            "keywords": [
+                "acf",
+                "composer",
+                "env",
+                "plugin",
+                "pro",
+                "wordpress",
+                "wp"
+            ],
+            "time": "2016-07-20 10:19:36"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -243,16 +353,56 @@
             "time": "2016-09-01 10:05:43"
         },
         {
-            "name": "wpackagist-plugin/filenames-to-latin",
-            "version": "2.2",
+            "name": "wpackagist-plugin/duracelltomi-google-tag-manager",
+            "version": "1.6.1",
             "source": {
                 "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/filenames-to-latin/",
-                "reference": "tags/2.2"
+                "url": "https://plugins.svn.wordpress.org/duracelltomi-google-tag-manager/",
+                "reference": "tags/1.6.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/filenames-to-latin.2.2.zip",
+                "url": "https://downloads.wordpress.org/plugin/duracelltomi-google-tag-manager.1.6.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/duracelltomi-google-tag-manager/"
+        },
+        {
+            "name": "wpackagist-plugin/elasticpress",
+            "version": "2.2.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/elasticpress/",
+                "reference": "tags/2.2.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/elasticpress.2.2.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/elasticpress/"
+        },
+        {
+            "name": "wpackagist-plugin/filenames-to-latin",
+            "version": "2.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/filenames-to-latin/",
+                "reference": "tags/2.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/filenames-to-latin.2.5.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -263,16 +413,16 @@
             "homepage": "https://wordpress.org/plugins/filenames-to-latin/"
         },
         {
-            "name": "wpackagist-plugin/google-analytics-for-wordpress",
-            "version": "5.5.3",
+            "name": "wpackagist-plugin/nginx-cache",
+            "version": "1.0.2",
             "source": {
                 "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/google-analytics-for-wordpress/",
-                "reference": "tags/5.5.3"
+                "url": "https://plugins.svn.wordpress.org/nginx-cache/",
+                "reference": "tags/1.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/google-analytics-for-wordpress.5.5.3.zip",
+                "url": "https://downloads.wordpress.org/plugin/nginx-cache.1.0.2.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -280,19 +430,19 @@
                 "composer/installers": "~1.0"
             },
             "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/google-analytics-for-wordpress/"
+            "homepage": "https://wordpress.org/plugins/nginx-cache/"
         },
         {
             "name": "wpackagist-plugin/redirection",
-            "version": "2.4.5",
+            "version": "2.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/redirection/",
-                "reference": "tags/2.4.5"
+                "reference": "tags/2.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/redirection.2.4.5.zip",
+                "url": "https://downloads.wordpress.org/plugin/redirection.2.5.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -303,16 +453,36 @@
             "homepage": "https://wordpress.org/plugins/redirection/"
         },
         {
-            "name": "wpackagist-plugin/wordpress-seo",
-            "version": "3.7.0",
+            "name": "wpackagist-plugin/redis-cache",
+            "version": "1.3.5",
             "source": {
                 "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wordpress-seo/",
-                "reference": "tags/3.7.0"
+                "url": "https://plugins.svn.wordpress.org/redis-cache/",
+                "reference": "tags/1.3.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.3.7.0.zip",
+                "url": "https://downloads.wordpress.org/plugin/redis-cache.1.3.5.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/redis-cache/"
+        },
+        {
+            "name": "wpackagist-plugin/wordpress-seo",
+            "version": "4.7",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wordpress-seo/",
+                "reference": "tags/4.7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.4.7.zip",
                 "reference": null,
                 "shasum": null
             },

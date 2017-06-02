@@ -21,6 +21,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 COPY docker/files/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/files/config/nginx.conf /etc/nginx/sites-enabled/default
+COPY docker/files/config/php.ini /etc/php/7.0/fpm
 
 
 # Permission hack

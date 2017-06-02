@@ -1,0 +1,9 @@
+.article {
+    &__container {
+        @include u-wrap(site);
+    }
+
+    &__content {
+        @include u-wrap(content);
+    }
+}
