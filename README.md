@@ -1,4 +1,5 @@
 # Frojd-bedrock
+
 The Fröjd fork of [Bedrock](https://roots.io/bedrock/)
 
 Bedrock is a modern WordPress stack inspired by [Twelve-Factor App](http://12factor.net/) including the [WordPress specific version](https://roots.io/twelve-factor-wordpress/).
@@ -6,10 +7,9 @@ Bedrock is a modern WordPress stack inspired by [Twelve-Factor App](http://12fac
 
 ## Requirements
 
-* Docker (Only tested using [Docker toolbox](https://www.docker.com/products/docker-toolbox))
+* Docker, use either Docker for [Mac](https://docs.docker.com/docker-for-mac/)/[Windows](https://docs.docker.com/docker-for-windows/) or [Docker toolbox](https://www.docker.com/products/docker-toolbox)
 
 ## Installation
-
 
 1. Clone repo 
 2. Make sure docker-machine is running and in your environment `docker-machine start && eval $(docker-machine env)`
@@ -31,6 +31,7 @@ docker-compose up
 ```
 
 ### Remote debugging for xdebug
+
 If you want remote-debugging for xdebug you need to make sure some ENV-vars is available 
 when docker-compose build.
 You could either add them to your local environment (e.g. .zshrc) or add a .env-file in the 
@@ -62,6 +63,7 @@ ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-hotfix-start
 Default theme is based on [Sage](https://github.com/roots/sage/tree/master/). (version 9 alpha)
 
 ### Requirements
+
 * [Node.js](http://nodejs.org/) >= 4.5
 
 ### Theme installation
@@ -149,6 +151,7 @@ themes/main/              # → Root of your Sage based theme
 ```
 
 ## Multisite configuration - Apache
+
 Might be outdated. Written before docker.
 
 ### .htaccess
@@ -197,9 +200,11 @@ DOMAIN_CURRENT_SITE=www.current-site.com
 ```
 
 ## Multisite configuration - Nginx
+
 Please fill this out if you figure out how :)
 
 ## Deployment
+
 This project use [Fabrik](https://github.com/Frojd/Fabrik/) for deployment.
 
 1. `cd deploy`
