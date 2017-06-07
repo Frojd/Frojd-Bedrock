@@ -34,6 +34,7 @@
   "dependencies": {
     "browsernizr": "^2.1.0",
     "jquery": "^3.2.1",
+    "gulp": "^3.9.1",
     "pjax": "^0.2.4",
     "store": "^2.0.4",
     "waypoints": "^4.0.1"
