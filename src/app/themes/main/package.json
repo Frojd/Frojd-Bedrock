@@ -22,8 +22,10 @@
   },
   "main": "gulpfile.js",
   "scripts": {
+    "start": "gulp watch",
     "build": "gulp",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "build:production": "gulp --production"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.4",
