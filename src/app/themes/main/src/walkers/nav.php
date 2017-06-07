@@ -77,7 +77,7 @@ class Nav extends \Walker_Nav_Menu {
 
         $item_output = sprintf('%1$s<%2$s%3$s>%4$s%5$s%6$s</%2$s>%7$s',
             $args->before,
-            $tag
+            $tag,
             $attributes,
             $args->link_before,
             $content,
