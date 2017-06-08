@@ -16,10 +16,10 @@ cd $(git rev-parse --show-toplevel)
 
 source scripts/sync/STAGES
 
-ssh $PROD_USERNAME@$PROD_HOSTNAME "cd $PROD_SRC_PATH;
+ssh $PROD_USER@$PROD_HOST "cd $PROD_SRC_PATH;
     wp --allow-root db export /tmp/latest.sql;"
 
-scp $PROD_USERNAME@$PROD_HOSTNAME:/tmp/latest.sql docker/files/db-dumps/latest.sql
+scp $PROD_USER@$PROD_HOST:/tmp/latest.sql docker/files/db-dumps/latest.sql
 
 ./scripts/wp.sh db import /app/db-dumps/latest.sql
 ./scripts/wp.sh search-replace $PROD_DOMAIN $LOCAL_DOMAIN
@@ -27,6 +27,6 @@ scp $PROD_USERNAME@$PROD_HOSTNAME:/tmp/latest.sql docker/files/db-dumps/latest.s
 ./scripts/wp.sh cache flush
 ./scripts/wp.sh elasticpress index
 
-rsync -re ssh $PROD_USERNAME@$PROD_HOSTNAME:$PROD_UPLOAD_PATH/* src/app/uploads
+rsync -re ssh $PROD_USER@$PROD_HOST:$PROD_UPLOAD_PATH/* src/app/uploads
 
 cd -
