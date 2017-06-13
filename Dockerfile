@@ -9,6 +9,7 @@ RUN apt-get update && apt-get -y install supervisor nginx \
     php-fpm php-zip php-xdebug php-mysql php-simplexml \
     php-gd php-imagick php-mbstring php-soap php-curl \
     composer vim curl mysql-client \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && mkdir -p /var/run/php /var/log/supervisor /var/log/nginx /app
 
 # wp-cli
