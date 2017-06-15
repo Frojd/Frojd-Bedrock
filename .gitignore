@@ -36,6 +36,9 @@ node_modules
 docker/files/logs/*
 !docker/files/logs/.gitkeep
 
+docker/files/profiles/*
+!docker/files/profiles/.gitkeep
+
 docker/files/db-dumps/*
 !docker/files/db-dumps/.gitkeep
 
