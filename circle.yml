@@ -7,14 +7,14 @@ machine:
         version: 7.0.11
 
 dependencies:
-    override:
-        - pip install -U pip setuptools virtualenv
     pre:
         - openssl aes-256-cbc -d -in .circlerc-crypt -k $KEY >> ~/.circlerc
+    override:
+        - pip install -U pip setuptools virtualenv
 
 test:
-  override:
-      - echo "Dummy test"
+    override:
+        - echo "Dummy test"
 
 deployment:
     stage:
