@@ -9,6 +9,7 @@ RUN apt-get update && apt-get -y install supervisor nginx \
     php-fpm php-zip php-xdebug php-mysql php-simplexml \
     php-gd php-imagick php-mbstring php-soap php-curl \
     composer vim curl mysql-client \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && mkdir -p /var/run/php /var/log/supervisor /var/log/nginx /app
 
 # wp-cli
@@ -36,6 +37,8 @@ RUN echo "xdebug.remote_enable=on" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
     && echo "xdebug.remote_host="${XDEBUG_REMOTE_HOST} >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
     && echo "xdebug.idekey="${XDEBUG_IDEKEY} >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
+    && echo "xdebug.profiler_enable_trigger=1" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
+    && echo "xdebug.profiler_output_dir=/app/profiles" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
     && rm /etc/php/7.0/cli/conf.d/20-xdebug.ini
 
 

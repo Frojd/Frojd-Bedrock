@@ -16,10 +16,10 @@ cd $(git rev-parse --show-toplevel)
 
 source scripts/sync/STAGES
 
-ssh $STAGE_USERNAME@$STAGE_HOSTNAME "cd $STAGE_SRC_PATH;
+ssh $STAGE_USER@$STAGE_HOST "cd $STAGE_SRC_PATH;
     wp --allow-root db export /tmp/latest.sql;"
 
-scp $STAGE_USERNAME@$STAGE_HOSTNAME:/tmp/latest.sql docker/files/db-dumps/latest.sql
+scp $STAGE_USER@$STAGE_HOST:/tmp/latest.sql docker/files/db-dumps/latest.sql
 
 ./scripts/wp.sh db import /app/db-dumps/latest.sql
 ./scripts/wp.sh search-replace $STAGE_DOMAIN $LOCAL_DOMAIN
@@ -27,6 +27,6 @@ scp $STAGE_USERNAME@$STAGE_HOSTNAME:/tmp/latest.sql docker/files/db-dumps/latest
 ./scripts/wp.sh cache flush
 ./scripts/wp.sh elasticpress index
 
-rsync -re ssh $STAGE_USERNAME@$STAGE_HOSTNAME:$STAGE_UPLOAD_PATH/* src/app/uploads
+rsync -re ssh $STAGE_USER@$STAGE_HOST:$STAGE_UPLOAD_PATH/* src/app/uploads
 
 cd -

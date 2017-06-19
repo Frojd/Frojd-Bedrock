@@ -18,14 +18,14 @@ source scripts/sync/STAGES
 
 docker-compose run web bash -c "cd /app; wp --allow-root db export db-dumps/latest.sql"
 
-scp docker/files/db-dumps/latest.sql $STAGE_USERNAME@$STAGE_HOSTNAME:/tmp/latest.sql
-ssh $STAGE_USERNAME@$STAGE_HOSTNAME "cd $STAGE_SRC_PATH;
+scp docker/files/db-dumps/latest.sql $STAGE_USER@$STAGE_HOST:/tmp/latest.sql
+ssh $STAGE_USER@$STAGE_HOST "cd $STAGE_SRC_PATH;
     wp --allow-root db import /tmp/latest.sql;
     wp --allow-root search-replace $LOCAL_DOMAIN $STAGE_DOMAIN;
     wp --allow-root option set ep_host http://localhost:9200;
     wp --allow-root cache flush;
     wp --allow-root elasticpress index;"
 
-rsync -re ssh src/app/uploads/ $STAGE_USERNAME@$STAGE_HOSTNAME:$STAGE_UPLOAD_PATH
+rsync -re ssh src/app/uploads/ $STAGE_USER@$STAGE_HOST:$STAGE_UPLOAD_PATH
 
 cd -

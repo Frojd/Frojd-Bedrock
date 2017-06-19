@@ -22,8 +22,10 @@
   },
   "main": "gulpfile.js",
   "scripts": {
+    "start": "gulp watch",
     "build": "gulp",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "build:production": "gulp --production"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.4",
@@ -34,6 +36,7 @@
   "dependencies": {
     "browsernizr": "^2.1.0",
     "jquery": "^3.2.1",
+    "gulp": "^3.9.1",
     "pjax": "^0.2.4",
     "store": "^2.0.4",
     "waypoints": "^4.0.1"

@@ -39,5 +39,6 @@ services:
             - "./wp-cli.yml:/app/wp-cli.yml"
             - "./docker/config/web.env:/app/.env"
             - "./docker/files/logs:/app/logs:rw"
+            - "./docker/files/profiles:/app/profiles:rw"
             - "./docker/files/db-dumps:/app/db-dumps"
 

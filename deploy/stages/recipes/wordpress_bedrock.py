@@ -43,6 +43,7 @@ def after_deploy():
 
     env.run('rm -rf /var/run/nginx-cache/*')
     env.run('service nginx restart')
+    env.run('service php7.0-fpm restart')
 
     env.run(
         "cd %s && "
