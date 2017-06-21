@@ -18,11 +18,3 @@ DEMO_KEY_FILENAME=
 DEMO_APP_NAME=facts
 DEMO_APP_PATH=/var/www/swedense/base
 DEMO_PUBLIC_PATH=/var/www/swedense/public_html
-
-LOCAL_HOST=
-LOCAL_USER=root
-LOCAL_PASSWORD=
-LOCAL_KEY_FILENAME=/path/to/.ssh/id_rsa.pub
-LOCAL_APP_NAME=sweden
-LOCAL_APP_PATH=/path/to/project
-LOCAL_APP_SOURCE_PATH=src
