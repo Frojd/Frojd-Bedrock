@@ -5,10 +5,7 @@ Demo environment
 from fabric.state import env
 from fabric.decorators import task
 
-from fabrik import paths
 from fabrik.utils import get_stage_var
-from fabrik.hooks import hook
-from fabrik.ext import composer
 
 
 @task
@@ -19,9 +16,6 @@ def demo():
 
     # Metadata
     env.stage = "demo"
-
-    # VC
-    env.branch = "develop"
 
     # SSH Config
     env.hosts = [get_stage_var("HOST")]

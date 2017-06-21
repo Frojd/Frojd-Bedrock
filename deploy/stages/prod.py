@@ -5,9 +5,7 @@ Prod environment
 from fabric.state import env
 from fabric.decorators import task
 
-from fabrik import paths
 from fabrik.utils import get_stage_var
-from fabrik.hooks import hook
 
 
 @task
@@ -15,12 +13,6 @@ def prod():
     # Recipe
     from recipes import wordpress_bedrock
     wordpress_bedrock.register()
-
-    # Metadata
-    env.stage = "prod"
-
-    # VC
-    env.branch = "master"
 
     # SSH Config
     env.hosts = [get_stage_var("HOST")]
