@@ -31,6 +31,8 @@ def deploy():
 
 
 def after_deploy():
+    env.run("rm -rf %s" % paths.get_current_path("app/uploads"))
+
     paths.symlink(
         paths.get_upload_path(),
         paths.get_current_path("app/uploads")
