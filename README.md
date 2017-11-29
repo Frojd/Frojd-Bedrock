@@ -17,8 +17,8 @@ Bedrock is a modern WordPress stack inspired by [Twelve-Factor App](http://12fac
     ```
 2. Copy container .env files
     ```
-    docker/config/db.example.env > docker/config/db.env
-    docker/config/web.example.env ->  docker/config/web.env
+    cp docker/config/db.example.env docker/config/db.env
+    cp docker/config/web.example.env docker/config/web.env
     ```
 3. run `docker-compose up`
 4. Visit your site on http://domain:port(default 8080)/wp/wp-admin
