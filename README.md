@@ -7,28 +7,21 @@ Bedrock is a modern WordPress stack inspired by [Twelve-Factor App](http://12fac
 
 ## Requirements
 
-* Docker, use either Docker for [Mac](https://docs.docker.com/docker-for-mac/)/[Windows](https://docs.docker.com/docker-for-windows/) or [Docker toolbox](https://www.docker.com/products/docker-toolbox)
+* Docker ([Install instructions](#how-do-i-install-docker-on-macoswindows))
 
 ## Installation
 
 1. Clone repo 
-2. Make sure docker-machine is running and in your environment `docker-machine start && eval $(docker-machine env)`
-3. Add your docker-machine ip to your /etc/hosts
-4. Copy docker/config/db.example.env > docker/config/db.env & docker/config/web.example.env ->  docker/config/web.env (might need some editing, keep the example-file updated if you add/change variables)
-5. run `docker-compose up`
-6. wp-admin available at http://domain:port(default 8080)/wp/wp-admin
-
-Copy-paste version
-```
-git clone git@github.com:Frojd/Frojd-Bedrock.git myproject.dev
-
-cd myproject.dev/docker/config
-cp db.example.env db.env
-cp web.example.env web.env
-
-cd ../../
-docker-compose up
-```
+    ```
+    git clone git@github.com:Frojd/Frojd-Bedrock.git myproject.dev
+    ```
+2. Copy container .env files
+    ```
+    docker/config/db.example.env > docker/config/db.env
+    docker/config/web.example.env ->  docker/config/web.env
+    ```
+3. run `docker-compose up`
+4. Visit your site on http://domain:port(default 8080)/wp/wp-admin
 
 ### Remote debugging for xdebug
 
