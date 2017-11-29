@@ -10,4 +10,4 @@ STAGE_SRC_PATH=/mnt/persist/www/docroot/base/current
 STAGE_UPLOAD_PATH=/mnt/persist/www/docroot/base/upload
 STAGE_DOMAIN=sidev.se
 
-LOCAL_DOMAIN=bedrock.dev:8010
+LOCAL_DOMAIN=bedrock.dev:8080
