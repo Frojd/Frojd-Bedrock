@@ -5,7 +5,7 @@ services:
         ports:
             - "9280:9200"
     db:
-        image: mysql:latest
+        image: mysql:5
         ports:
             - "3380:3306"
         volumes:
