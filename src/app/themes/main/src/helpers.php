@@ -100,7 +100,7 @@ function the_post_thumbnail_background($size = '', $postId = null, $thumbnailId 
     
     $html = ' style="background-image:url(\'' . $thumbnail->src . '\');"';
     if(!empty($thumbnail->alt)) {
-        $html .= ' title="' . $$thumbnail->alt . '"';
+        $html .= ' title="' . $thumbnail->alt . '"';
     }
     echo $html;
 }
