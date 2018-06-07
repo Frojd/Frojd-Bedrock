@@ -35,11 +35,15 @@
             "type": "package",
             "package": {
                 "name": "advanced-custom-fields/advanced-custom-fields-pro",
-                "version": "5.4.6",
+                "version": "5.5.11",
                 "type": "wordpress-muplugin",
                 "dist": {
                     "type": "zip",
-                    "url": "http://connect.advancedcustomfields.com/index.php?p=pro&a=download&k=YOURKEYHERE"
+                    "url": "https://connect.advancedcustomfields.com/index.php?p=pro&a=download"
+                },
+                "require": {
+                    "philippbaschke/acf-pro-installer": "^1.0",
+                    "composer/installers": "^1.0"
                 }
             }
         }
@@ -49,10 +53,15 @@
         "composer/installers": "~1.0.12",
         "vlucas/phpdotenv": "^2.0.1",
         "johnpbloch/wordpress": "*",
+        "advanced-custom-fields/advanced-custom-fields-pro": "*",
         "wpackagist-plugin/wordpress-seo": "*",
         "wpackagist-plugin/filenames-to-latin": "*",
         "wpackagist-plugin/redirection": "*",
-        "wpackagist-plugin/google-analytics-for-wordpress": "*"
+        "wpackagist-plugin/duracelltomi-google-tag-manager": "*",
+        "wpackagist-plugin/elasticpress": "*",
+        "wpackagist-plugin/nginx-cache": "*",
+        "wpackagist-plugin/redis-cache": "*",
+        "sentry/sentry": "*"
     },
     "require-dev": {
         "wpackagist-plugin/debug-bar": "*"
@@ -64,5 +73,8 @@
             "src/app/themes/{$name}/": ["type:wordpress-theme"]
         },
         "wordpress-install-dir": "src/wp"
+    },
+    "scripts": {
+        "build": "cd src/app/themes/main && npm install && npm run build:production"
     }
 }

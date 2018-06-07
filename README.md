@@ -1,4 +1,5 @@
 # Frojd-bedrock
+
 The Fröjd fork of [Bedrock](https://roots.io/bedrock/)
 
 Bedrock is a modern WordPress stack inspired by [Twelve-Factor App](http://12factor.net/) including the [WordPress specific version](https://roots.io/twelve-factor-wordpress/).
@@ -6,30 +7,24 @@ Bedrock is a modern WordPress stack inspired by [Twelve-Factor App](http://12fac
 
 ## Requirements
 
-* Docker (Only tested using [Docker toolbox](https://www.docker.com/products/docker-toolbox))
+* Docker ([Install instructions](#how-do-i-install-docker-on-macoswindows))
 
 ## Installation
 
-
 1. Clone repo 
-2. Add your docker-machine ip to your /etc/hosts
-3. Copy docker/config/db.example.env > docker/config/db.env & docker/config/web.example.env ->  docker/config/web.env (might need some editing, keep the example-file updated if you add/change variables)
-4. run `docker-compose up`
-5. wp-admin available at http://domain:port(default 8080)/wp/wp-admin
-
-Copy-paste version
-```
-git clone git@github.com:Frojd/Frojd-Bedrock.git myproject.dev
-
-cd myproject.dev/docker/config
-cp db.example.env db.env
-cp web.example.env web.env
-
-cd ../../
-docker-compose up
-```
+    ```
+    git clone git@github.com:Frojd/Frojd-Bedrock.git myproject.dev
+    ```
+2. Copy container .env files
+    ```
+    cp docker/config/db.example.env docker/config/db.env
+    cp docker/config/web.example.env docker/config/web.env
+    ```
+3. run `docker-compose up`
+4. Visit your site on http://domain:port(default 8080)/wp/wp-admin
 
 ### Remote debugging for xdebug
+
 If you want remote-debugging for xdebug you need to make sure some ENV-vars is available 
 when docker-compose build.
 You could either add them to your local environment (e.g. .zshrc) or add a .env-file in the 
@@ -39,6 +34,11 @@ XDEBUG_REMOTE_HOST="111.111.111.111"
 XDEBUG_IDEKEY="PHPSTORM"
 ```
 
+.zshrc version, supporting dynamic IP´s:
+```
+export XDEBUG_REMOTE_HOST=$(ifconfig | grep "inet " | grep broadcast | head -n 1 | awk '{print $2}')
+export XDEBUG_IDEKEY="PHPSTORM"
+```
 
 ## Git hooks
 
@@ -56,6 +56,7 @@ ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-hotfix-start
 Default theme is based on [Sage](https://github.com/roots/sage/tree/master/). (version 9 alpha)
 
 ### Requirements
+
 * [Node.js](http://nodejs.org/) >= 4.5
 
 ### Theme installation
@@ -143,6 +144,7 @@ themes/main/              # → Root of your Sage based theme
 ```
 
 ## Multisite configuration - Apache
+
 Might be outdated. Written before docker.
 
 ### .htaccess
@@ -191,9 +193,28 @@ DOMAIN_CURRENT_SITE=www.current-site.com
 ```
 
 ## Multisite configuration - Nginx
+
 Please fill this out if you figure out how :)
+
+## Deployment
+
+This project use [Fabrik](https://github.com/Frojd/Fabrik/) for deployment.
+
+1. `cd deploy`
+2. `pip install -r requirements.txt`
+3. `cp fabricrc.example.txt fabricrc.txt`
+4. Update the fabricrc.txt file
+5. First time - run `fabrik stage setup`
+6. Deploy with `fabrik stage deploy`
+
+If you prefer, you could let circle-ci handle the deployments:
+1. copy .circlerc.example to .circlerc and fill it out
+2. encrypt it with `openssl aes-256-cbc -e -in .circlerc -out .circlerc-crypt -k SOMEENCRYPTIONKEY`
+3. Add SOMEENCRYPTIONKEY on circle as $KEY
+4. Customize circle.yml for your needs
 
 ## Documentation
 
+* [Fabrik docs](https://github.com/Frojd/Fabrik/)
 * [Bedrock docs](https://roots.io/bedrock/docs/)
 * [Sage docs](https://roots.io/sage/docs/)

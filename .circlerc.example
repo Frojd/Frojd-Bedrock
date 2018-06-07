@@ -1,0 +1,13 @@
+PROD_HOST=prod.hostname.com
+PROD_USER=root
+PROD_KEY_FILENAME=${HOME}/.ssh/id_rsa
+PROD_APP_NAME=appname
+PROD_APP_PATH=/mnt/persist/www/docroot/base
+PROD_PUBLIC_PATH=/mnt/persist/www/docroot/public_html
+
+STAGE_HOST=stage.hostname.com
+STAGE_USER=root
+STAGE_KEY_FILENAME=${HOME}/.ssh/id_rsa
+STAGE_APP_NAME=appname
+STAGE_APP_PATH=/mnt/persist/www/docroot/base
+STAGE_PUBLIC_PATH=/mnt/persist/www/docroot/public_html

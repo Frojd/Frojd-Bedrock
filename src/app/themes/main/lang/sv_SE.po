@@ -1,0 +1,218 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Bedrock\n"
+"POT-Creation-Date: 2017-05-29 16:11+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Fröjd\n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_n:1,2;_c;_ex:1,2c;_nx:4c,1,2;"
+"_nc:4c,1,2;_n_noop:1,2;_nx_noop:4c,1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"esc_html__;esc_html_e;esc_html_x:1,2c;esc_attr__;esc_attr_e;"
+"esc_attr_x:1,2c\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
+"X-Poedit-SearchPathExcluded-1: assets\n"
+"X-Poedit-SearchPathExcluded-2: dist\n"
+
+#: src/filters.php:44
+msgid "Read more"
+msgstr "Läs mer"
+
+#: src/filters.php:103
+msgid "Facts"
+msgstr "Faktaruta"
+
+#: src/helpers.php:48
+msgid "Latest Posts"
+msgstr "Senaste inläggen"
+
+#: src/helpers.php:54
+#, php-format
+msgid "Search Results for %s"
+msgstr "Sökresultat för %s"
+
+#: src/posttypes/contact.php:5
+msgctxt "Post type single string"
+msgid "Contact"
+msgstr "Kontaktperson"
+
+#: src/posttypes/contact.php:6
+msgctxt "Post type plural string"
+msgid "Contacts"
+msgstr "Kontaktpersoner"
+
+#: src/posttypes/contact.php:10
+msgid "Contact"
+msgstr "Kontakt"
+
+#: src/posttypes/contact.php:11
+msgid "Contact person"
+msgstr "Kontaktperson"
+
+#: src/posttypes/helpers.php:10 src/taxonomies/helpers.php:9
+#, php-format
+msgid "All %s"
+msgstr "Alla %s"
+
+#: src/posttypes/helpers.php:11
+msgid "Add new"
+msgstr "Lägg till ny"
+
+#: src/posttypes/helpers.php:12 src/taxonomies/helpers.php:13
+#, php-format
+msgid "Add new %s"
+msgstr "Lägg till ny %s"
+
+#: src/posttypes/helpers.php:13 src/taxonomies/helpers.php:10
+#, php-format
+msgid "Edit %s"
+msgstr "Redigera %s"
+
+#: src/posttypes/helpers.php:14
+#, php-format
+msgid "New %s"
+msgstr "Ny %s"
+
+#: src/posttypes/helpers.php:15 src/taxonomies/helpers.php:11
+#, php-format
+msgid "View %s"
+msgstr "Visa %s"
+
+#: src/posttypes/helpers.php:16 src/taxonomies/helpers.php:17
+#, php-format
+msgid "Search %s"
+msgstr "Sök %s"
+
+#: src/posttypes/helpers.php:17 src/taxonomies/helpers.php:22
+#, php-format
+msgid "No %s found"
+msgstr "Inga %s hittades"
+
+#: src/posttypes/helpers.php:18
+#, php-format
+msgid "No %s found in Trash"
+msgstr "Inga %s hittades i papperskorgen"
+
+#: src/posttypes/helpers.php:19 src/taxonomies/helpers.php:15
+#, php-format
+msgid "Parent %s"
+msgstr "Överordnad %s"
+
+#: src/setup.php:43
+msgid "Primary Navigation"
+msgstr "Huvudmeny"
+
+#: src/setup.php:44
+msgid "Service Navigation"
+msgstr "Servicemeny"
+
+#: src/setup.php:77 src/setup.php:78
+msgid "Site settings"
+msgstr "Sajtinställningar"
+
+#: src/setup.php:97
+msgid "Footer"
+msgstr "Sidfot"
+
+#: src/taxonomies/helpers.php:12
+#, php-format
+msgid "Update %s"
+msgstr "Uppdatera %s"
+
+#: src/taxonomies/helpers.php:14
+#, php-format
+msgid "New %s Name"
+msgstr "Nytt %s namn"
+
+#: src/taxonomies/helpers.php:16
+#, php-format
+msgid "Parent %s:"
+msgstr "Överordnad %s:"
+
+#: src/taxonomies/helpers.php:18
+#, php-format
+msgid "Popular %s"
+msgstr "Populära %s"
+
+#: src/taxonomies/helpers.php:19
+#, php-format
+msgid "Separate %s with commas"
+msgstr "Separera %s med kommatecken"
+
+#: src/taxonomies/helpers.php:20
+#, php-format
+msgid "Add or remove %s"
+msgstr "Lägg till eller ta bort %s"
+
+#: src/taxonomies/helpers.php:21
+#, php-format
+msgid "Choose from the most used %s"
+msgstr "Välj bland de mest använda %s"
+
+#: src/taxonomies/title.php:5
+msgctxt "Taxonomy single string"
+msgid "Title"
+msgstr "Titel"
+
+#: src/taxonomies/title.php:6
+msgctxt "Taxonomy plural string"
+msgid "Titles"
+msgstr "Titlar"
+
+#: templates/index.php:6 templates/search.php:6
+msgid "Sorry, no results were found."
+msgstr "Tyvärr, inga resultat hittades."
+
+#: templates/partials/entry-meta.php:2
+msgid "By"
+msgstr "Av"
+
+#: templates/partials/popup-cookie.php:9
+msgid "Close"
+msgstr "Stäng"
+
+#~ msgctxt "Post Type General Name"
+#~ msgid "Contact"
+#~ msgstr "Kontaktperson"
+
+#~ msgctxt "Post Type Singular Name"
+#~ msgid "Contact"
+#~ msgstr "Kontaktperson"
+
+#~ msgid "Title"
+#~ msgstr "Rubrik"
+
+#~ msgid "Titles"
+#~ msgstr "Rubriker"
+
+#~ msgid ""
+#~ "You are using an <strong>outdated</strong> browser. Please <a href="
+#~ "\"http://browsehappy.com/\">upgrade your\n"
+#~ "            browser</a> to improve your experience."
+#~ msgstr ""
+#~ "Du använder en <strong>föråldrad</strong> webbläsare. Vänligen <a href="
+#~ "\"http://browsehappy.com/\">uppgradera din\n"
+#~ "            webbläsare</a> för att förbättra din upplevelse."
+
+#~ msgctxt "comments title"
+#~ msgid "One response to &ldquo;%2$s&rdquo;"
+#~ msgid_plural "%1$s responses to &ldquo;%2$s&rdquo;"
+#~ msgstr[0] "En respons till &ldquo;%2$s&rdquo;"
+#~ msgstr[1] "%1$s responser till &ldquo;%2$s&rdquo;"
+
+#~ msgid "&larr; Older comments"
+#~ msgstr "Äldre kommentarer"
+
+#~ msgid "Newer comments &rarr;"
+#~ msgstr "Nyare kommentarer"
+
+#~ msgid "Comments are closed."
+#~ msgstr "Kommentarer är stängda."

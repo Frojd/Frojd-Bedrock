@@ -40,7 +40,8 @@ add_action('after_setup_theme', function () {
      * @link http://codex.wordpress.org/Function_Reference/register_nav_menus
      */
     register_nav_menus([
-        'primary_navigation' => __('Primary Navigation', 'sage')
+        'primary_navigation' => __('Primary Navigation', 'sage'),
+        'service_navigation' => __('Service Navigation', 'sage'),
     ]);
 
     /**
@@ -52,12 +53,6 @@ add_action('after_setup_theme', function () {
     add_theme_support('post-thumbnails');
 
     /**
-     * Enable post formats
-     * @link http://codex.wordpress.org/Post_Formats
-     */
-    add_theme_support('post-formats', ['aside', 'gallery', 'link', 'image', 'quote', 'video', 'audio']);
-
-    /**
      * Enable HTML5 markup support
      * @link http://codex.wordpress.org/Function_Reference/add_theme_support#HTML5
      */
@@ -67,25 +62,32 @@ add_action('after_setup_theme', function () {
      * Use main stylesheet for visual editor
      * @see assets/styles/layouts/_tinymce.scss
      */
-    add_editor_style(asset_path('styles/main.css'));
+    add_editor_style(asset_path('styles/editor.css'));
+
+    /**
+     * Localize
+     */
+    load_theme_textdomain('sage', get_template_directory() . '/lang' );
+
+    /**
+     * Register acf setting pages
+     */
+    if (function_exists('\acf_add_options_page')) {
+        \acf_add_options_page([
+            'page_title' 	=> __('Site settings', 'sage'),
+            'menu_title' 	=> __('Site settings', 'sage'),
+            'menu_slug' 	=> 'site-settings',
+            'parent_slug' 	=> 'options-general.php',
+        ]);
+    }
 });
 
 /**
- * Register sidebars
+ * Purge nginx cache on option update
  */
-add_action('widgets_init', function () {
-    $config = [
-        'before_widget' => '<section class="widget %1$s %2$s">',
-        'after_widget' => '</section>',
-        'before_title' => '<h3>',
-        'after_title' => '</h3>'
-    ];
-    register_sidebar([
-            'name' => __('Primary', 'sage'),
-            'id' => 'sidebar-primary'
-        ] + $config);
-    register_sidebar([
-            'name' => __('Footer', 'sage'),
-            'id' => 'sidebar-footer'
-        ] + $config);
+add_action('updated_option', function() {
+    if(class_exists('NginxCache')) {
+        $nginx = new \NginxCache;
+        $nginx->purge_zone_once();
+    }
 });
