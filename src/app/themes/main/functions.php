@@ -39,6 +39,7 @@ add_action('customize_render_section', function ($section) {
  * Please note that missing files will produce a fatal error.
  */
 $sage_includes = [
+    'src/security.php',
     'src/helpers.php',
     'src/setup.php',
     'src/filters.php',
