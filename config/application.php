@@ -1,4 +1,6 @@
 <?php
+const APP_VERSION = '0.0.1';
+
 $root_dir = dirname(__DIR__);
 $webroot_dir = $root_dir . '/src';
 
@@ -81,6 +83,17 @@ if (!defined('ABSPATH')) {
  */
 $sentryDSN = getenv('SENTRY_DSN');
 if ($sentryDSN) {
-    $client = new Raven_Client($sentryDSN);
+    $client = new Raven_Client($sentryDSN, [
+        'tags' => [
+            //'current_site' => CURRENT_SITE,
+        ],
+        'release' => APP_VERSION,
+        'environment' => WP_ENV,
+        'prefixes' => [
+            dirname(__DIR__)
+        ],
+        'app_path' => 'src'
+    ]);
+
     $client->install();
 }

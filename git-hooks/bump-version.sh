@@ -26,6 +26,9 @@ ROOTDIR=$(git rev-parse --show-toplevel)
 sed -i.bak 's/^Version:.*/Version: '$VERSION'/' $ROOTDIR/src/app/themes/main/style.css
 rm $ROOTDIR/src/app/themes/main/style.css.bak
 
+sed -i.bak 's/const APP_VERSION.*$/const APP_VERSION = "'$VERSION'";/' $ROOTDIR/config/application.php
+rm $ROOTDIR/config/application.php.bak
+
 # Commit changes
 git commit -a -m "Bump version: $VERSION"
 
