@@ -1,5 +1,5 @@
 <?php
-const APP_VERSION = '0.0.1';
+const APP_VERSION = "2.2.0";
 
 $root_dir = dirname(__DIR__);
 $webroot_dir = $root_dir . '/src';
