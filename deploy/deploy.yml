@@ -14,4 +14,4 @@
     ansistrano_shared_files:
       - .env
   roles:
-    - { role: carlosbuenosvinos.ansistrano-deploy }
+    - { role: ansistrano.deploy }
