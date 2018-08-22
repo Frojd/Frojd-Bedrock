@@ -14,3 +14,18 @@ add_filter('after_setup_theme', function () {
     remove_action('template_redirect', 'wp_shortlink_header', 11);
     remove_action('template_redirect', 'rest_output_link_header', 11);
 });
+
+
+// Disable the /users endpoint – Make it harder to find potential usernames to
+// launch brute force attempts against
+add_filter('rest_endpoints', function ($endpoints) {
+    if (isset($endpoints['/wp/v2/users'])) {
+        unset($endpoints['/wp/v2/users']);
+    }
+
+    if (isset($endpoints['/wp/v2/users/(?P<id>[\d]+)'])) {
+        unset($endpoints['/wp/v2/users/(?P<id>[\d]+)']);
+    }
+
+    return $endpoints;
+});
