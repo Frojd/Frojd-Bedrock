@@ -2,4 +2,4 @@
 - name: Rollback
   hosts: all
   roles:
-    - { role: carlosbuenosvinos.ansistrano-rollback }
+    - { role: ansistrano.rollback }
