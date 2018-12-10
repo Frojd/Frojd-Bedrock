@@ -81,9 +81,9 @@ if (!defined('ABSPATH')) {
 /**
  * Sentry logging
  */
-$sentryDSN = getenv('SENTRY_DSN');
-if ($sentryDSN) {
-    $client = new Raven_Client($sentryDSN, [
+define('SENTRY_DSN', getenv('SENTRY_DSN') ?: null);
+if (SENTRY_DSN) {
+    $client = new Raven_Client(SENTRY_DSN, [
         'tags' => [
             //'current_site' => CURRENT_SITE,
         ],
