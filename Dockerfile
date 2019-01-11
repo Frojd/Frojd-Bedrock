@@ -1,7 +1,10 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 MAINTAINER Frojd
 LABEL version="v1.0.0"
+
+ENV TZ=Europe/Stockholm
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # apt-get install All the things!
 
@@ -22,7 +25,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 COPY docker/files/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/files/config/nginx.conf /etc/nginx/sites-enabled/default
-COPY docker/files/config/php.ini /etc/php/7.0/fpm
+COPY docker/files/config/php.ini /etc/php/7.2/fpm
 
 
 # Permission hack
@@ -33,13 +36,13 @@ RUN usermod -u 1000 www-data
 
 ARG XDEBUG_REMOTE_HOST
 ARG XDEBUG_IDEKEY
-RUN echo "xdebug.remote_enable=on" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
-    && echo "xdebug.remote_autostart=off" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
-    && echo "xdebug.remote_host="${XDEBUG_REMOTE_HOST} >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
-    && echo "xdebug.idekey="${XDEBUG_IDEKEY} >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
-    && echo "xdebug.profiler_enable_trigger=1" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
-    && echo "xdebug.profiler_output_dir=/app/profiles" >> /etc/php/7.0/fpm/conf.d/20-xdebug.ini \
-    && rm /etc/php/7.0/cli/conf.d/20-xdebug.ini
+RUN echo "xdebug.remote_enable=on" >> /etc/php/7.2/fpm/conf.d/20-xdebug.ini \
+    && echo "xdebug.remote_autostart=off" >> /etc/php/7.2/fpm/conf.d/20-xdebug.ini \
+    && echo "xdebug.remote_host="${XDEBUG_REMOTE_HOST} >> /etc/php/7.2/fpm/conf.d/20-xdebug.ini \
+    && echo "xdebug.idekey="${XDEBUG_IDEKEY} >> /etc/php/7.2/fpm/conf.d/20-xdebug.ini \
+    && echo "xdebug.profiler_enable_trigger=1" >> /etc/php/7.2/fpm/conf.d/20-xdebug.ini \
+    && echo "xdebug.profiler_output_dir=/app/profiles" >> /etc/php/7.2/fpm/conf.d/20-xdebug.ini \
+    && rm /etc/php/7.2/cli/conf.d/20-xdebug.ini
 
 
 # Open ports, multiple separated with space, e.g. EXPOSE 80 22 443
