@@ -198,20 +198,20 @@ Please fill this out if you figure out how :)
 
 ## Deployment
 
-This project use [Fabrik](https://github.com/Frojd/Fabrik/) for deployment.
+### Initial provisioning
+To set up the project on a server run the provisioning. Only needed once. 
 
-1. `cd deploy`
-2. `pip install -r requirements.txt`
-3. `cp fabricrc.example.txt fabricrc.txt`
-4. Update the fabricrc.txt file
-5. First time - run `fabrik stage setup`
-6. Deploy with `fabrik stage deploy`
-
-If you prefer, you could let circle-ci handle the deployments:
-1. copy .circlerc.example to .circlerc and fill it out
-2. encrypt it with `openssl aes-256-cbc -e -in .circlerc -out .circlerc-crypt -k SOMEENCRYPTIONKEY`
-3. Add SOMEENCRYPTIONKEY on circle as $KEY
-4. Customize circle.yml for your needs
+Prepare local build environment:
+```bash
+cd deploy
+python3 -m venv venv
+. venv/bin/activate
+pip install -r requirements.txt
+ansible-galaxy install -r requirements.yml
+```
+Run provisioning on stage or prod:
+- Stage: `ansible-playbook provision.yml -i stages/stage`
+- Prod: `ansible-playbook provision.yml -i stages/prod`
 
 ## Documentation
 

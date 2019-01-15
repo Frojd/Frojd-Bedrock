@@ -22,6 +22,7 @@ sql-dump-*.sql
 # Dotenv
 .env
 .env.*
+!.env.j2
 !.env.example
 
 # Vendor (e.g. Composer)

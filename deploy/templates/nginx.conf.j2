@@ -1,0 +1,37 @@
+# Uncomment this to rewrite other sites to your actual web URL:
+# server {
+#   listen 80;
+#   listen [::]:80;
+#   server_name example.com www.example.com;
+#   return 301 $scheme://example.com$request_uri;
+# }
+
+server {
+  listen 80;
+  listen [::]:80;
+  # Uncomment below to enable https:
+  # listen 443 ssl http2;
+  # listen [::]:443 ssl http2;
+  # ssl_certificate /etc/ssl/cloudnet/chain.crt;
+  # ssl_certificate_key /etc/ssl/cloudnet/cert.key;
+  # include /etc/nginx/ssl_config.conf;
+  include /etc/nginx/acme-challenges.conf;
+
+  server_name {{ stage_domain }};
+  root /mnt/persist/www/{{ project_slug }}/current/src;
+
+  location ~ /\. {
+    return 404;
+  }
+
+
+  # Uncomment to enable the Nginx fastcgi cache. Use
+  # https://wordpress.org/plugins/nginx-helper/
+  # or similar to purge the cache when changing content in WordPress.
+  # set $fastcgi_cache_disabled 0;
+  # Uncomment to set custom fastcgi cache valid time. Default is 43200 minutes.
+  # fastcgi_cache_valid 43200m;
+
+  include /mnt/persist/nginx/wordpress.conf;
+}
+# Don't forget to restart nginx: "service nginx restart" if you change this file.
