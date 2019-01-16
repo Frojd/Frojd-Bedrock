@@ -130,6 +130,10 @@ workflows:
     jobs:
       - checkout_code:
           <<: *filter_ignore_master
+      - frontend:
+          <<: *filter_ignore_master
+          requires:
+            - checkout_code
       - wordpress:
           <<: *filter_ignore_master
           requires:
@@ -138,3 +142,4 @@ workflows:
           <<: *filter_only_develop_or_tag
           requires:
             - wordpress
+            - frontend
