@@ -1,8 +1,8 @@
 {
-    "name": "frojd/frojd-bedrock",
+    "name": "{{cookiecutter.project_slug}}",
     "type": "project",
     "license": "MIT",
-    "description": "WordPress boilerplate with modern development tools, easier configuration, and an improved folder structure",
+    "description": "{{cookiecutter.description}}",
     "homepage": "https://roots.io/bedrock/",
     "authors": [
         {

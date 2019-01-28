@@ -1,6 +1,0 @@
----
-python_version: python3
-ansistrano_deploy_to: /mnt/persist/www/yoursite
-database_name: yoursite_db
-database_user: yoursite
-project_slug: yoursite

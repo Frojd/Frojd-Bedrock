@@ -1,3 +1,4 @@
+{% raw -%}
 version: 2
 
 defaults: &defaults
@@ -143,3 +144,5 @@ workflows:
           requires:
             - wordpress
             - frontend
+
+{% endraw %}

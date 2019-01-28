@@ -1,3 +1,5 @@
+{% raw -%}
+
 ---
 - name: Installs wordpress application on server (secret gen, db setup, nginx config)
   hosts: all
@@ -74,3 +76,5 @@
 
 - name: Run deploy playbook
   import_playbook: deploy.yml
+
+{% endraw %}

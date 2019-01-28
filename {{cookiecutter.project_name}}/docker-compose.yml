@@ -3,11 +3,11 @@ services:
     search:
         image: elasticsearch:2.4
         ports:
-            - "9280:9200"
+            - "{{cookiecutter.docker_search_port}}:9200"
     db:
         image: mysql:5
         ports:
-            - "3380:3306"
+            - "{{cookiecutter.docker_db_port}}:3306"
         volumes:
             - "./docker/files/db-dumps/:/docker-entrypoint-initdb.d/"
             - "./db/:/var/lib/mysql"
@@ -17,7 +17,7 @@ services:
         image: redis:3.2
         command: redis-server
         ports:
-            - "6380:6379"
+            - "{{cookiecutter.docker_redis_port}}:6379"
     web:
         build:
             context: .
@@ -25,7 +25,7 @@ services:
                 - XDEBUG_REMOTE_HOST=${XDEBUG_REMOTE_HOST}
                 - XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
         ports:
-            - "8080:80"
+            - "{{cookiecutter.docker_web_port}}:80"
         links:
           - db
           - redis

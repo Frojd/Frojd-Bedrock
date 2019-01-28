@@ -1,3 +1,4 @@
+{% raw -%}
 ---
 - name: Deploy
   hosts: all
@@ -16,3 +17,5 @@
       - .env
   roles:
     - { role: ansistrano.deploy }
+
+{% endraw %}
