@@ -35,7 +35,7 @@
             "type": "package",
             "package": {
                 "name": "advanced-custom-fields/advanced-custom-fields-pro",
-                "version": "5.5.11",
+                "version": "5.7.10",
                 "type": "wordpress-muplugin",
                 "dist": {
                     "type": "zip",
