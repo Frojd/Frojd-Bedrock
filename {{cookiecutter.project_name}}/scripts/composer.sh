@@ -7,6 +7,6 @@
 cd $(git rev-parse --show-toplevel)
 
 COMMAND="cd /app; composer $@"
-docker-compose run web bash -c "$COMMAND"
+docker-compose exec web bash -c "$COMMAND"
 
 cd -
