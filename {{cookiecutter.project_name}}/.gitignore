@@ -43,7 +43,6 @@ docker/files/profiles/*
 docker/files/db-dumps/*
 !docker/files/db-dumps/.gitkeep
 
-docker/config/db.env
 docker/config/web.env
 
 

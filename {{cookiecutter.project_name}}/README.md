@@ -64,10 +64,6 @@ ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-release-start
 ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-hotfix-start
 ```
 
-### Requirements
-
-* [Node.js](http://nodejs.org/) >= 4.5
-
 ## Deployment
 
 ### Initial provisioning
