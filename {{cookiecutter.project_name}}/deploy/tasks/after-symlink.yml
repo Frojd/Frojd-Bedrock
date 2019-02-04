@@ -1,0 +1,7 @@
+- name: Restart PHP
+  service: name=php7.2-fpm state=restarted
+  become: true
+
+- name: Restart nginx
+  service: name=nginx state=reloaded
+  become: true
