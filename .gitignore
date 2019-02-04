@@ -1,52 +1,4 @@
 ### Application
-src/app/plugins/*
-!src/app/plugins/.gitkeep
-# Premium plugins is still under version control
-!src/app/plugins/gravityforms
-# Fröjd plugins
-!src/app/plugins/acf-field-icon
-
-src/app/mu-plugins/*/
-src/app/upgrade
-src/app/uploads/*
-!src/app/uploads/.gitkeep
-
-# WordPress
-src/wp
-src/.htaccess
-
-# WP-CLI
-db-sync
-sql-dump-*.sql
-
-# Dotenv
-.env
-.env.*
-!.env.j2
-!.env.example
-
-# Vendor (e.g. Composer)
-vendor/*
-!vendor/.gitkeep
-
-# Node Package Manager
-node_modules
-
-### Docker ###
-
-docker/files/logs/*
-!docker/files/logs/.gitkeep
-
-docker/files/profiles/*
-!docker/files/profiles/.gitkeep
-
-docker/files/db-dumps/*
-!docker/files/db-dumps/.gitkeep
-
-docker/config/db.env
-docker/config/web.env
-
-
 
 ### IDE / editor files ###
 
@@ -70,12 +22,5 @@ Session.vim
 
 .DS_Store
 
-### Docker volumes ###
-db
 
-### Deploy ###
-.circlerc
-deploy/venv
-deploy/deploy.retry
 *.pyc
-deploy/fabricrc.txt
