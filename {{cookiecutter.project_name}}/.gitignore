@@ -12,8 +12,8 @@ src/app/uploads/*
 !src/app/uploads/.gitkeep
 
 # WordPress
-src/wp
-src/.htaccess
+/src/wp
+/src/.htaccess
 
 # WP-CLI
 db-sync
@@ -26,8 +26,8 @@ sql-dump-*.sql
 !.env.example
 
 # Vendor (e.g. Composer)
-vendor/*
-!vendor/.gitkeep
+/vendor/*
+/!vendor/.gitkeep
 
 # Node Package Manager
 node_modules
@@ -70,11 +70,9 @@ Session.vim
 .DS_Store
 
 ### Docker volumes ###
-db
+/db
 
 ### Deploy ###
-.circlerc
-deploy/venv
-deploy/deploy.retry
+/deploy/venv
+/deploy/deploy.retry
 *.pyc
-deploy/fabricrc.txt
