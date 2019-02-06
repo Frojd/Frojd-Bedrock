@@ -5,4 +5,3 @@ setup:
 	ln -nfs $(PWD)/.githooks/pre-commit.sh .git/hooks/pre-commit
 	ln -nfs $(PWD)/.githooks/bump-version.sh .git/hooks/post-flow-release-start
 	ln -nfs $(WPD)/.githooks/bump-version.sh .git/hooks/post-flow-hotfix-start
-	docker-compose up
