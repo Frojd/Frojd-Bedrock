@@ -4,7 +4,7 @@
 
 ## Requirements
 
-* Docker ([Install instructions](#how-do-i-install-docker-on-macoswindows))
+* Docker
 
 ## Installation
 
