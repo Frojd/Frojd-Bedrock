@@ -12,7 +12,7 @@ STAGE=$(echo $1 | awk '{print toupper($0)}')
 source scripts/sync/STAGES
 
 REMOTE_HOST=$(eval "echo $"${STAGE}_HOST)
-REMOTE_USERNAME=$(eval "echo $"${STAGE}_USERNAME)
+REMOTE_USER=$(eval "echo $"${STAGE}_USER)
 REMOTE_SRC_PATH=$(eval "echo $"${STAGE}_SRC_PATH)
 REMOTE_UPLOAD_PATH=$(eval "echo $"${STAGE}_UPLOAD_PATH)
 REMOTE_DOMAIN=$(eval "echo $"${STAGE}_DOMAIN)
@@ -28,10 +28,10 @@ then
 fi
 
 
-ssh $REMOTE_USERNAME@$REMOTE_HOST "cd $REMOTE_SRC_PATH;
+ssh $REMOTE_USER@$REMOTE_HOST "cd $REMOTE_SRC_PATH;
     wp --allow-root db export /tmp/latest.sql;"
 
-scp $REMOTE_USERNAME@$REMOTE_HOST:/tmp/latest.sql docker/files/db-dumps/latest.sql
+scp $REMOTE_USER@$REMOTE_HOST:/tmp/latest.sql docker/files/db-dumps/latest.sql
 
 docker-compose exec web bash -c "cd app;
     wp --allow-root db import /app/db-dumps/latest.sql;
@@ -43,6 +43,6 @@ docker-compose exec web bash -c "cd app;
     wp --allow-root plugin deactivate nginx-cache;
     wp --allow-root user update admin --user_pass=admin;"
 
-rsync -re ssh $REMOTE_USERNAME@$REMOTE_HOST:$REMOTE_UPLOAD_PATH/* src/app/uploads/
+rsync -re ssh $REMOTE_USER@$REMOTE_HOST:$REMOTE_UPLOAD_PATH/* src/app/uploads/
 
 cd -
