@@ -7,6 +7,6 @@
 cd $(git rev-parse --show-toplevel)
 
 COMMAND="cd /app; wp --allow-root $@"
-docker-compose run --rm web bash -c "$COMMAND"
+docker-compose exec web bash -c "$COMMAND"
 
 cd -
