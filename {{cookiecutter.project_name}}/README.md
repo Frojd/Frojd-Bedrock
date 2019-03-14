@@ -14,8 +14,10 @@
     ```
     cp docker/config/web.example.env docker/config/web.env
     ```
+    
+2. Add a working ACF_PRO_KEY to ``docker/config/web.env``
 
-2. Include this ip on your hosts-file
+3. Include this ip on your hosts-file
 
     ```
     127.0.0.1 {{cookiecutter.domain_prod}}.test
@@ -27,13 +29,13 @@
     echo 127.0.0.1 {{cookiecutter.domain_prod}}.test >> c:\windows\System32\drivers\etc\hosts
     ```
 
-3. Start project
+4. Start project
 
     ```
     docker-compose up
     ```
 
-4. Visit your site on: [http://{{cookiecutter.domain_prod}}.test:{{cookiecutter.docker_web_port}}](http://{{cookiecutter.domain_prod}}.test:{{cookiecutter.docker_web_port}})
+5. Visit your site on: [http://{{cookiecutter.domain_prod}}.test:{{cookiecutter.docker_web_port}}](http://{{cookiecutter.domain_prod}}.test:{{cookiecutter.docker_web_port}})
 
 
 ### Remote debugging for xdebug
