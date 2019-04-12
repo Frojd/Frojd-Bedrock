@@ -26,6 +26,7 @@ services:
                 - XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
         ports:
             - "{{cookiecutter.docker_web_port}}:80"
+            - "{{cookiecutter.docker_web_ssl_port}}:443"
         links:
           - db
           - redis
