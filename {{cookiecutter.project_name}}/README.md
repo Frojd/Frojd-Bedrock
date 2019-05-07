@@ -37,6 +37,17 @@
 
 5. Visit your site on: [http://{{cookiecutter.domain_prod}}.test:{{cookiecutter.docker_web_port}}](http://{{cookiecutter.domain_prod}}.test:{{cookiecutter.docker_web_port}})
 
+### Enable SSL 
+
+If you need ssl for local development this can be enabled using mkcert with the following command: 
+
+```
+$ scripts/enable_ssl.sh
+```
+
+Please note that this installs a trusted development certificate on your local machine whcih gives complete power 
+to intercept secure requests from your machine. Do not share it!
+
 
 ### Remote debugging for xdebug
 
