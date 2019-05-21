@@ -1,7 +1,7 @@
 version: '2'
 services:
     search:
-        image: elasticsearch:6.3
+        image: elasticsearch:2.4
         ports:
             - "{{cookiecutter.docker_search_port}}:9200"
     db:
