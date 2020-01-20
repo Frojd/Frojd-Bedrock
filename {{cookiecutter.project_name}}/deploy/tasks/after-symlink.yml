@@ -1,3 +1,4 @@
+{% raw -%}
 - name: Restart PHP
   service: name=php7.2-fpm state=restarted
   become: true
@@ -7,9 +8,10 @@
   become: true
 
 - name: Flush permalinks
-  shell: chdir={{ ansistrano_release_path.stdout }}
+  shell: chdir="{{ ansistrano_release_path.stdout }}"
     wp --allow-root rewrite flush
 
 - name: Flush cache
-  shell: chdir={{ ansistrano_release_path.stdout }}
+  shell: chdir="{{ ansistrano_release_path.stdout }}"
     wp --allow-root cache flush
+{% endraw %}
