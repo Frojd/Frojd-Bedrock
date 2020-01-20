@@ -1,14 +1,15 @@
 <?php
 const APP_VERSION = "2.2.1";
 
-$root_dir = dirname(__DIR__);
-$webroot_dir = $root_dir . '/src';
+define('ROOT_DIR', dirname(__DIR__));
+define('WEBROOT_DIR', ROOT_DIR . '/src');
+define('VENDOR_DIR', ROOT_DIR . '/vendor');
 
 /**
  * Use Dotenv to set required environment variables and load .env file in root
  */
-$dotenv = new Dotenv\Dotenv($root_dir);
-if (file_exists($root_dir . '/.env')) {
+$dotenv = new Dotenv\Dotenv(ROOT_DIR);
+if (file_exists(ROOT_DIR . '/.env')) {
   $dotenv->load();
   $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'WP_SITEURL']);
 }
@@ -35,7 +36,7 @@ define('WP_SITEURL', getenv('WP_SITEURL'));
  * Custom Content Directory
  */
 define('CONTENT_DIR', '/app');
-define('WP_CONTENT_DIR', $webroot_dir . CONTENT_DIR);
+define('WP_CONTENT_DIR', WEBROOT_DIR . CONTENT_DIR);
 define('WP_CONTENT_URL', WP_HOME . CONTENT_DIR);
 
 /**
@@ -74,7 +75,7 @@ define('WP_MEMORY_LIMIT', '124M');
  * Bootstrap WordPress
  */
 if (!defined('ABSPATH')) {
-  define('ABSPATH', $webroot_dir . '/wp/');
+  define('ABSPATH', WEBROOT_DIR . '/wp/');
 }
 
 /**

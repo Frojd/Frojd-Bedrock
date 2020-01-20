@@ -5,3 +5,11 @@
 - name: Restart nginx
   service: name=nginx state=reloaded
   become: true
+
+- name: Flush permalinks
+  shell: chdir={{ ansistrano_release_path.stdout }}
+    wp --allow-root rewrite flush
+
+- name: Flush cache
+  shell: chdir={{ ansistrano_release_path.stdout }}
+    wp --allow-root cache flush

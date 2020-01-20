@@ -7,11 +7,10 @@ ENV TZ=Europe/Stockholm
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # apt-get install All the things!
-
 RUN apt-get update && apt-get -y install supervisor nginx \
     php-fpm php-zip php-xdebug php-mysql php-simplexml \
     php-gd php-imagick php-mbstring php-soap php-curl \
-    composer vim curl mysql-client \
+    composer vim curl mysql-client libnss3-tools \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && mkdir -p /var/run/php /var/log/supervisor /var/log/nginx /app
 
@@ -20,6 +19,11 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
 
+# Install mkcert in case we need dev ssl
+RUN curl -L -o mkcert "https://github.com/FiloSottile/mkcert/releases/download/v1.3.0/mkcert-v1.3.0-linux-amd64" && \
+    chmod +x mkcert && \
+    mv mkcert /usr/local/bin/mkcert && \
+    mkdir /etc/nginx/certs/
 
 # Install configurations
 
@@ -48,6 +52,7 @@ RUN echo "xdebug.remote_enable=on" >> /etc/php/7.2/fpm/conf.d/20-xdebug.ini \
 # Open ports, multiple separated with space, e.g. EXPOSE 80 22 443
 
 EXPOSE 80
+EXPOSE 443
 
 # Default command for machine
 CMD cd /app; composer install; supervisord

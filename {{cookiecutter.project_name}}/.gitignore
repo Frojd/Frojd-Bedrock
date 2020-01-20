@@ -33,7 +33,6 @@ sql-dump-*.sql
 node_modules
 
 ### Docker ###
-
 docker/files/logs/*
 !docker/files/logs/.gitkeep
 
