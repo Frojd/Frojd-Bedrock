@@ -4,7 +4,6 @@ import $ from 'jquery';
 import initCookiePopup from './cookie-popup';
 import initScrollTo from './scroll-to';
 import mobileMenu from './mobile-menu';
-import seach from './search';
 
 $(document).ready(() => {
     const $cookiePopup = $('.js-cookie-popup');
