@@ -4,10 +4,7 @@ import $ from 'jquery';
 import initCookiePopup from './cookie-popup';
 import initScrollTo from './scroll-to';
 import mobileMenu from './mobile-menu';
-
-// Pick what browserify tests you need
-require('browsernizr/test/css/flexbox');
-const Modernizr = require('browsernizr');
+import seach from './search';
 
 $(document).ready(() => {
     const $cookiePopup = $('.js-cookie-popup');

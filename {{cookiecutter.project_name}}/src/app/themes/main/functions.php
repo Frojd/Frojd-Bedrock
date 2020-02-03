@@ -43,6 +43,7 @@ $sage_includes = [
     'src/helpers.php',
     'src/setup.php',
     'src/filters.php',
+    'src/gutenberg.php',
     'src/admin.php'
 ];
 array_walk($sage_includes, function ($file) {
