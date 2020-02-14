@@ -1,5 +1,5 @@
 {
-    "name": "{{cookiecutter.project_slug}}",
+    "name": "{{cookiecutter.project_slug|replace('_', '/')}}",
     "type": "project",
     "license": "MIT",
     "description": "{{cookiecutter.description}}",
@@ -35,23 +35,23 @@
             "type": "package",
             "package": {
                 "name": "advanced-custom-fields/advanced-custom-fields-pro",
-                "version": "5.7.13",
+                "version": "5.8.3",
                 "type": "wordpress-muplugin",
                 "dist": {
                     "type": "zip",
-                    "url": "https://connect.advancedcustomfields.com/index.php?p=pro&a=download"
+                    "url": "https://connect.advancedcustomfields.com/index.php?a=download&p=pro&k={{"{%ACF_PRO_KEY}&t={%VERSION}"}}"
                 },
                 "require": {
-                    "philippbaschke/acf-pro-installer": "^1.0",
-                    "composer/installers": "^1.0"
+                    "composer/installers": "^1.4",
+                    "ffraenz/private-composer-installer": "^3.0"
                 }
             }
         }
     ],
     "require": {
-        "php": ">=5.5",
-        "composer/installers": "~1.0.12",
-        "vlucas/phpdotenv": "^2.0.1",
+        "php": "7.2.*",
+        "composer/installers": "*",
+        "vlucas/phpdotenv": "3.*",
         "johnpbloch/wordpress": "*",
         "advanced-custom-fields/advanced-custom-fields-pro": "*",
         "wpackagist-plugin/wordpress-seo": "*",
@@ -60,7 +60,6 @@
         "wpackagist-plugin/duracelltomi-google-tag-manager": "*",
         "wpackagist-plugin/elasticpress": "*",
         "wpackagist-plugin/nginx-cache": "*",
-        "wpackagist-plugin/redis-cache": "*",
         "sentry/sentry": "*"
     },
     "require-dev": {
