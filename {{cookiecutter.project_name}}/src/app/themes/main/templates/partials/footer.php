@@ -14,11 +14,11 @@
                         <div class="footer__title"><?= $col['title']; ?></div>
                     <?php endif; ?>
 
-                    <?php if(isset($col['items'])) : ?>
+                    <?php if(isset($col['links'])) : ?>
 
                         <div class="footer__links"><?php
                             App\template_part('partials/footer-col-links', array(
-                                'links' => $col['items']
+                                'links' => $col['links']
                             ));
                         ?></div>
 

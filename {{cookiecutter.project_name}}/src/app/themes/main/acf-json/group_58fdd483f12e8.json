@@ -63,7 +63,7 @@
                         {
                             "key": "field_590c87c7a478e",
                             "label": "Links",
-                            "name": "items",
+                            "name": "links",
                             "type": "repeater",
                             "instructions": "",
                             "required": 1,
@@ -199,7 +199,7 @@
                         {
                             "key": "field_590c88cfbc4a1",
                             "label": "Follow links",
-                            "name": "items",
+                            "name": "follow_links",
                             "type": "repeater",
                             "instructions": "",
                             "required": 1,
