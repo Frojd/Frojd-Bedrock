@@ -5,7 +5,10 @@
     <?php get_template_part('partials/favicons'); ?>
 
     <?php if (SENTRY_DSN) : ?>
-        <script src="https://browser.sentry-cdn.com/4.4.1/bundle.min.js" crossorigin="anonymous"></script>
+        <script
+            src="https://browser.sentry-cdn.com/5.15.0/bundle.min.js"
+            integrity="sha384-+ysfQckQvwCB5SppH41IScIz/Iynt2pePnJNMl+D7ZOzDJ+VYhQEuwB0pA60IDM0"
+            crossorigin="anonymous"></script>
         <script>
             if (window.Sentry) {
                 Sentry.init({
