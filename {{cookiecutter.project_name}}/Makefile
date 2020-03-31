@@ -1,6 +1,6 @@
-setup:
+init:
 	git flow init
-	cp docker/config/web.example.env docker/config/web.env
+	./scripts/setup_docker_config.sh
 	chmod 755 $(PWD)/git-hooks/bump-version.sh
 	ln -nfs $(PWD)/git-hooks/bump-version.sh .git/hooks/post-flow-release-start
 	ln -nfs $(PWD)/git-hooks/bump-version.sh .git/hooks/post-flow-hotfix-start

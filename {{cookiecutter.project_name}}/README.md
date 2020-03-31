@@ -5,19 +5,18 @@
 ## Requirements
 
 * Docker
+* [Git flow](https://github.com/petervanderdoes/gitflow-avh)
 
 ## Installation
 
 
-1. Setup container .env files
-
+1. Make sure you have requirements installed
+2. In root folder, run:
     ```
-    cp docker/config/web.example.env docker/config/web.env
+    make init
     ```
     
-2. Add a working ACF_PRO_KEY to ``docker/config/web.env``
-
-3. Include this ip on your hosts-file
+2. Include this ip on your hosts-file
 
     ```
     127.0.0.1 {{cookiecutter.domain_prod}}.test
@@ -29,7 +28,7 @@
     echo 127.0.0.1 {{cookiecutter.domain_prod}}.test >> c:\windows\System32\drivers\etc\hosts
     ```
 
-4. Start project
+3. Start project
 
     ```
     docker-compose up
@@ -64,17 +63,6 @@ XDEBUG_IDEKEY="PHPSTORM"
 ```
 export XDEBUG_REMOTE_HOST=$(ifconfig | grep "inet " | grep broadcast | head -n 1 | awk '{print $2}')
 export XDEBUG_IDEKEY="PHPSTORM"
-```
-
-## Git hooks
-
-These hooks will automatically bump the application version when using `git flow release ...`
-
-```bash
-chmod 755 $PWD/git-hooks/bump-version.sh
-
-ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-release-start
-ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-hotfix-start
 ```
 
 ## Deployment
