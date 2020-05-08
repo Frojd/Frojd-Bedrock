@@ -68,6 +68,108 @@ function get_field_group($field = '', $postId = null) {
 }
 
 /**
+ * Parse flexible content field from ACF to only include blocks that exist
+ *
+ * @param $field string field name in ACF
+ * @return array
+ */
+function get_flexible_content($field, $postId, $startIndex = 0) {
+    $flexible = get_field($field, $postId);
+    if(empty($flexible))
+        return;
+
+    // Get the layouts defined to check if it exists, removed layouts should not be used
+    $object = get_field_object($field);
+    $types = $object['layouts'] ?: [];
+    if(empty($types))
+        return;
+
+    $names = array_column($types, 'name');
+    $layouts = [];
+    $index = $startIndex;
+    foreach ($flexible as $row) {
+        $layout = $row['acf_fc_layout'];
+        if(empty($layout) || !in_array($layout, $names))
+            continue;
+
+        unset($row['acf_fc_layout']);
+
+        // Find data from group with same name as layout
+        $name = $layout;
+        if(!isset($row[$layout])) {
+            // Otherwise get first field name
+            reset($row);
+            $name = key($row);
+        }
+
+        if(!isset($row[$name]))
+            continue;
+
+        $data = $row[$name] ?: [];
+        $data['acfLayout'] = $layout;
+        $data['acfIndex'] = $index;
+
+        $layouts[] = [
+            'name' => $name,
+            'data' => $data,
+        ];
+        $index++;
+    }
+    return $layouts;
+}
+
+/**
+ * Parse flexible content field from ACF to only include blocks that exist
+ *
+ * @param $field string field name in ACF
+ * @return array
+ */
+function get_flexible_content($field, $postId, $startIndex = 0) {
+    $flexible = get_field($field, $postId);
+    if(empty($flexible))
+        return;
+
+    // Get the layouts defined to check if it exists, removed layouts should not be used
+    $object = get_field_object($field);
+    $types = $object['layouts'] ?: [];
+    if(empty($types))
+        return;
+
+    $names = array_column($types, 'name');
+    $layouts = [];
+    $index = $startIndex;
+    foreach ($flexible as $row) {
+        $layout = $row['acf_fc_layout'];
+        if(empty($layout) || !in_array($layout, $names))
+            continue;
+
+        unset($row['acf_fc_layout']);
+
+        // Find data from group with same name as layout
+        $name = $layout;
+        if(!isset($row[$layout])) {
+            // Otherwise get first field name
+            reset($row);
+            $name = key($row);
+        }
+
+        if(!isset($row[$name]))
+            continue;
+
+        $data = $row[$name] ?: [];
+        $data['acfLayout'] = $layout;
+        $data['acfIndex'] = $index;
+
+        $layouts[] = [
+            'name' => $name,
+            'data' => $data,
+        ];
+        $index++;
+    }
+    return $layouts;
+}
+
+/**
  * SVG icons
  */
 function the_svg_icon($icon, $relPath = '/dist/images/') {
