@@ -10,6 +10,12 @@ function template($layout = 'base') {
     return Template::$instances[$layout];
 }
 
+function get_template_part($template, array $context = [], $layout = 'base') {
+    ob_start();
+    template_part($template, $context, $layout);
+    return ob_get_clean();
+}
+
 function template_part($template, array $context = [], $layout = 'base') {
     extract($context);
     include template($layout)->partial($template);
@@ -24,16 +30,6 @@ function asset_path($filename) {
     isset($manifest) || $manifest = new JsonManifest(get_template_directory() . '/' . Asset::$dist . '/assets.json');
 
     return (string)new Asset($filename, $manifest);
-}
-
-/**
- * Determine whether to show the sidebar
- * @return bool
- */
-function display_sidebar() {
-    static $display;
-    isset($display) || $display = apply_filters('sage/display_sidebar', true);
-    return $display;
 }
 
 /**
