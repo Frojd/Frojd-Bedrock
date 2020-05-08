@@ -57,8 +57,10 @@ add_filter('get_the_excerpt', function($str, $post = null) {
  * Sanetize filenames on upload
  */
 add_filter('sanitize_file_name', function($filename) {
-    return preg_replace('/[^a-zA-Z0-9-_\.]/', '', $filename);
-}, 20);
+    $filename = remove_accents($filename);
+    $filename = preg_replace('/[^A-Za-z0-9-\. ]/', '', $filename);
+    return $filename;
+});
 
 /**
  * Theme setup
