@@ -48,6 +48,7 @@ $sage_includes = [
     'src/nginx-cache.php',
     'src/security.php',
     'src/setup.php',
+    'src/yoast-seo.php',
 ];
 array_walk($sage_includes, function ($file) {
     if (!locate_template($file, true, true)) {
