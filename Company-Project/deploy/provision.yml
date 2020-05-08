@@ -1,0 +1,78 @@
+---
+- name: Installs wordpress application on server (secret gen, db setup, nginx config)
+  hosts: all
+
+  vars:
+    ansistrano_deploy_from: "{{ playbook_dir }}/../"
+
+  vars_prompt:
+    - name: "acf_pro_key"
+      prompt: "Enter ACF_PRO_KEY"
+
+  tasks:
+    - name: Generates secrets/passwords
+      set_fact:
+        database_password: "{{ lookup('password', '/dev/null chars=ascii_letters length=40') }}"
+        auth_key: "{{ lookup('password', 'tmp/pass1.txt length=60 chars=ascii_letters,digits,!,,,,@,#,$,%,^,&,*,(,),_,-,:,.,?,:.;,|,},{,],[') }}"
+        secure_auth_key: "{{ lookup('password', 'tmp/pass2.txt length=60 chars=ascii_letters,digits,!,,,,@,#,$,%,^,&,*,(,),_,-,:,.,?,:.;,|,},{,],[') }}"
+        logged_in_key: "{{ lookup('password', 'tmp/pass3.txt length=60 chars=ascii_letters,digits,!,,,,@,#,$,%,^,&,*,(,),_,-,:,.,?,:.;,|,},{,],[') }}"
+        nonce_key: "{{ lookup('password', 'tmp/pass4.txt length=60 chars=ascii_letters,digits,!,,,,@,#,$,%,^,&,*,(,),_,-,:,.,?,:.;,|,},{,],[') }}"
+        auth_salt: "{{ lookup('password', 'tmp/pass5.txt length=60 chars=ascii_letters,digits,!,,,,@,#,$,%,^,&,*,(,),_,-,:,.,?,:.;,|,},{,],[') }}"
+        secure_auth_salt: "{{ lookup('password', 'tmp/pass6.txt length=60 chars=ascii_letters,digits,!,,,,@,#,$,%,^,&,*,(,),_,-,:,.,?,:.;,|,},{,],[') }}"
+        logged_in_salt: "{{ lookup('password', 'tmp/pass7.txt length=60 chars=ascii_letters,digits,!,,,,@,#,$,%,^,&,*,(,),_,-,:,.,?,:.;,|,},{,],[') }}"
+        nonce_salt: "{{ lookup('password', 'tmp/pass8.txt length=60 chars=ascii_letters,digits,!,,,,@,#,$,%,^,&,*,(,),_,-,:,.,?,:.;,|,},{,],[') }}"
+
+    - name: Creates directory for shared files
+      file:
+        path: "{{ ansistrano_deploy_to }}/shared"
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: 0775
+        recurse: yes
+
+    - name: Create .env file
+      template:
+        src: templates/.env.j2
+        dest: "{{ ansistrano_deploy_to }}/shared/.env"
+        owner: www-data
+        group: www-data
+        mode: 0644
+
+    - name: Creates mysql database
+      mysql_db:
+        name: "{{ database_name }}"
+
+    - name: Creates mysql user
+      mysql_user:
+        name: "{{ database_user }}"
+        password: "{{ database_password }}"
+        priv: '{{ database_name }}.*:ALL,GRANT'
+        state: present
+
+    - name: Create nginx config
+      template:
+        src: templates/nginx.conf.j2
+        dest: "/mnt/persist/nginx/conf.d/{{ project_slug }}.conf"
+        mode: 0644
+
+    - name: Delete temp pass files
+      become: False
+      connection: local
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "tmp/pass1.txt"
+        - "tmp/pass2.txt"
+        - "tmp/pass3.txt"
+        - "tmp/pass4.txt"
+        - "tmp/pass5.txt"
+        - "tmp/pass6.txt"
+        - "tmp/pass7.txt"
+        - "tmp/pass8.txt"
+
+- name: Run deploy playbook
+  import_playbook: deploy.yml
+
+

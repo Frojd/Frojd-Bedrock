@@ -1,0 +1,97 @@
+.header {
+
+    .js-state-menu-open & {
+        background: white;
+    }
+
+    &__container {
+        @include u-wrap(site);
+    }
+
+    &__content {
+        position: relative;
+
+        @include media($mobile-menu) {
+            display: flex;
+        }
+    }
+
+    &__brand {
+        height: 40px;
+        display: block;
+    }
+
+    &__nav {
+        position: relative;
+        padding-right: 40px;
+        display: none;
+
+        @include media($mobile-menu) {
+            padding-right: 0;
+            flex: 1 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .js-state-menu-open & {
+            display: block;
+
+            @include media($mobile-menu) {
+                display: flex;
+            }
+        }
+    }
+
+    &__toggle {
+        width: 26px;
+        height: 20px;
+        position: absolute;
+        top: 10px;
+        right: 0;
+        margin: auto;
+        background: black;
+        cursor: pointer;
+
+        &::before,
+        &::after {
+            content: '';
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            right: 0;
+            top: 20%;
+            background: white;
+        }
+
+        &::after {
+            top: 60%;
+        }
+
+        @include media($mobile-menu) {
+            display: none;
+        }
+
+        .js-state-menu-open & {
+            background: white;
+
+            &::before,
+            &::after {
+                height: 2px;
+                transform: rotate(45deg);
+                transform-origin: center;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                background: black;
+            }
+
+            &::after {
+                transform: rotate(-45deg);
+            }
+        }
+    }
+
+    @media print {
+        display: none !important;
+    }
+}

@@ -1,0 +1,42 @@
+.footer {
+    
+    .js-state-menu-open & {
+        display: none;
+
+        @include media($mobile-menu) {
+            display: block;
+        }
+    }
+
+    &__container {
+        @include u-wrap(site);
+    }
+
+    &__list {
+        @include media(sm) {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -10px;
+        }
+
+        @include media(md) {
+            margin-left: -20px;
+        }
+    }
+
+    &__column {
+        @include media(sm) {
+            width: calc(50% - 10px);
+            margin-left: 10px;
+        }
+
+        @include media(md) {
+            width: calc(25% - 20px);
+            margin-left: 20px;
+        }
+    }
+
+    @media print {
+        display: none !important;
+    }
+}
