@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Filters;
 
 use Roots\Sage\Template;
 use Roots\Sage\Template\Wrapper;

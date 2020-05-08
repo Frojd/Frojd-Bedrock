@@ -1,10 +1,12 @@
 <?php
 
+namespace App\Posttypes\Contact;
+
 function register_contact() {
 
     $single = _x('Contact', 'Post type single string', 'sage');
     $plural = _x('Contacts', 'Post type plural string', 'sage');
-    $labels = post_type_labels($single, $plural);
+    $labels = \App\Posttypes\get_labels($single, $plural);
 
     $args = array(
         'label' => __('Contact', 'sage'),

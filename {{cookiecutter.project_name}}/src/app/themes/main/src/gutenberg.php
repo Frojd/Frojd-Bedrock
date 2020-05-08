@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Gutenberg;
 
 add_filter('allowed_block_types', function ($allowedBlocks, $post) {
     /**

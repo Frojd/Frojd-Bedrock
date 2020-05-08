@@ -1,6 +1,8 @@
 <?php
 
-function post_type_labels($single, $plural = null) {
+namespace App\Posttypes;
+
+function get_labels($single, $plural = null) {
     $plural = is_null($plural) ? $single : $plural;
     return array(
         'name'                  => $plural,
