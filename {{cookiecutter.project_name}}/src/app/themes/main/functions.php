@@ -41,6 +41,7 @@ add_action('customize_render_section', function ($section) {
 $sage_includes = [
     'src/acf.php',
     'src/admin.php',
+    'src/classic-editor.php',
     'src/filters.php',
     'src/gutenberg.php',
     'src/helpers.php',
