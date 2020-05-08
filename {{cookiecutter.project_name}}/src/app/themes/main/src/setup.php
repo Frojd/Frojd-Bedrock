@@ -3,6 +3,7 @@
 namespace App\Setup;
 
 use Roots\Sage\Template;
+use Roots\Sage\Template\Wrapper;
 
 /**
  * Theme assets
@@ -14,6 +15,50 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('sage/main.css', asset_path('styles/main.css'), false, $verTag);
     wp_enqueue_script('sage/main.js', asset_path('scripts/main.js'), ['jquery'], $verTag, true);
 }, 100);
+
+/**
+ * Use theme wrapper
+ */
+add_filter('template_include', function ($main) {
+    if (!is_string($main) && !(is_object($main) && method_exists($main, '__toString'))) {
+        return $main;
+    }
+    return ((new Template(new Wrapper($main)))->layout());
+}, 109);
+
+/**
+ * Add <body> classes
+ */
+add_filter('body_class', function (array $classes) {
+    // Add page slug if it doesn't exist
+    if (is_single() || is_page() && !is_front_page()) {
+        if (!in_array(basename(get_permalink()), $classes)) {
+            $classes[] = basename(get_permalink());
+        }
+    }
+    return $classes;
+});
+
+/**
+ * Add preamble to fallback for excerpt
+ */
+add_filter('get_the_excerpt', function($str, $post = null) {
+    if(has_excerpt($post))
+        return $str;
+
+    $preamble = wp_strip_all_tags(get_field('preamble', $post->ID), true);
+    if(!empty($preamble))
+        return $preamble;
+
+    return $str;
+}, 10, 2);
+
+/**
+ * Sanetize filenames on upload
+ */
+add_filter('sanitize_file_name', function($filename) {
+    return preg_replace('/[^a-zA-Z0-9-_\.]/', '', $filename);
+}, 20);
 
 /**
  * Theme setup
