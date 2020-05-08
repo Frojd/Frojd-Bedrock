@@ -69,13 +69,3 @@ add_action('after_setup_theme', function () {
      */
     load_theme_textdomain('sage', get_template_directory() . '/lang' );
 });
-
-/**
- * Purge nginx cache on option update
- */
-add_action('updated_option', function() {
-    if(class_exists('NginxCache')) {
-        $nginx = new \NginxCache;
-        $nginx->purge_zone_once();
-    }
-});

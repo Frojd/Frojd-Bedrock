@@ -44,6 +44,7 @@ $sage_includes = [
     'src/filters.php',
     'src/gutenberg.php',
     'src/helpers.php',
+    'src/nginx-cache.php',
     'src/security.php',
     'src/setup.php',
 ];
