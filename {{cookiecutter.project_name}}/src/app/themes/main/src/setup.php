@@ -59,12 +59,6 @@ add_action('after_setup_theme', function () {
     add_theme_support('html5', ['caption', 'comment-form', 'comment-list', 'gallery', 'search-form']);
 
     /**
-     * Use main stylesheet for visual editor
-     * @see assets/styles/layouts/_tinymce.scss
-     */
-    add_editor_style(asset_path('styles/editor.css'));
-
-    /**
      * Localize
      */
     load_theme_textdomain('sage', get_template_directory() . '/lang' );
