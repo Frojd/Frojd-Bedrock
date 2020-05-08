@@ -42,6 +42,7 @@ $sage_includes = [
     'src/acf.php',
     'src/admin.php',
     'src/classic-editor.php',
+    'src/gravity-forms.php',
     'src/gutenberg.php',
     'src/helpers.php',
     'src/nginx-cache.php',
