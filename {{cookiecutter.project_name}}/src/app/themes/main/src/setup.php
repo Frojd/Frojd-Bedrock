@@ -12,8 +12,8 @@ add_action('wp_enqueue_scripts', function () {
     $themeVersion = wp_get_theme()->get('Version');
     $verTag = WP_ENV == 'production' ? md5($themeVersion) : $themeVersion;
 
-    wp_enqueue_style('sage/main.css', asset_path('styles/main.css'), false, $verTag);
-    wp_enqueue_script('sage/main.js', asset_path('scripts/main.js'), ['jquery'], $verTag, true);
+    wp_enqueue_style('sage/main.css', \App\asset_path('styles/main.css'), false, $verTag);
+    wp_enqueue_script('sage/main.js', \App\asset_path('scripts/main.js'), ['jquery'], $verTag, true);
 }, 100);
 
 /**
