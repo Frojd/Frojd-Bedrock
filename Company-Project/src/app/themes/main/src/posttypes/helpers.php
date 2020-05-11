@@ -1,8 +1,10 @@
 <?php
 
-function post_type_labels($single, $plural = null) {
+namespace App\Posttypes;
+
+function get_labels($single, $plural = null) {
     $plural = is_null($plural) ? $single : $plural;
-    return array(
+    return [
         'name'                  => $plural,
         'singular_name'         => $single,
         'menu_name'             => $plural,
@@ -17,5 +19,5 @@ function post_type_labels($single, $plural = null) {
         'not_found'             => sprintf(__('No %s found', 'sage'), $plural),
         'not_found_in_trash'    => sprintf(__('No %s found in Trash', 'sage'), $plural),
         'parent_item_colon'     => sprintf(__('Parent %s', 'sage'), $single)
-    );
+    ];
 }

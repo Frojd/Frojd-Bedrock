@@ -1,8 +1,10 @@
 <?php
 
-function taxonomy_labels($single, $plural = null) {
+namespace App\Taxonomies;
+
+function get_labels($single, $plural = null) {
     $plural = is_null($plural) ? $single : $plural;
-    return array(
+    return [
         'name'                          => $plural,
         'singular_name'                 => $single,
         'menu_name'                     => $plural,
@@ -20,5 +22,5 @@ function taxonomy_labels($single, $plural = null) {
         'add_or_remove_items'           => sprintf(__('Add or remove %s', 'sage'), $plural),
         'choose_from_most_used'         => sprintf(__('Choose from the most used %s', 'sage'), $plural),
         'not_found'                     => sprintf(__('No %s found', 'sage'), $plural)
-    );
+    ];
 }

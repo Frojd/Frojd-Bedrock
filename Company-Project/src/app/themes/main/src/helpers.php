@@ -10,6 +10,12 @@ function template($layout = 'base') {
     return Template::$instances[$layout];
 }
 
+function get_template_part($template, array $context = [], $layout = 'base') {
+    ob_start();
+    template_part($template, $context, $layout);
+    return ob_get_clean();
+}
+
 function template_part($template, array $context = [], $layout = 'base') {
     extract($context);
     include template($layout)->partial($template);
@@ -24,16 +30,6 @@ function asset_path($filename) {
     isset($manifest) || $manifest = new JsonManifest(get_template_directory() . '/' . Asset::$dist . '/assets.json');
 
     return (string)new Asset($filename, $manifest);
-}
-
-/**
- * Determine whether to show the sidebar
- * @return bool
- */
-function display_sidebar() {
-    static $display;
-    isset($display) || $display = apply_filters('sage/display_sidebar', true);
-    return $display;
 }
 
 /**
@@ -69,6 +65,57 @@ function get_field_group($field = '', $postId = null) {
     if($group)
         return current($group);
     return false;
+}
+
+/**
+ * Parse flexible content field from ACF to only include blocks that exist
+ *
+ * @param $field string field name in ACF
+ * @return array
+ */
+function get_flexible_content($field, $postId, $startIndex = 0) {
+    $flexible = get_field($field, $postId);
+    if(empty($flexible))
+        return;
+
+    // Get the layouts defined to check if it exists, removed layouts should not be used
+    $object = get_field_object($field);
+    $types = $object['layouts'] ?: [];
+    if(empty($types))
+        return;
+
+    $names = array_column($types, 'name');
+    $layouts = [];
+    $index = $startIndex;
+    foreach ($flexible as $row) {
+        $layout = $row['acf_fc_layout'];
+        if(empty($layout) || !in_array($layout, $names))
+            continue;
+
+        unset($row['acf_fc_layout']);
+
+        // Find data from group with same name as layout
+        $name = $layout;
+        if(!isset($row[$layout])) {
+            // Otherwise get first field name
+            reset($row);
+            $name = key($row);
+        }
+
+        if(!isset($row[$name]))
+            continue;
+
+        $data = $row[$name] ?: [];
+        $data['acfLayout'] = $layout;
+        $data['acfIndex'] = $index;
+
+        $layouts[] = [
+            'name' => $name,
+            'data' => $data,
+        ];
+        $index++;
+    }
+    return $layouts;
 }
 
 /**

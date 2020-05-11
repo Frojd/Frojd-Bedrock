@@ -39,12 +39,16 @@ add_action('customize_render_section', function ($section) {
  * Please note that missing files will produce a fatal error.
  */
 $sage_includes = [
-    'src/security.php',
-    'src/helpers.php',
-    'src/setup.php',
-    'src/filters.php',
+    'src/acf.php',
+    'src/admin.php',
+    'src/classic-editor.php',
+    'src/gravity-forms.php',
     'src/gutenberg.php',
-    'src/admin.php'
+    'src/helpers.php',
+    'src/nginx-cache.php',
+    'src/security.php',
+    'src/setup.php',
+    'src/yoast-seo.php',
 ];
 array_walk($sage_includes, function ($file) {
     if (!locate_template($file, true, true)) {
