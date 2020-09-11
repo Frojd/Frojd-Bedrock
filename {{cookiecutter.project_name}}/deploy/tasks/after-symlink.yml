@@ -9,9 +9,9 @@
 
 - name: Flush permalinks
   shell: chdir="{{ ansistrano_release_path.stdout }}"
-    wp --allow-root rewrite flush
+    wp rewrite flush
 
 - name: Flush cache
   shell: chdir="{{ ansistrano_release_path.stdout }}"
-    wp --allow-root cache flush
+    wp cache flush
 {% endraw %}

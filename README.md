@@ -47,7 +47,6 @@ db_name_prod [prod_db]:
 db_name_stage [stage_db]:
 docker_web_port [8081]:
 docker_db_port [5433]:
-aws_devops_iam_username [client_devops]:
 version [0.1.0]: 1.0.0
 Select software_license:
 1 - MIT

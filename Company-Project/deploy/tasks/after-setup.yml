@@ -1,0 +1,9 @@
+- name: Setup directory permissions for uploads
+  file:
+    path: "{{ ansistrano_shared_path }}/src/app/uploads"
+    state: directory
+    mode: 0755
+    owner: www-data
+    group: www-data
+    recurse: true
+    follow: yes

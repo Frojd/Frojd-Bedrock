@@ -1,0 +1,146 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/repo
+
+filter_ignore_master: &filter_ignore_master
+  filters:
+    branches:
+      ignore:
+        - master
+        - /^release.*/
+    tags:
+      only:
+        - /^v.*/
+
+filter_only_develop_or_tag: &filter_only_develop_or_tag
+  filters:
+    branches:
+      only:
+        - develop
+    tags:
+      only:
+        - /^v.*/
+
+references:
+  restore_repo: &restore_repo
+    restore_cache:
+      keys:
+        - v1-repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+
+jobs:
+  checkout_code:
+    <<: *defaults
+    docker:
+      - image: circleci/python:3.6
+      - image: circleci/php:7.2-fpm-node-browsers
+      - image: circleci/node:8.11.2
+      - image: circleci/mysql:5
+    steps:
+      - checkout
+      - save_cache:
+          key: v1-repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - .
+
+  frontend:
+    <<: *defaults
+    docker:
+      - image: circleci/node:8.11.2
+    steps:
+      - *restore_repo
+      - restore_cache:
+          key: v1-npm-{{ checksum "src/app/themes/main/package.json" }}
+      - run: cd src/app/themes/main && npm install
+      - save_cache:
+          key: v1-npm-{{ checksum "src/app/themes/main/package.json" }}
+          paths:
+            - ~/repo/src/app/themes/main/package.json/node_modules
+      - run: cd src/app/themes/main && npm run build:production
+      - save_cache:
+          key: v1-assets-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/repo/src/app/themes/main/dist
+
+
+  wordpress:
+    <<: *defaults
+    docker:
+      - image: circleci/php:7.2-fpm-node-browsers
+      - image: circleci/mysql:5
+    steps:
+      - *restore_repo
+      - restore_cache:
+          key: v1-composer-{{ .Branch }}-{{ checksum "composer.json" }}
+      - run:
+          command: |
+            curl -sS https://getcomposer.org/installer | php
+            php composer.phar install --no-scripts --optimize-autoloader --no-dev
+      - save_cache:
+          key: v1-composer-{{ .Branch }}-{{ checksum "composer.json" }}
+          paths:
+            - ~/repo/vendor
+      - save_cache:
+          key: v1-wordpress-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/repo/src
+
+  deploy:
+    <<: *defaults
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - *restore_repo
+      - restore_cache:
+          key: v1-assets-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          key: v1-wordpress-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          key: v1-composer-{{ .Branch }}-{{ checksum "composer.json" }}
+      - restore_cache:
+          key: v1-deploy-{{ checksum "deploy/requirements.txt" }}
+      - run:
+          command: |
+            cd deploy
+            python3 -m venv venv
+            sudo apt-get -y -qq install rsync
+            . venv/bin/activate
+            pip install -r requirements.txt
+            ansible-galaxy install -r requirements.yml
+      - save_cache:
+          key: v1-deploy-{{ checksum "deploy/requirements.txt" }}
+          paths:
+            - deploy/venv
+      - run:
+          command: |
+            cd deploy
+            . venv/bin/activate
+
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              ansible-playbook deploy.yml -i stages/stage
+            fi
+
+            if [ "${CIRCLE_TAG}" ]; then
+              ansible-playbook deploy.yml -i stages/prod
+            fi
+
+workflows:
+  version: 2
+  build_test_and_deploy:
+    jobs:
+      - checkout_code:
+          <<: *filter_ignore_master
+      - frontend:
+          <<: *filter_ignore_master
+          requires:
+            - checkout_code
+      - wordpress:
+          <<: *filter_ignore_master
+          requires:
+            - checkout_code
+      - deploy:
+          <<: *filter_only_develop_or_tag
+          requires:
+            - wordpress
+            - frontend
+
