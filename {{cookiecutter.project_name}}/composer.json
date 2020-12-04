@@ -37,7 +37,7 @@
         }
     ],
     "require": {
-        "php": "7.2.*",
+        "php": "7.4.*",
         "composer/installers": "*",
         "vlucas/phpdotenv": "3.*",
         "johnpbloch/wordpress": "*",
