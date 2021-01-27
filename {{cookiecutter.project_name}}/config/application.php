@@ -83,7 +83,9 @@ if (!defined('ABSPATH')) {
  */
 define('SENTRY_DSN', getenv('SENTRY_DSN') ?: null);
 if (SENTRY_DSN) {
-    $client = new Raven_Client(SENTRY_DSN, [
+    Sentry\init([
+        'dsn' => SENTRY_DSN,
+        'traces_sample_rate' => 1.0,
         'tags' => [
             //'current_site' => CURRENT_SITE,
         ],
@@ -92,8 +94,5 @@ if (SENTRY_DSN) {
         'prefixes' => [
             dirname(__DIR__)
         ],
-        'app_path' => 'src'
     ]);
-
-    $client->install();
 }

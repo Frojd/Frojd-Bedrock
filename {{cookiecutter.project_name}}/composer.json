@@ -48,7 +48,7 @@
         "wpackagist-plugin/duracelltomi-google-tag-manager": "*",
         "wpackagist-plugin/elasticpress": "*",
         "wpackagist-plugin/nginx-cache": "*",
-        "sentry/sentry": "*"
+        "sentry/sdk": "*"
     },
     "require-dev": {
         "wpackagist-plugin/debug-bar": "*"
