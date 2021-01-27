@@ -2,8 +2,19 @@
   file:
     path: "{{ ansistrano_shared_path }}/src/app/uploads"
     state: directory
-    mode: 0755
-    owner: www-data
+    mode: 0775
+    owner: deploy
     group: www-data
     recurse: true
     follow: yes
+    
+- name: Make sure deploy:www-data has ownership of current
+  file:
+    path: "{{ item }}"
+    owner: deploy
+    group: www-data
+    state: directory
+    recurse: yes
+  with_items:
+    - "{{ ansistrano_deploy_to }}/current"
+
