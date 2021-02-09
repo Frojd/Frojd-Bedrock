@@ -106,6 +106,7 @@ jobs:
             python3 -m venv venv
             sudo apt-get -y -qq install rsync
             . venv/bin/activate
+            pip install -U pip
             pip install -r requirements.txt
             ansible-galaxy install -r requirements.yml
       - save_cache:
