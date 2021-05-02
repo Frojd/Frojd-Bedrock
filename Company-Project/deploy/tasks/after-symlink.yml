@@ -1,5 +1,5 @@
 - name: Restart PHP
-  service: name=php7.2-fpm state=restarted
+  service: name=php7.4-fpm state=restarted
   become: true
 
 - name: Restart nginx
@@ -8,8 +8,9 @@
 
 - name: Flush permalinks
   shell: chdir="{{ ansistrano_release_path.stdout }}"
-    wp --allow-root rewrite flush
+    wp rewrite flush
 
 - name: Flush cache
   shell: chdir="{{ ansistrano_release_path.stdout }}"
-    wp --allow-root cache flush
+    wp cache flush
+
