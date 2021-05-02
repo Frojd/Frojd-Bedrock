@@ -1,0 +1,124 @@
+version: 2.1
+
+#orbs:
+  #slack: circleci/slack@4.2.1
+
+defaults: &defaults
+  working_directory: ~/repo
+  environment:
+    TEST_RESULTS: /tmp/test-results
+
+references:
+  restore_repo: &restore_repo
+    restore_cache:
+      keys:
+        - v1-repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build:
+          context:
+            - CIRCLECI_BOT
+      - backend:
+          context:
+            - CIRCLECI_BOT
+          requires:
+            - build
+      - frontend:
+          context:
+            - CIRCLECI_BOT
+          requires:
+            - build
+
+jobs:
+  build:
+    <<: *defaults
+    docker:
+      - image: circleci/python:3.8
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - run:
+          name: Install cookiecutter
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install cookiecutter
+      - run: mkdir -p $TEST_RESULTS
+      - run:
+          name: Run cookiecutter
+          command: |
+            set -x
+            . venv/bin/activate
+            rm -rf Company-Project
+            cookiecutter . --no-input
+      - save_cache:
+          key: v1-repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - .
+      #- slack/notify:
+          #event: fail
+          #template: basic_fail_1
+  backend:
+    <<: *defaults
+    docker:
+        - image: circleci/php:7.4-node-browsers
+    steps:
+      - *restore_repo
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.29.1/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - setup_remote_docker
+      #- run:
+          #name: Create docker-compose config for running boilerplate tests
+          #command: |
+            #set -x
+            #cp docker-compose-circleci.yml Company-Project/docker-compose-circleci.yml
+      - run:
+          name: Build image
+          command: |
+            set -x
+            cd Company-Project && docker-compose build
+      - run:
+          name: Install WP
+          command: |
+            set -x
+            cd Company-Project
+            git init  # Required by setup_docker_config
+            echo ACF_CODE | ./scripts/setup_docker_config.sh
+            cat /home/circleci/repo/Company-Project/composer.json
+            cat /home/circleci/repo/Company-Project/composer.lock
+            cat /home/circleci/repo/Company-Project/docker/config/web.env
+            docker-compose run --rm composer sh -c "pwd && ls -la && cat composer.json && composer install"
+            docker-compose run --rm wp-cli sh -c "wp --allow-root core install --url=example.com --title=Example --admin_user=supervisor --admin_password=strongpassword --admin_email=info@example.com"
+      #- run:
+          #name: Run tests on container
+          #command: |
+            #set -x
+            #cd Company-Project
+            #docker-compose -f docker-compose-circleci.yml run --rm python test
+            #docker-compose -f docker-compose-circleci.yml run --rm python typecheck
+      #- slack/notify:
+          #event: fail
+          #template: basic_fail_1
+  frontend:
+    <<: *defaults
+    docker:
+      - image: circleci/node:8
+    steps:
+      - *restore_repo
+      - run:
+          name: Run frontend tests
+          command: |
+            cd Company-Project/src/app/themes/main/
+            npm ci
+            #npm run test
+            npm run build:production
+      #- slack/notify:
+          #event: fail
+          #template: basic_fail_1

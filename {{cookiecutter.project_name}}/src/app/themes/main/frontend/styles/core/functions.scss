@@ -1,6 +1,7 @@
 // Returns a key value if it exsists
 @function get-default($map, $key: 'd', $default: '') {
     $value: $key;
+
     @if $default != '' {
         $value: $default;
     }

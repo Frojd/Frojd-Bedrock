@@ -62,7 +62,13 @@ services:
         command: install
         volumes:
             - ./src:/app/src
-            - ./composer.json:/app/composer.json
-            - "./composer.lock:/app/composer.lock"
-            - ./docker/config/web.env:/app/.env
             - ./vendor:/app/vendor
+            - type: bind
+              source: /home/circleci/repo/Company-Project/composer.json
+              target: /app/composer.json
+            - type: bind
+              source: /home/circleci/repo/Company-Project/composer.lock
+              target: /app/composer.lock
+            - type: bind
+              source: /home/circleci/repo/Company-Project/docker/config/web.env
+              target: /app/.env
