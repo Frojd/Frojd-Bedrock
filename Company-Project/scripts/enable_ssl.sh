@@ -31,18 +31,18 @@ DOMAIN="example.com.test"
 HTTP_PORT=8080
 HTTPS_PORT=8081
 
-CONTAINER_ID=$(eval 'docker-compose exec web bash -c "hostname"' | tr -d '\r')
-CONTAINER_CA_ROOT=$(eval 'docker-compose exec web bash -c "mkcert -CAROOT"' | tr -d '\r')
+CONTAINER_ID=$(eval 'docker-compose exec web sh -c "hostname"' | tr -d '\r')
+CONTAINER_CA_ROOT=$(eval 'docker-compose exec web sh -c "mkcert -CAROOT"' | tr -d '\r')
 LOCAL_CA_ROOT=$(eval 'mkcert -CAROOT' | tr -d '\r')
 
-docker-compose exec web bash -c "cd /etc/nginx/certs/ ; 
+docker-compose exec web sh -c "cd /etc/nginx/certs/ ; 
     mkcert '*.$DOMAIN' $DOMAIN localhost 127.0.0.1 ::1 ; 
     mv _wildcard.$DOMAIN+4.pem dev-cert.pem ; 
     mv _wildcard.$DOMAIN+4-key.pem dev-key.pem ; 
     sed -i '/#mkcert/s/#mkcert//g' /etc/nginx/sites-enabled/default ; 
     service nginx restart"
 
-docker-compose exec web bash -c "cd app;
+docker-compose exec web sh -c "cd app;
     wp --allow-root search-replace http://${DOMAIN}:${HTTP_PORT} https://${DOMAIN}:${HTTPS_PORT}"
 
 
