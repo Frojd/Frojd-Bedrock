@@ -118,4 +118,38 @@ add_action('after_setup_theme', function () {
      * Localize
      */
     load_theme_textdomain('sage', get_template_directory() . '/lang' );
+
+    /**
+     * Remove default wordpress extra sizes
+     */
+    remove_image_size('1536x1536');
+    remove_image_size('2048x2048');
+});
+
+add_action('switch_theme', function() {
+    /**
+     * Reset default image sizes
+     */
+    $imageSizes = \App\get_image_sizes();
+    foreach($imageSizes as $size) {
+        update_option("{$name}_size_w", $size['width']);
+        update_option("{$name}_size_h", 9999);
+    }
+    update_option('thumbnail_crop', 0);
+});
+
+/**
+ * Make sure only allowed image sizes are registered
+ */
+add_filter('intermediate_image_sizes', function($default) {
+    $imageSizes = \App\get_image_sizes();
+    return array_keys($imageSizes);
+});
+
+/**
+ * Define the sizes available in admin
+ */
+add_filter('image_size_names_choose', function($sizes) {
+    $imageSizes = \App\get_image_sizes();
+    return array_combine(array_keys($imageSizes), array_column($imageSizes, 'title'));
 });

@@ -66,6 +66,27 @@ function title() {
     return get_the_title();
 }
 
+function get_image_sizes() {
+    return [ // Must list from smallest to largest
+        'thumbnail' => [
+            'name' => __('Small', 'sage'),
+            'width' => 512,
+        ], // For three- and four-column grids
+        'medium' => [
+            'name' => __('Medium', 'sage'),
+            'width' => 800,
+        ], // For content wide images and half grids
+        'medium_large' => [
+            'name' => __('Large', 'sage'),
+            'width' => 1600,
+        ], // For site wide images
+        'large' => [
+            'name' => __('Full', 'sage'),
+            'width' => 2400,
+        ], // For large and fullsize images
+    ];
+}
+
 /**
  * Get a field as object when it is a repeater field with a single row
  */
