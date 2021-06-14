@@ -9,9 +9,7 @@ use Roots\Sage\Template\Wrapper;
  * Theme assets
  */
 add_action('wp_enqueue_scripts', function () {
-    $themeVersion = wp_get_theme()->get('Version');
-    $verTag = WP_ENV == 'production' ? md5($themeVersion) : $themeVersion;
-
+    $verTag = \App\get_ver_tag();
     wp_enqueue_style('sage/main.css', \App\asset_path('styles/main.css'), false, $verTag);
     wp_enqueue_script('sage/main.js', \App\asset_path('scripts/main.js'), ['jquery'], $verTag, true);
 }, 100);
@@ -25,6 +23,13 @@ add_filter('template_include', function ($main) {
     }
     return ((new Template(new Wrapper($main)))->layout());
 }, 109);
+
+add_action('wp_head', function() {
+    $verTag = \App\get_ver_tag();
+?>
+    <link rel="manifest" href="<?= get_template_directory_uri() . "/manifest.webmanifest?ver={$verTag}"; ?>" crossorigin="use-credentials">
+<?php
+});
 
 /**
  * Add <body> classes

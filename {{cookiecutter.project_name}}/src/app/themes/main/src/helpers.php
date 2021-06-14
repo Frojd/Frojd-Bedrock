@@ -6,6 +6,11 @@ use Roots\Sage\Asset;
 use Roots\Sage\Assets\JsonManifest;
 use Roots\Sage\Template;
 
+function get_ver_tag() {
+    $themeVersion = wp_get_theme()->get('Version');
+    return WP_ENV == 'production' ? md5($themeVersion) : $themeVersion;
+}
+
 function template($layout = 'base') {
     return Template::$instances[$layout];
 }
