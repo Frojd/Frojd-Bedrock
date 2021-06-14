@@ -131,7 +131,7 @@ add_action('switch_theme', function() {
      * Reset default image sizes
      */
     $imageSizes = \App\get_image_sizes();
-    foreach($imageSizes as $size) {
+    foreach($imageSizes as $name => $size) {
         update_option("{$name}_size_w", $size['width']);
         update_option("{$name}_size_h", 9999);
     }
@@ -151,5 +151,5 @@ add_filter('intermediate_image_sizes', function($default) {
  */
 add_filter('image_size_names_choose', function($sizes) {
     $imageSizes = \App\get_image_sizes();
-    return array_combine(array_keys($imageSizes), array_column($imageSizes, 'title'));
+    return array_combine(array_keys($imageSizes), array_column($imageSizes, 'name'));
 });
