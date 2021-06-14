@@ -66,3 +66,17 @@ add_action('pre_get_posts', function($query) {
             break;
     }
 });
+
+/**
+ * For making taxonomy option meta_box_cb = false work in Gutenberg
+ */
+add_filter('rest_prepare_taxonomy', function($response, $taxonomy, $request) {
+    $context = !empty($request['context']) ? $request['context'] : 'view';
+    // Context is edit in the editor
+    if($context === 'edit' && $taxonomy->meta_box_cb === false) {
+        $data = $response->get_data();
+        $data['visibility']['show_ui'] = false;
+        $response->set_data($data);
+    }
+    return $response;
+}, 10, 3);
