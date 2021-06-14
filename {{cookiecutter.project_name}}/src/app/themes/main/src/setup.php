@@ -49,18 +49,27 @@ add_filter('body_class', function (array $classes) {
 });
 
 /**
- * Add preamble to fallback for excerpt
+ * Make it possible to be used for other strings
  */
 add_filter('get_the_excerpt', function($str, $post = null) {
-    if(has_excerpt($post))
+    if(!is_null($post) && has_excerpt($post))
         return $str;
 
-    $preamble = wp_strip_all_tags(get_field('preamble', $post->ID), true);
-    if(!empty($preamble))
-        return $preamble;
+    $length = (int) apply_filters('excerpt_length', 55);
+    $more = apply_filters('excerpt_more', '...');
 
-    return $str;
+    $str = str_replace('&nbsp;', '', $str);
+    $excerpt = wp_trim_words($str, $length, $more);
+    return $excerpt;
 }, 10, 2);
+
+add_filter('excerpt_more', function() {
+    return '...';
+});
+
+add_filter('excerpt_length', function() {
+    return 20;
+});
 
 /**
  * Sanetize filenames on upload

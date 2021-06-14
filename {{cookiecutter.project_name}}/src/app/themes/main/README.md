@@ -86,7 +86,6 @@ We use ACF to add a settings page in admin to set some fields:
 * 404 - Title and description fields for 404 template
 
 We use ACF to add other settings to posts or pages:
-* Preamble - Added to all pages and posts, used as meta description and in listings
 * Hero & Blurbs - Added to Front page
 * Hide in menu - Added to pages to be able to hide a page in all menus, specifically when using automatic hierarchical menus.
 * Related - Added to posts for selecting related posts
@@ -112,7 +111,6 @@ We use ACF to add other settings to posts or pages:
 ### Filters
 * the_content - Wraps an iframe into a container to make it responsive
 * tiny_mce_before_init - Changes settings in tinymce WYSIWYG to remove some settings, e.g. h1, and add Facts format selection
-* get_the_excerpt - If the excerpt-field is empty it will use preamble instead (in lists, meta description etc), and last use body content.
 
 ## Theme development
 

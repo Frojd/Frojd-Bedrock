@@ -8,25 +8,26 @@ add_filter('wpseo_metabox_prio', function() {
 });
 
 /**
- * Add custom variable to be able to show preamble as fallback to excerpt
+ * Add custom variable to be able to show hero text as fallback to excerpt
  */
 add_action('wpseo_register_extra_replacements', function() {
     wpseo_register_var_replacement(
-        '%%preamble%%',
-        __NAMESPACE__ . '\\_wpseoRegisterPreamble',
+        '%%custom_excerpt%%',
+        __NAMESPACE__ . '\\_wpseoRegisterCustomExcerpt',
         'advanced',
-        'Shows preamble if it exists'
+        'Shows hero text if it exists, and otherwise excerpt'
     );
 });
 
-function _wpseoRegisterPreamble() {
+function _wpseoRegisterCustomExcerpt() {
     global $post;
 
     $more = apply_filters('excerpt_more', '...');
-    $preamble = wp_trim_words(get_field('preamble', $post->ID), 20, $more);
+    $default = wp_trim_words($post->post_content, 20, $more);
 
-    if(!empty($preamble))
-        return $preamble;
+    $heroText = get_field('hero_text', $post->ID);
+    if(empty($heroText))
+        return $default;
 
-    return wp_trim_words($post->post_content, 20, $more);
+    return wp_trim_words($heroText, 20, $more);
 }
