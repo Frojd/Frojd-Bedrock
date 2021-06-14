@@ -2,6 +2,39 @@
 
 namespace App\Gutenberg;
 
+/*
+ * Possibility to disable gutenberg completely in admin view so the editor is removed, e.g. front page
+ */
+function _disable_gutenberg($postId) {
+    return false;
+}
+
+add_filter('gutenberg_can_edit_post_type', function($canEdit) {
+    if(is_admin() && isset($_GET['post'])) {
+        $disableGutenberg = _disable_gutenberg($_GET['post']);
+        if($disableGutenberg)
+            return false;
+    }
+    return $canEdit;
+});
+
+add_filter('use_block_editor_for_post_type', function($canEdit) {
+    if(is_admin() && isset($_GET['post'])) {
+        $disableGutenberg = _disable_gutenberg($_GET['post']);
+        if($disableGutenberg)
+            return false;
+    }
+    return $canEdit;
+});
+
+add_action('admin_head', function() {
+    if(isset($_GET['post'])) {
+        $disableGutenberg = _disable_gutenberg($_GET['post']);
+        if($disableGutenberg)
+            remove_post_type_support('page', 'editor');
+    }
+});
+
 add_filter('allowed_block_types', function ($allowedBlocks, $post) {
     /**
      *  See all registered blocks:
@@ -10,6 +43,10 @@ add_filter('allowed_block_types', function ($allowedBlocks, $post) {
      *  var_dump($registeredBlocks);
      *
      */
+
+    $disableGutenberg = _disable_gutenberg($post->ID);
+    if($disableGutenberg)
+        return [];
 
     $allowedBlocks = [
         'core/block',
