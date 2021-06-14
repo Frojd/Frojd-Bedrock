@@ -1,6 +1,23 @@
 const { __ } = wp.i18n;
 const { InnerBlocks } = wp.blockEditor;
 
+wp.data.dispatch('core/edit-post').removeEditorPanel('discussion-panel');
+wp.data.dispatch('core/edit-post').removeEditorPanel('taxonomy-panel-category');
+
+wp.domReady(() => {
+    wp.blocks.unregisterBlockStyle('core/quote', ['large', 'default']);
+    wp.blocks.unregisterBlockStyle('core/table', ['regular', 'stripes']);
+    wp.blocks.unregisterBlockStyle('core/image', ['default', 'rounded']);
+    wp.blocks.unregisterBlockStyle('core/button', ['default', 'fill', 'outline', 'squared']);
+
+    const allowedEmbedBlocks = ['vimeo', 'youtube'];
+    wp.blocks.getBlockVariations('core/embed').forEach(function (blockVariation) {
+        if (-1 === allowedEmbedBlocks.indexOf(blockVariation.name)) {
+            wp.blocks.unregisterBlockVariation('core/embed', blockVariation.name);
+        }
+    });
+});
+
 wp.blocks.registerBlockType('sage/preamble', {
     category: 'common',
     title: 'Ingress',
