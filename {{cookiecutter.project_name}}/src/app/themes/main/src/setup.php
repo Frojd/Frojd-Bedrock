@@ -27,6 +27,10 @@ add_filter('template_include', function ($main) {
 add_action('wp_head', function() {
     $verTag = \App\get_ver_tag();
 ?>
+    <link rel="preload" href="<?= \App\asset_path('assets/fonts/filename.woff2'); ?>" as="font" type="font/woff2" crossorigin />
+
+    <link rel="preload" href="<?= \App\asset_path("styles/main.css?ver={$verTag}"); ?>" as="style" />
+
     <link rel="manifest" href="<?= get_template_directory_uri() . "/manifest.webmanifest?ver={$verTag}"; ?>" crossorigin="use-credentials">
 <?php
 });
