@@ -18,6 +18,12 @@ function template($layout = 'base') {
 function get_template_part($template, array $context = [], $layout = 'base') {
     ob_start();
     template_part($template, $context, $layout);
+    /**
+     * Mock a template wrapper for admin. Otherwise templates will crash
+     */
+    if (!template($layout)) {
+        new Template(new Wrapper(''));
+    }
     return ob_get_clean();
 }
 
