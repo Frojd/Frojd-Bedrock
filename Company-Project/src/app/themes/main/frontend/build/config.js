@@ -6,24 +6,26 @@ const desire = require('./util/desire');
 
 const userConfig = merge(desire(`${__dirname}/../config`), desire(`${__dirname}/../config-local`));
 
-const isProduction = !!((argv.env && argv.env.production) || argv.p);
+const isProduction = !!((argv.env && argv.env.production) || argv.env === 'production' || argv.p);
 const rootPath = (userConfig.paths && userConfig.paths.root)
-  ? userConfig.paths.root
-  : process.cwd();
-
+  ? path.join(userConfig.paths.root, '../')
+  : path.join(process.cwd(), '../');
 
 const config = merge({
   open: true,
-  copy: 'images/**/*',
+  copy: 'assets/',
   proxyUrl: 'http://localhost:3000',
   cacheBusting: '[name]_[hash]',
   paths: {
     root: rootPath,
-    assets: path.join(rootPath, 'frontend'),
+    base: path.join(rootPath, 'frontend'),
     dist: path.join(rootPath, 'dist'),
+    assets: path.join(rootPath, 'frontend', 'assets'),
+    styles: path.join(rootPath, 'frontend', 'styles'),
+    scripts: path.join(rootPath, 'frontend', 'scripts'),
   },
   enabled: {
-    sourceMaps: !isProduction,
+    sourceMaps: true, // Can not be set to false since it breaks url resolve
     optimize: isProduction,
     cacheBusting: isProduction,
     watcher: !!argv.watch,

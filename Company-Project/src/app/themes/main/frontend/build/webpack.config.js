@@ -3,18 +3,19 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const CleanPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
-const CopyGlobsPlugin = require('copy-globs-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 const desire = require('./util/desire');
 const config = require('./config');
 
 const assetsFilenames = (config.enabled.cacheBusting) ? config.cacheBusting : '[name]';
+const isProduction = process.env.NODE_ENV === 'production' || config.env.production;
 
 let webpackConfig = {
-  context: config.paths.assets,
+  context: config.paths.base,
   entry: config.entry,
   devtool: (config.enabled.sourceMaps ? '#source-map' : undefined),
   output: {
@@ -41,13 +42,13 @@ let webpackConfig = {
       {
         enforce: 'pre',
         test: /\.js$/,
-        include: config.paths.assets,
+        include: config.paths.base,
         use: 'eslint',
       },
       {
         enforce: 'pre',
         test: /\.(js|s?[ca]ss)$/,
-        include: config.paths.assets,
+        include: config.paths.base,
         loader: 'import-glob',
       },
       {
@@ -59,45 +60,26 @@ let webpackConfig = {
         ],
       },
       {
-        test: /\.css$/,
-        include: config.paths.assets,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style',
-          use: [
-            { loader: 'cache' },
-            { loader: 'css', options: { sourceMap: config.enabled.sourceMaps } },
-            {
-              loader: 'postcss', options: {
-                config: { path: __dirname, ctx: config },
-                sourceMap: config.enabled.sourceMaps,
-              },
-            },
-          ],
-        }),
-      },
-      {
         test: /\.scss$/,
-        include: config.paths.assets,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style',
-          use: [
-            { loader: 'cache' },
-            { loader: 'css', options: { sourceMap: config.enabled.sourceMaps } },
-            {
-              loader: 'postcss', options: {
-                config: { path: __dirname, ctx: config },
-                sourceMap: config.enabled.sourceMaps,
-              },
+        include: config.paths.styles,
+        use: [
+          { loader: 'cache' },
+          { loader: MiniCssExtractPlugin.loader },
+          { loader: 'css-loader', options: { sourceMap: config.enabled.sourceMaps } },
+          {
+            loader: 'postcss-loader', options: {
+              config: { path: __dirname, ctx: config },
+              sourceMap: config.enabled.sourceMaps,
             },
-            { loader: 'resolve-url', options: { sourceMap: config.enabled.sourceMaps } },
-            {
-              loader: 'sass', options: {
-                sourceMap: config.enabled.sourceMaps,
-                sourceComments: true,
-              },
+          },
+          { loader: 'resolve-url', options: { sourceMap: config.enabled.sourceMaps } },
+          {
+            loader: 'sass-loader', options: {
+              sourceMap: config.enabled.sourceMaps,
+              sourceComments: true,
             },
-          ],
-        }),
+          },
+        ],
       },
       {
         test: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|svg|ico)$/,
@@ -122,7 +104,7 @@ let webpackConfig = {
   },
   resolve: {
     modules: [
-      config.paths.assets,
+      config.paths.base,
       'node_modules',
     ],
     enforceExtension: false,
@@ -138,20 +120,12 @@ let webpackConfig = {
       root: config.paths.root,
       verbose: false,
     }),
-    /**
-     * It would be nice to switch to copy-webpack-plugin, but
-     * unfortunately it doesn't provide a reliable way of
-     * tracking the before/after file names
-     */
-    new CopyGlobsPlugin({
-      pattern: config.copy,
-      output: `[path]${assetsFilenames}.[ext]`,
-      manifest: config.manifest,
-    }),
-    new ExtractTextPlugin({
+    new CopyWebpackPlugin([{
+      from: config.copy,
+      to: config.copy,
+    }]),
+    new MiniCssExtractPlugin({
       filename: `styles/${assetsFilenames}.css`,
-      allChunks: true,
-      disable: (config.enabled.watcher),
     }),
     new webpack.ProvidePlugin({
       $: 'jquery',
@@ -164,13 +138,13 @@ let webpackConfig = {
       debug: config.enabled.watcher,
       stats: { colors: true },
     }),
-    new webpack.LoaderOptionsPlugin({
-      test: /\.s?css$/,
-      options: {
-        output: { path: config.paths.dist },
-        context: config.paths.assets,
-      },
-    }),
+    // new webpack.LoaderOptionsPlugin({
+    //   test: /\.s?css$/,
+    //   options: {
+    //     output: { path: config.paths.dist },
+    //     context: config.paths.styles,
+    //   },
+    // }),
     new webpack.LoaderOptionsPlugin({
       test: /\.js$/,
       options: {
@@ -192,7 +166,7 @@ if (config.enabled.optimize) {
   webpackConfig = merge(webpackConfig, require('./webpack.config.optimize'));
 }
 
-if (config.env.production) {
+if (isProduction) {
   webpackConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
 }
 

@@ -1,0 +1,24 @@
+{
+    "name": "Project",
+    "short_name": "Project",
+    "description": "A short description for public display of site used in manifest",
+    "icons": [
+        {
+            "src": "/app/themes/main/favicons/maskable-192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/app/themes/main/favicons/maskable-512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any maskable"
+        }
+    ],
+    "start_url": "/?source=pwa",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#ffffff"
+}
