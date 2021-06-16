@@ -9,6 +9,7 @@ filter_ignore_master: &filter_ignore_master
     branches:
       ignore:
         - master
+        - main
         - /^release.*/
     tags:
       only:
