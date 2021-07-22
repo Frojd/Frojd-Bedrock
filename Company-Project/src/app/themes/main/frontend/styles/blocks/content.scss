@@ -1,5 +1,9 @@
 .content {
     &__header {
-        @include u-wrap(site);
+        @include wrap(site);
+    }
+
+    &__title {
+        @include textstyle(title);
     }
 }

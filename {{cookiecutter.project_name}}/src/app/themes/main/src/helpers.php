@@ -6,6 +6,11 @@ use Roots\Sage\Asset;
 use Roots\Sage\Assets\JsonManifest;
 use Roots\Sage\Template;
 
+function get_ver_tag() {
+    $themeVersion = wp_get_theme()->get('Version');
+    return WP_ENV == 'production' ? md5($themeVersion) : $themeVersion;
+}
+
 function template($layout = 'base') {
     return Template::$instances[$layout];
 }
@@ -13,6 +18,12 @@ function template($layout = 'base') {
 function get_template_part($template, array $context = [], $layout = 'base') {
     ob_start();
     template_part($template, $context, $layout);
+    /**
+     * Mock a template wrapper for admin. Otherwise templates will crash
+     */
+    if (!template($layout)) {
+        new Template(new Wrapper(''));
+    }
     return ob_get_clean();
 }
 
@@ -53,6 +64,27 @@ function title() {
         return get_field('404_title', 'option');
     }
     return get_the_title();
+}
+
+function get_image_sizes() {
+    return [ // Must list from smallest to largest
+        'thumbnail' => [
+            'name' => __('Small', 'sage'),
+            'width' => 512,
+        ], // For three- and four-column grids
+        'medium' => [
+            'name' => __('Medium', 'sage'),
+            'width' => 800,
+        ], // For content wide images and half grids
+        'medium_large' => [
+            'name' => __('Large', 'sage'),
+            'width' => 1600,
+        ], // For site wide images
+        'large' => [
+            'name' => __('Full', 'sage'),
+            'width' => 2400,
+        ], // For large and fullsize images
+    ];
 }
 
 /**

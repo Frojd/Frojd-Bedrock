@@ -1,0 +1,73 @@
+{
+  "name": "{{cookiecutter.site_name}}-Frontend",
+  "version": "2.2.1",
+  "author": "Roots <team@roots.io>",
+  "homepage": "https://roots.io/sage/",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/roots/sage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/sage/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "browserslist": [
+    "last 2 versions",
+    "android 4",
+    "opera 12"
+  ],
+  "scripts": {
+    "watch": "webpack --mode=development --watch",
+    "build": "webpack --mode=development",
+    "build:production": "webpack --mode=production -p",
+    "build:profile": "webpack --progress --profile --json",
+    "start": "webpack --hide-modules --watch",
+    "rmdist": "rimraf dist",
+    "lint": "npm run -s lint:scripts && npm run -s lint:styles",
+    "lint:scripts": "eslint scripts scripts",
+    "lint:styles": "stylelint \"styles/**/*.{css,sass,scss,sss,less}\"",
+    "fix:styles": "stylelint \"styles/**/*.{css,sass,scss,sss,less}\" --fix",
+    "test": "npm run -s lint"
+  },
+  "engines": {
+    "node": ">= 14.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-export-default-from": "^7.14.5",
+    "@babel/preset-env": "^7.14.7",
+    "autoprefixer": "^9.8.6",
+    "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^5.1.2",
+    "css-loader": "^2.1.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.23.4",
+    "file-loader": "^1.1.6",
+    "ignore-emit-webpack-plugin": "^2.0.6",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.14.1",
+    "node-sass-glob-importer": "^5.3.2",
+    "postcss": "^7.0.36",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.22.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^20.0.0",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "@sentry/browser": "^5.30.0",
+    "core-js": "^3.15.2",
+    "jquery": "^3.6.0",
+    "regenerator-runtime": "^0.13.7",
+    "store": "^2.0.12"
+  }
+}

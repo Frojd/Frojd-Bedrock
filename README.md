@@ -54,7 +54,15 @@ Select software_license:
 Choose from 1, 2 [1]: 1
 ```
 
-4. Done! 
+4. Done!
+
+
+## Update Example
+When changes have been made make sure to update Company-Project. This will overwrite all files in Company-Project
+```
+cookiecutter . -f --no-input
+```
+
 
 ## Theme (Sage)
 

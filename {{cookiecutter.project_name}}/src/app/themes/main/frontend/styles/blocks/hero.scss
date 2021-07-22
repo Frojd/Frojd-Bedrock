@@ -4,10 +4,14 @@
     background-position: center center;
 
     &__container {
-        @include u-wrap(content);
+        @include wrap(content);
 
         padding-top: 40px;
         padding-bottom: 40px;
         color: white;
+    }
+
+    &__title {
+        @include textstyle(title);
     }
 }

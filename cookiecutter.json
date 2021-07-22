@@ -2,6 +2,8 @@
   "project_name": "Company-Project",
   "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_') }}",
   "description": "A short description of the project.",
+  "site_name": "Project",
+  "site_description": "A short description for public display of site used in manifest",
   "domain_prod": "example.com",
   "domain_stage": "stage.{{ cookiecutter.domain_prod }}",
   "ssh_host_prod": "{{ cookiecutter.domain_prod }}",

@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    color: $base-color;
+    font-family: $base-font;
+    font-size: 1.6rem;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+a {
+    color: $base-color;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+sup {
+    vertical-align: super;
+    font-size: 1.4rem;
+}
+
+sub {
+    vertical-align: sub;
+    font-size: 1.4rem;
+}
+
+// Used for full page overlays
+.overflow-hidden {
+    overflow: hidden;
+    position: relative;
+}
+
+// Stolen with pride from bootstrap
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

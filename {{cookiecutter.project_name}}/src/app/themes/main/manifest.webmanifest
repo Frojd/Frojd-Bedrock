@@ -1,0 +1,24 @@
+{
+    "name": "{{cookiecutter.site_name}}",
+    "short_name": "{{cookiecutter.site_name}}",
+    "description": "{{cookiecutter.site_description}}",
+    "icons": [
+        {
+            "src": "/app/themes/main/favicons/maskable-192.png",
+            "type": "image/png",
+            "sizes": "192x192",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/app/themes/main/favicons/maskable-512.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "any maskable"
+        }
+    ],
+    "start_url": "/?source=pwa",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#ffffff"
+}

@@ -1,11 +1,20 @@
 .header {
 
     .js-state-menu-open & {
-        background: white;
+        height: 100vh;
+        background: $blue-10;
+    }
+
+    .js-state-menu-open.admin-bar & {
+        height: calc(100vh - #{$wp-admin-bar-height});
+
+        @include media(wp-M) {
+            height: calc(100vh - #{wp-admin-bar-height--wp-M});
+        }
     }
 
     &__container {
-        @include u-wrap(site);
+        @include wrap(site);
     }
 
     &__content {
@@ -72,7 +81,7 @@
         }
 
         .js-state-menu-open & {
-            background: white;
+            background: transparent;
 
             &::before,
             &::after {

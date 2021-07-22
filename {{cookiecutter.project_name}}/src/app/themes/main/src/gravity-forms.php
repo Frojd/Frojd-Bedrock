@@ -3,6 +3,11 @@
 namespace App\GravityForms;
 
 /**
+ * Prevent storing of ip addresses
+ */
+add_filter('gform_ip_address', '__return_empty_string');
+
+/**
  * Remove support for some fields in gravity forms
  */
 add_filter('gform_add_field_buttons', function($groups) {

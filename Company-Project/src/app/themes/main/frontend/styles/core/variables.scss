@@ -1,27 +1,99 @@
+$assetsPath: '../assets/';
 
+// Measurements
 $maxwidths: (
     site: 1280px,
     content: 800px,
 );
 
 $breakpoints: (
-    sm: 480px,
-    md: 768px,
-    lg: 1024px,
-    wp-sm: 601px,
-    wp-md: 783px,
+    S: 480px,
+    SL: 600px,
+    M: 768px,
+    L: 1024px,
+    XL: 1120px,
+    wp-S: 601px,
+    wp-M: 783px,
+);
+
+$gutters: (
+    d: 8px,
+    M: 16px,
 );
 
 $wp-admin-bar-height: 46px;
-$wp-admin-bar-height-md: 32px;
+$wp-admin-bar-height--wp-M: 32px;
 
-$mobile-menu: md;
+$mobile-menu: M;
 
+// Z-index bases
+$z-cookie: 200;
+
+// Transitions & animations
+$transition: .3s ease-in-out;
+
+// Colors
+$blue: blue;
+$blue-80: darkblue;
+$blue-10: lightblue;
+
+$base-color: #000;
+$accent-color: $blue-10;
+$link-color: $blue;
+$link-hover-color: $blue-80;
+$error-color: red;
+
+// Style
 $fontfamilies: (
     sans: #{Arial, sans-serif},
     serif: #{Times, serif},
 );
 
-$base-color: #000;
 $base-font: map-get($fontfamilies, 'sans');
-$accent-color: blue;
+$heading-font: map-get($fontfamilies, 'serif');
+
+// Font weights
+$light: 300;
+$regular: 400;
+$bold: 700;
+$heavy: 900;
+
+// No other font sizes are needed
+// Font sizes and line heights as defined by styleguide in pixels
+$textstyles: (
+    title: (
+        d: (font-size: 40, line-height: 36, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 56, line-height: 64),
+    ),
+    h2: (
+        d: (font-size: 32, line-height: 30, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 36, line-height: 36),
+    ),
+    h3: (
+        d: (font-size: 24, line-height: 28, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 28),
+    ),
+    h4: (
+        d: (font-size: 20, line-height: 24, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 22),
+    ),
+    h5: (
+        d: (font-size: 18, line-height: 20, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 20),
+    ),
+    h6: (
+        d: (font-size: 16, line-height: 16, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 18),
+    ),
+    preamble: (
+        d: (font-size: 18, line-height: 24, font-weight: $bold),
+        M: (font-size: 28, line-height: 38),
+    ),
+    body: (
+        d: (font-size: 18, line-height: 28),
+        M: (font-size: 22, line-height: 38),
+    ),
+    label: (
+        d: (font-size: 14, line-height: 14, letter-spacing: .5px, text-transform: uppercase),
+    ),
+);

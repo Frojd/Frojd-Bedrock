@@ -9,11 +9,10 @@ use Roots\Sage\Template\Wrapper;
  * Theme assets
  */
 add_action('wp_enqueue_scripts', function () {
-    $themeVersion = wp_get_theme()->get('Version');
-    $verTag = WP_ENV == 'production' ? md5($themeVersion) : $themeVersion;
-
+    $verTag = \App\get_ver_tag();
     wp_enqueue_style('sage/main.css', \App\asset_path('styles/main.css'), false, $verTag);
-    wp_enqueue_script('sage/main.js', \App\asset_path('scripts/main.js'), ['jquery'], $verTag, true);
+    wp_enqueue_script('sage/vendor.js', \App\asset_path('scripts/vendor.js'), ['jquery'], $verTag, true);
+    wp_enqueue_script('sage/main.js', \App\asset_path('scripts/main.js'), ['sage/vendor.js'], $verTag, true);
 }, 100);
 
 /**
@@ -25,6 +24,17 @@ add_filter('template_include', function ($main) {
     }
     return ((new Template(new Wrapper($main)))->layout());
 }, 109);
+
+add_action('wp_head', function() {
+    $verTag = \App\get_ver_tag();
+?>
+    <link rel="preload" href="<?= \App\asset_path('assets/fonts/filename.woff2'); ?>" as="font" type="font/woff2" crossorigin />
+
+    <link rel="preload" href="<?= \App\asset_path("styles/main.css?ver={$verTag}"); ?>" as="style" />
+
+    <link rel="manifest" href="<?= get_template_directory_uri() . "/manifest.webmanifest?ver={$verTag}"; ?>" crossorigin="use-credentials">
+<?php
+});
 
 /**
  * Add <body> classes
@@ -40,18 +50,27 @@ add_filter('body_class', function (array $classes) {
 });
 
 /**
- * Add preamble to fallback for excerpt
+ * Make it possible to be used for other strings
  */
 add_filter('get_the_excerpt', function($str, $post = null) {
-    if(has_excerpt($post))
+    if(!is_null($post) && has_excerpt($post))
         return $str;
 
-    $preamble = wp_strip_all_tags(get_field('preamble', $post->ID), true);
-    if(!empty($preamble))
-        return $preamble;
+    $length = (int) apply_filters('excerpt_length', 55);
+    $more = apply_filters('excerpt_more', '...');
 
-    return $str;
+    $str = str_replace('&nbsp;', '', $str);
+    $excerpt = wp_trim_words($str, $length, $more);
+    return $excerpt;
 }, 10, 2);
+
+add_filter('excerpt_more', function() {
+    return '...';
+});
+
+add_filter('excerpt_length', function() {
+    return 20;
+});
 
 /**
  * Sanetize filenames on upload
@@ -109,4 +128,38 @@ add_action('after_setup_theme', function () {
      * Localize
      */
     load_theme_textdomain('sage', get_template_directory() . '/lang' );
+
+    /**
+     * Remove default wordpress extra sizes
+     */
+    remove_image_size('1536x1536');
+    remove_image_size('2048x2048');
+});
+
+add_action('switch_theme', function() {
+    /**
+     * Reset default image sizes
+     */
+    $imageSizes = \App\get_image_sizes();
+    foreach($imageSizes as $name => $size) {
+        update_option("{$name}_size_w", $size['width']);
+        update_option("{$name}_size_h", 9999);
+    }
+    update_option('thumbnail_crop', 0);
+});
+
+/**
+ * Make sure only allowed image sizes are registered
+ */
+add_filter('intermediate_image_sizes', function($default) {
+    $imageSizes = \App\get_image_sizes();
+    return array_keys($imageSizes);
+});
+
+/**
+ * Define the sizes available in admin
+ */
+add_filter('image_size_names_choose', function($sizes) {
+    $imageSizes = \App\get_image_sizes();
+    return array_combine(array_keys($imageSizes), array_column($imageSizes, 'name'));
 });

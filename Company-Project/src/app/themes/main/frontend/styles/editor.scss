@@ -1,9 +1,34 @@
-@import 'core/functions';
-@import 'core/variables';
-@import 'core/mixins';
-@import 'core/reset';
-@import 'core/global';
+@import 'core/*';
+@import 'extends/*';
+@import 'global/fonts';
 
-@import 'utils/wrap';
+html {
+    font-size: 62.5%;
+}
 
-@import 'blocks/wysiwyg';
+.mce-content-body {
+    margin: 9px 10px;
+    max-width: 100%;
+    color: $base-color;
+    font-family: $base-font;
+
+    @extend %richtext;
+}
+
+.block-editor {
+    .wp-block {
+        @extend %richtext;
+
+        @include wrap(content, false, false);
+
+        color: $base-color;
+        font-family: $base-font;
+
+        .editor-post-title {
+            &__input {
+                color: $base-color;
+                font-family: $base-font;
+            }
+        }
+    }
+}

@@ -41,17 +41,17 @@
         "composer/installers": "*",
         "vlucas/phpdotenv": "3.*",
         "johnpbloch/wordpress": "*",
+        "sentry/sdk": "*",
         "advanced-custom-fields/advanced-custom-fields-pro": "*",
         "wpackagist-plugin/wordpress-seo": "*",
-        "wpackagist-plugin/filenames-to-latin": "*",
         "wpackagist-plugin/redirection": "*",
         "wpackagist-plugin/duracelltomi-google-tag-manager": "*",
         "wpackagist-plugin/elasticpress": "*",
-        "wpackagist-plugin/nginx-cache": "*",
-        "sentry/sdk": "*"
+        "wpackagist-plugin/nginx-cache": "*"
     },
     "require-dev": {
-        "wpackagist-plugin/debug-bar": "*"
+        "wpackagist-plugin/debug-bar": "*",
+        "wpackagist-plugin/debug-bar-elasticpress": "*"
     },
     "extra": {
         "installer-paths": {
