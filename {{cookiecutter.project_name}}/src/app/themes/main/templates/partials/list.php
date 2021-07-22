@@ -7,6 +7,7 @@
 
 <div class="list">
     <div class="list__container">
+        <h2 class="list__title"><?= __('List', 'sage'); ?></h2>
         <div class="list__list">
             <?php foreach($posts as $post) : ?>
                 <?php setup_postdata($post); ?>

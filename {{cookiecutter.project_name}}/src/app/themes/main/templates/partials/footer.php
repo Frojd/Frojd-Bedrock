@@ -11,7 +11,7 @@
                 <div class="footer__column">
 
                     <?php if(!empty($col['title'])) : ?>
-                        <div class="footer__title"><?= $col['title']; ?></div>
+                        <h2 class="footer__title"><?= $col['title']; ?></h2>
                     <?php endif; ?>
 
                     <?php if(isset($col['links'])) : ?>

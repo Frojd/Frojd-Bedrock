@@ -10,6 +10,7 @@
 
         <?php
             do_action('get_header');
+            get_template_part('partials/popup-cookie');
             get_template_part('partials/header');
         ?>
 
@@ -18,8 +19,6 @@
         </div>
 
         <?php
-            get_template_part('partials/popup-cookie');
-
             do_action('get_footer');
             get_template_part('partials/footer');
             wp_footer();
