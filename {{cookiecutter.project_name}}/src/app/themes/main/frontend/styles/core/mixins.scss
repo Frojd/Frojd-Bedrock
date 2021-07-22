@@ -7,7 +7,91 @@
             @content;
         }
     } @else {
-        @error 'Unfortunately, no value could be retrieved from `#{$breakpoints}`. '
+        @error 'Unfortunately, `#{$key}` could be retrieved from `#{$breakpoints}`. '
         + 'Please make sure it is defined in `$breakpoints` map.';
+    }
+}
+
+@mixin media-max($key) {
+    @if $key == 'd' {
+        @content;
+    } @elseif map-has-key($breakpoints, $key) {
+        @media (max-width: map-get($breakpoints, $key)-1) {
+            @content;
+        }
+    } @else {
+        @error 'Unfortunately, `#{$key}` could be retrieved from `#{$breakpoints}`. '
+            + 'Please make sure it is defined in `$breakpoints` map.';
+    }
+}
+
+@mixin clearfix() {
+    &::after,
+    &::before {
+        content: '';
+        display: table;
+        clear: both;
+        width: 100%;
+    }
+}
+
+@mixin wrap($list: (), $includeSpacing: true, $spacingToWidth: true) {
+    $spacing: 0;
+
+    @if $spacingToWidth {
+        $spacing: map-get($gutters, M) * 2;
+    }
+
+    @if $includeSpacing {
+        margin: 0 auto;
+
+        @include spacing();
+
+        @include media(M) {
+            @include spacing(M);
+        }
+    }
+
+    @if contains($list, site) {
+        max-width: (map-get($maxwidths, site) + $spacing);
+    }
+
+    @if contains($list, content) {
+        max-width: (map-get($maxwidths, content) + $spacing);
+    }
+}
+
+@mixin spacing($bp: d) {
+    $spacing: map-get($gutters, $bp);
+
+    padding-left: $spacing;
+    padding-right: $spacing;
+}
+
+// For setting font-size and line-height on elements defined by variabels, including media queries
+// Usage: @include textstyle(h1);
+@mixin textstyle($key) {
+
+    // Loop through text map and set font-size and line-height for each media query
+    @if map-has-key($textstyles, $key) {
+        $map: map-get($textstyles, $key);
+
+        @each $media, $style in $map {
+            @include media($media) {
+                @if map-has-key($style, font-size) and map-has-key($style, line-height) {
+                    $font-size: map-get($style, font-size);
+                    $line-height: map-get($style, line-height);
+
+                    font-size: #{$font-size / 10}rem;
+                    line-height: #{round($line-height / $font-size * 100) / 100};
+                }
+
+                @each $param, $value in $style {
+                    @if $param != font-size and $param != line-height {
+                        #{$param}: $value;
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,0 +1,368 @@
+%richtext {
+    $root: &;
+
+    @include textstyle(body);
+    @include clearfix;
+
+    position: relative;
+    color: $base-color !important;
+
+    // Define spacings first
+    > div,
+    > h2,
+    > h3,
+    > h4,
+    > h5,
+    > h6,
+    p,
+    ol,
+    ul,
+    blockquote,
+    > figure,
+    > iframe {
+        margin: 20px 0;
+
+        &:first-child {
+            margin-top: 0 !important;
+        }
+
+        &:last-child {
+            margin-bottom: 0 !important;
+        }
+    }
+
+    .gform-wrapper,
+    .facts,
+    .wp-block-image,
+    .wp-block-embed {
+        margin-top: 40px !important;
+        margin-bottom: 40px !important;
+    }
+
+    blockquote {
+        margin: 30px 0;
+
+        @include media(M) {
+            margin: 60px 0;
+        }
+    }
+
+    > h2,
+    > h3,
+    > h4,
+    > h5,
+    > h6 {
+        margin-top: 40px;
+
+        + h2,
+        + h3,
+        + h4,
+        + h5,
+        + h6 {
+            margin-top: 20px;
+        }
+    }
+
+    h2 {
+        @include textstyle(h2);
+    }
+
+    h3 {
+        @include textstyle(h3);
+    }
+
+    h4 {
+        @include textstyle(h4);
+    }
+
+    h5 {
+        @include textstyle(h5);
+    }
+
+    h6 {
+        @include textstyle(h6);
+    }
+
+    strong,
+    b {
+        font-weight: $bold;
+    }
+
+    i,
+    em {
+        font-style: italic;
+    }
+
+    mark {
+        background: $accent-color;
+    }
+
+    a {
+        color: $link-color;
+        text-decoration: underline;
+        transition: color $transition;
+
+        &:hover {
+            color: $link-hover-color;
+        }
+
+        &[href$=".pdf"],
+        &[href$=".doc"],
+        &[href$=".docx"],
+        &[href$=".ppt"],
+        &[href$=".pptx"],
+        &[href$=".xls"],
+        &[href$=".xlsx"],
+        &[href$=".odt"],
+        &[href$=".eps"],
+        &[href$=".zip"] {
+            position: relative;
+            padding-left: 27px;
+            margin: 0 5px;
+
+            &::before {
+                content: '';
+                width: 17px;
+                height: 14px;
+                margin-right: 10px;
+                position: absolute;
+                top: 3px;
+                left: 0px;
+                display: inline-block;
+                background-repeat: no-repeat;
+                background-image: url('#{$assetsPath}images/download.svg');
+                background-size: contain;
+            }
+        }
+
+        @media print {
+            &::after {
+                content: ' [' attr(href) '] ';
+            }
+        }
+    }
+
+    ol,
+    ul {
+        li {
+            position: relative;
+            margin: 8px 0;
+        }
+    }
+
+    ul {
+        list-style: none;
+
+        @media print {
+            list-style: initial !important;
+            padding-left: 20px !important;
+        }
+
+        li {
+            padding-left: 15px;
+
+            &::before {
+                content: '';
+                width: 6px;
+                height: 6px;
+                margin: 0 10px 0 0;
+                display: inline-block;
+                position: absolute;
+                top: 11px;
+                left: 0;
+                border-radius: 50%;
+                background: $accent-color;
+
+                @include media(M) {
+                    top: 16px;
+                }
+            }
+
+            @media print {
+                padding-left: 0 !important;
+            }
+        }
+    }
+
+    ol {
+        list-style-type: decimal;
+        margin-left: 17px;
+
+        li {
+            padding-left: 5px;
+        }
+    }
+
+    blockquote {
+        position: relative;
+        max-width: 800px;
+        padding: 20px 0 0;
+        border: none;
+
+        @include media(M) {
+            padding-top: 46px;
+        }
+
+        &::before,
+        &::after {
+            position: absolute;
+            top: 0;
+            font-size: 6rem;
+            line-height: 100%;
+        }
+
+        &::before {
+            content: '“';
+            left: 0;
+        }
+
+        &::after {
+            content: '”';
+            right: 0;
+        }
+
+        p {
+            @include textstyle(blockquote);
+
+            color: $base-color;
+            font-family: $heading-font;
+        }
+
+        cite {
+            @include textstyle(body);
+
+            margin-top: 20px;
+        }
+    }
+
+    .white-bg {
+        background: white;
+    }
+
+    .alignleft {
+        display: inline;
+        float: left;
+        margin-right: 15px;
+    }
+
+    .alignright {
+        display: inline;
+        float: right;
+        margin-left: 15px;
+    }
+
+    .alignfull {
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(50% - 50vw);
+    }
+
+    .aligncenter {
+        clear: both;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    figcaption {
+        @include textstyle(h5);
+
+        color: $base-color;
+        font-weight: $regular;
+        width: 100%;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+        display: block !important;
+    }
+
+    .alignfull figcaption {
+        @include wrap(content);
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .iframe {
+        width: 100%;
+        padding-bottom: percentage(9/16);
+        height: 0;
+        position: relative;
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+
+    iframe {
+        max-width: 100%;
+        display: block;
+    }
+
+    .gform_wrapper {
+        ul {
+            list-style: none;
+
+            li {
+                &::before {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .facts {
+        padding: 20px 30px;
+        background: $accent-color;
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        ol,
+        ul {
+            &:first-child {
+                margin-top: 0;
+            }
+
+            &:last-child {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    @media print {
+        p,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        img,
+        iframe,
+        .wp-caption,
+        .wp-caption-text {
+            page-break-before: auto;
+            page-break-after: auto;
+            page-break-inside: avoid;
+            display: block;
+            position: relative;
+        }
+    }
+}
