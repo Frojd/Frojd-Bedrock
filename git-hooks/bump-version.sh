@@ -24,13 +24,10 @@ ROOTDIR=$(git rev-parse --show-toplevel)
 # Bump theme version
 
 sed -i.bak 's/^Version:.*/Version: '$VERSION'/' $ROOTDIR/src/app/themes/main/style.css
-rm $ROOTDIR/{{cookiecutter}}/src/app/themes/main/style.css.bak
-
-sed -i.bak 's/^\( *\)"version": .*/\1"version": "'$VERSION'",/' $ROOTDIR/src/app/themes/main/frontend/package.json
-rm $ROOTDIR/{{cookiecutter}}/src/app/themes/main/frontend/package.json.bak
+rm $ROOTDIR/src/app/themes/main/style.css.bak
 
 sed -i.bak 's/const APP_VERSION.*$/const APP_VERSION = "'$VERSION'";/' $ROOTDIR/config/application.php
-rm $ROOTDIR/{{cookiecutter}}/config/application.php.bak
+rm $ROOTDIR/config/application.php.bak
 
 # Commit changes
 git commit -a -m "Bump version: $VERSION"
