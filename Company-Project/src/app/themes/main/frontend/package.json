@@ -1,15 +1,15 @@
 {
-  "name": "Frojd-Bedrock-Frontend",
-  "version": "1.0.0",
-  "author": "Fröjd Interactive",
-  "homepage": "",
+  "name": "Project-Frontend",
+  "version": "2.2.1",
+  "author": "Roots <team@roots.io>",
+  "homepage": "https://roots.io/sage/",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/Frojd/Frojd-Bedrock.git"
+    "url": "git://github.com/roots/sage.git"
   },
   "bugs": {
-    "url": "https://github.com/Frojd/Frojd-Bedrock/issues"
+    "url": "https://github.com/roots/sage/issues"
   },
   "licenses": [
     {
@@ -23,13 +23,14 @@
     "opera 12"
   ],
   "scripts": {
-    "build": "webpack --progress --config build/webpack.config.js",
-    "build:production": "webpack --mode=production --env production --progress --config build/webpack.config.js",
-    "build:profile": "webpack --progress --profile --json --config build/webpack.config.js",
-    "start": "webpack --watch --config build/webpack.config.js",
+    "watch": "webpack --mode=development --watch",
+    "build": "webpack --mode=development",
+    "build:production": "webpack --mode=production -p",
+    "build:profile": "webpack --progress --profile --json",
+    "start": "webpack --hide-modules --watch",
     "rmdist": "rimraf dist",
     "lint": "npm run -s lint:scripts && npm run -s lint:styles",
-    "lint:scripts": "eslint scripts build",
+    "lint:scripts": "eslint scripts scripts",
     "lint:styles": "stylelint \"styles/**/*.{css,sass,scss,sss,less}\"",
     "fix:styles": "stylelint \"styles/**/*.{css,sass,scss,sss,less}\" --fix",
     "test": "npm run -s lint"
@@ -38,51 +39,35 @@
     "node": ">= 14.0.0"
   },
   "devDependencies": {
-    "autoprefixer": "^8.6.5",
-    "babel-eslint": "^10.1.0",
-    "browser-sync": "^2.26.14",
-    "browsersync-webpack-plugin": "^0.6.0",
-    "bs-html-injector": "~3.0",
-    "buble-loader": "^0.4.1",
-    "cache-loader": "^1.2.5",
-    "clean-webpack-plugin": "^0.1.19",
+    "@babel/core": "^7.14.6",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-export-default-from": "^7.14.5",
+    "@babel/preset-env": "^7.14.7",
+    "autoprefixer": "^9.8.6",
+    "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^5.1.2",
-    "css-loader": "^5.2.6",
-    "cssnano": "^5.0.6",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-loader": "^1.9.0",
+    "css-loader": "^2.1.1",
+    "eslint": "^6.8.0",
     "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.24.0",
     "file-loader": "^1.1.6",
-    "friendly-errors-webpack-plugin": "^1.7.0",
-    "imagemin-mozjpeg": "^9.0.0",
-    "imagemin-webpack-plugin": "^2.4.2",
-    "import-glob": "^1.5.0",
-    "mini-css-extract-plugin": "^1.6.0",
+    "ignore-emit-webpack-plugin": "^2.0.6",
+    "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.14.1",
-    "postcss-loader": "^2.1.6",
-    "postcss-safe-parser": "~3.0",
-    "resolve-url-loader": "^4.0.0",
-    "rimraf": "~2.6",
-    "sass-loader": "^6.0.7",
+    "node-sass-glob-importer": "^5.3.2",
+    "postcss": "^7.0.36",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.22.1",
     "stylelint": "^13.13.1",
-    "stylelint-config-standard": "^18.3.0",
-    "stylelint-webpack-plugin": "^0.10.5",
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "url-loader": "^0.6.2",
+    "stylelint-config-standard": "^20.0.0",
     "webpack": "^4.46.0",
-    "webpack-assets-manifest": "^1.0.0",
-    "webpack-cli": "^4.7.2",
-    "webpack-dev-middleware": "^2.0.6",
-    "webpack-hot-middleware": "^2.25.0",
-    "webpack-merge": "^4.2.2",
-    "yargs": "^17.0.1"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "@sentry/browser": "^5.30.0",
+    "core-js": "^3.15.2",
     "jquery": "^3.6.0",
+    "regenerator-runtime": "^0.13.7",
     "store": "^2.0.12"
   }
 }

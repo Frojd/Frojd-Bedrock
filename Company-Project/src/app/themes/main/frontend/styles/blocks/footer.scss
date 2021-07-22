@@ -9,28 +9,28 @@
     }
 
     &__container {
-        @include u-wrap(site);
+        @include wrap(site);
     }
 
     &__list {
-        @include media(sm) {
+        @include media(S) {
             display: flex;
             flex-wrap: wrap;
             margin-left: -10px;
         }
 
-        @include media(md) {
+        @include media(M) {
             margin-left: -20px;
         }
     }
 
     &__column {
-        @include media(sm) {
+        @include media(S) {
             width: calc(50% - 10px);
             margin-left: 10px;
         }
 
-        @include media(md) {
+        @include media(M) {
             width: calc(25% - 20px);
             margin-left: 20px;
         }

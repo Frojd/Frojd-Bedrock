@@ -1,9 +1,9 @@
 .article {
     &__container {
-        @include u-wrap(site);
+        @include wrap(site);
     }
 
     &__content {
-        @include u-wrap(content);
+        @include wrap(content);
     }
 }
