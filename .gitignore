@@ -24,3 +24,5 @@ Session.vim
 
 
 *.pyc
+
+Company-Project/composer.lock
