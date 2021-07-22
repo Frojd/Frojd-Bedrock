@@ -10,8 +10,9 @@ use Roots\Sage\Template\Wrapper;
  */
 add_action('wp_enqueue_scripts', function () {
     $verTag = \App\get_ver_tag();
-    wp_enqueue_style('sage/main.css', \App\asset_path('styles/style.css'), false, $verTag);
-    wp_enqueue_script('sage/main.js', \App\asset_path('scripts/main.js'), ['jquery'], $verTag, true);
+    wp_enqueue_style('sage/main.css', \App\asset_path('styles/main.css'), false, $verTag);
+    wp_enqueue_script('sage/vendor.js', \App\asset_path('scripts/vendor.js'), ['jquery'], $verTag, true);
+    wp_enqueue_script('sage/main.js', \App\asset_path('scripts/main.js'), ['sage/vendor.js'], $verTag, true);
 }, 100);
 
 /**
@@ -29,7 +30,7 @@ add_action('wp_head', function() {
 ?>
     <link rel="preload" href="<?= \App\asset_path('assets/fonts/filename.woff2'); ?>" as="font" type="font/woff2" crossorigin />
 
-    <link rel="preload" href="<?= \App\asset_path("styles/style.css?ver={$verTag}"); ?>" as="style" />
+    <link rel="preload" href="<?= \App\asset_path("styles/main.css?ver={$verTag}"); ?>" as="style" />
 
     <link rel="manifest" href="<?= get_template_directory_uri() . "/manifest.webmanifest?ver={$verTag}"; ?>" crossorigin="use-credentials">
 <?php
