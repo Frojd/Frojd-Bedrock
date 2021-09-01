@@ -35,7 +35,9 @@ add_action('admin_head', function() {
     }
 });
 
-add_filter('allowed_block_types', function ($allowedBlocks, $post) {
+add_filter('allowed_block_types_all', function ($allowedBlocks, $editor) {
+    $post = $editor->post;
+
     /**
      *  See all registered blocks:
      *
