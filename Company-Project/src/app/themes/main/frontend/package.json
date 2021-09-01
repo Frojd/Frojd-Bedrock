@@ -1,6 +1,7 @@
 {
-  "name": "Project-Frontend",
-  "version": "2.2.1",
+  "name": "Frojd-Bedrock-Frontend",
+  "description": "",
+  "version": "1.0.0",
   "author": "Roots <team@roots.io>",
   "homepage": "https://roots.io/sage/",
   "private": true,
