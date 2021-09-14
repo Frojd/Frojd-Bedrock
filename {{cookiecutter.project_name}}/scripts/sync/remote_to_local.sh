@@ -4,6 +4,7 @@
 #
 # SSH-keys is mandatory
 # Example usage `scripts/sync/remote_to_local.sh prod`
+set -e
 
 cd $(git rev-parse --show-toplevel)
 
