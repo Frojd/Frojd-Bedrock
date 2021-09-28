@@ -47,6 +47,7 @@ A short description of the project.
     This will configure the docker setup as well as creating a local ROOT_FOLDER/.env which is the configuration file valet will use. Docker will keep running docker/config/web.env
 
 3. Set up/configure a database
+
    Either create a local database and reconfigure ROOT_FOLDER/.env accordingly, or you could use docker for database (preconfigured): `docker-compose up db` or run it in background `docker-compose up -d db`
 
    If you are using docker database the DB_HOST should be set to "$LOCALIPADDRESS:$DOCKERPORT", this is configured by default by `make init`
@@ -56,6 +57,7 @@ A short description of the project.
        - To retrieve your docker db-port, check the ports config of the db-container in docker-compose.yml
 
 4. Install composer dependencies
+
    By running `composer install`, if versions are conflicting or if you do not have composer installed
    it is also possible to run supplied docker container: `docker-compose run composer install`
 
@@ -65,7 +67,7 @@ A short description of the project.
    valet link example.com
    ```
 
-6. Visit your site on example.com.test
+6. Visit your site on `example.com.test`
 
 7. (optional) Set up SSL
    ```
