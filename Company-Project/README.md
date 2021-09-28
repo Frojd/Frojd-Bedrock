@@ -48,12 +48,21 @@ A short description of the project.
 
 3. Set up/configure a database
 
-   Either create a local database and reconfigure ROOT_FOLDER/.env accordingly, or you could use docker for database (preconfigured): `docker-compose up db` or run it in background `docker-compose up -d db`
+   Either create a local database and reconfigure ROOT_FOLDER/.env accordingly, or you could use docker:
+   ```
+   # Run in forground
+   docker-compose up db
 
-   If you are using docker database the DB_HOST should be set to "$LOCALIPADDRESS:$DOCKERPORT", this is configured by default by `make init`
+   # Run in background
+   docker-compose up -d db
+   ```
+
+   If you are using docker, the DB_HOST should be set to "$LOCALIPADDRESS:$DOCKERPORT", this is configured by default by `make init`.
 
    Although default, this might be useful if migrating older projects:
+
        - To retrieve your local ip you can use `ipconfig getifaddr en0` on a mac
+
        - To retrieve your docker db-port, check the ports config of the db-container in docker-compose.yml
 
 4. Install composer dependencies
@@ -74,7 +83,7 @@ A short description of the project.
    cd src
    valet secure
    ```
-   You also need to edit ROOT_FOLDER/.env BASE_URL to use https for it to actually be utilized
+   You will also need to edit ROOT_FOLDER/.env WP_HOME and WP_SITEURL to use https for it to actually be utilized
 
    NOTE: This certificate will still issue a security warning since its self-signed
 
