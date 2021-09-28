@@ -4,13 +4,12 @@ A short description of the project.
 
 ## Requirements
 
-* Docker
+* [Docker](https://www.docker.com/) or [Valet](https://laravel.com/docs/8.x/valet)
 * [Git flow](https://github.com/petervanderdoes/gitflow-avh)
 
-## Installation
+## Installation (Using Docker)
 
-
-1. Make sure you have requirements installed
+1. Make sure you have Docker installed
 2. In root folder, run:
     ```
     make init
@@ -35,6 +34,47 @@ A short description of the project.
     ```
 
 5. Visit your site on: [http://example.com.test:8080](http://example.com.test:8080)
+
+## Installation (Using Valet)
+
+1. Make sure you have [Valet](https://laravel.com/docs/8.x/valet) installed ([How to install laravel valet on mac](https://medium.com/modulr/how-to-install-laravel-valet-on-mac-f061ce2d095e))
+
+2. In root folder, run:
+    ```
+    make init
+    ```
+
+    This will configure the docker setup as well as creating a local ROOT_FOLDER/.env which is the configuration file valet will use. Docker will keep running docker/config/web.env
+
+3. Set up/configure a database
+   Either create a local database and reconfigure ROOT_FOLDER/.env accordingly, or you could use docker for database (preconfigured): `docker-compose up db` or run it in background `docker-compose up -d db`
+
+   If you are using docker database the DB_HOST should be set to "$LOCALIPADDRESS:$DOCKERPORT", this is configured by default by `make init`
+
+   Although default, this might be useful if migrating older projects:
+       - To retrieve your local ip you can use `ipconfig getifaddr en0` on a mac
+       - To retrieve your docker db-port, check the ports config of the db-container in docker-compose.yml
+
+4. Install composer dependencies
+   By running `composer install`, if versions are conflicting or if you do not have composer installed
+   it is also possible to run supplied docker container: `docker-compose run composer install`
+
+5. Create a valet link in the src-folder:
+   ```
+   cd src
+   valet link example.com
+   ```
+
+6. Visit your site on example.com.test
+
+7. (optional) Set up SSL
+   ```
+   cd src
+   valet secure
+   ```
+   You also need to edit ROOT_FOLDER/.env BASE_URL to use https for it to actually be utilized
+
+   NOTE: This certificate will still issue a security warning since its self-signed
 
 ### Enable SSL 
 
