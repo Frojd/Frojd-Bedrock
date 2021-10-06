@@ -1,0 +1,9 @@
+webservers:
+  hosts:
+    prod1:
+      ansible_user: deploy
+      ansible_port: 22
+      ansible_host: {{cookiecutter.ssh_host_prod}}
+      stage_name: prod
+      stage_wp_env: production
+      stage_domain: {{cookiecutter.domain_prod}}

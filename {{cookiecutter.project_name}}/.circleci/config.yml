@@ -156,11 +156,11 @@ jobs:
             ansible-galaxy install -r requirements.yml
 
             if [ "${CIRCLE_BRANCH}" == "develop" ]; then
-              ansible-playbook deploy.yml -i stages/stage
+              ansible-playbook deploy.yml -i stages/stage.yml
             fi
 
             if [ "${CIRCLE_TAG}" ]; then
-              ansible-playbook deploy.yml -i stages/prod
+              ansible-playbook deploy.yml -i stages/prod.yml
             fi
 
 workflows:

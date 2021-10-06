@@ -130,8 +130,8 @@ pip install -r requirements.txt
 ansible-galaxy install -r requirements.yml
 ```
 Run provisioning on stage or prod:
-- Stage: `ansible-playbook provision.yml -i stages/stage`
-- Prod: `ansible-playbook provision.yml -i stages/prod`
+- Stage: `ansible-playbook provision.yml -i stages/stage.yml`
+- Prod: `ansible-playbook provision.yml -i stages/prod.yml`
 
 ## Documentation
 
