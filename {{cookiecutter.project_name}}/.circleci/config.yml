@@ -78,7 +78,7 @@ jobs:
   checkout_code:
     <<: *defaults
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:3.9
     steps:
       - checkout
       - *save_repo
@@ -124,7 +124,7 @@ jobs:
   ansible:
     <<: *defaults
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:3.9
     steps:
       - *restore_repo
       - *restore_ansible
@@ -140,7 +140,7 @@ jobs:
   deploy:
     <<: *defaults
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:3.9
     steps:
       - *restore_repo
       - *restore_wp
