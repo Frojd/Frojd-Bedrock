@@ -4,11 +4,10 @@ version: 2
 defaults: &defaults
   working_directory: ~/repo
 
-filter_ignore_master: &filter_ignore_master
+filter_ignore_main: &filter_ignore_main
   filters:
     branches:
       ignore:
-        - master
         - main
         - /^release.*/
     tags:
@@ -168,19 +167,19 @@ workflows:
   build_test_and_deploy:
     jobs:
       - checkout_code:
-          <<: *filter_ignore_master
+          <<: *filter_ignore_main
       - frontend:
-          <<: *filter_ignore_master
+          <<: *filter_ignore_main
           requires:
             - checkout_code
       - wordpress:
-          <<: *filter_ignore_master
+          <<: *filter_ignore_main
           context:
             - ACF_PRO_KEY
           requires:
             - checkout_code
       - ansible:
-          <<: *filter_ignore_master
+          <<: *filter_ignore_main
           requires:
             - checkout_code
       - deploy:
