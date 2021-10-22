@@ -12,23 +12,23 @@ function get_ver_tag() {
 }
 
 function template($layout = 'base') {
-    return Template::$instances[$layout];
+    return isset(Template::$instances[$layout]) ? Template::$instances[$layout] : false;
 }
 
 function get_template_part($template, array $context = [], $layout = 'base') {
     ob_start();
     template_part($template, $context, $layout);
+    return ob_get_clean();
+}
+
+function template_part($template, array $context = [], $layout = 'base') {
+    extract($context);
     /**
      * Mock a template wrapper for admin. Otherwise templates will crash
      */
     if (!template($layout)) {
         new Template(new Wrapper(''));
     }
-    return ob_get_clean();
-}
-
-function template_part($template, array $context = [], $layout = 'base') {
-    extract($context);
     include template($layout)->partial($template);
 }
 
