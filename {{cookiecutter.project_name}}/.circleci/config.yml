@@ -35,10 +35,10 @@ references:
         - .
   restore_npm: &restore_npm
     restore_cache:
-      key: v1-npm-{{ checksum "src/app/themes/main/frontend/package-lock.json" }}
+      key: v1-npm-{{ checksum "src/app/themes/main/frontend/package.json" }}
   save_npm: &save_npm
     save_cache:
-      key: v1-npm-{{ checksum "src/app/themes/main/frontend/package-lock.json" }}
+      key: v1-npm-{{ checksum "src/app/themes/main/frontend/package.json" }}
       paths:
         - ~/repo/src/app/themes/main/frontend/node_modules
   restore_composer: &restore_composer
