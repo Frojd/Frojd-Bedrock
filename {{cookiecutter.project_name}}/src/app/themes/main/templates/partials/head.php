@@ -7,8 +7,8 @@
 
     <?php if (SENTRY_DSN) : ?>
         <script
-            src="https://browser.sentry-cdn.com/5.15.0/bundle.min.js"
-            integrity="sha384-+ysfQckQvwCB5SppH41IScIz/Iynt2pePnJNMl+D7ZOzDJ+VYhQEuwB0pA60IDM0"
+            src="https://browser.sentry-cdn.com/6.13.3/bundle.min.js"
+            integrity="sha384-sGMbmxgVprpEFMz6afNDyADd4Kav86v5Tvo2Y6w5t8tHUn1P1at3lCjN7IQo2c7E"
             crossorigin="anonymous"></script>
         <script>
             if (window.Sentry) {
