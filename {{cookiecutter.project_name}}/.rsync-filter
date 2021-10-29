@@ -1,7 +1,6 @@
-- /src/app/uploads
-- /src/app/themes/main/node_modules
-- /db
-- /deploy
-- /docker
-- .git
-- git-hooks
+- /src/app/themes/main/frontend
++ /src/***
++ /vendor/***
++ /config/***
++ /wp-cli.yml
+- *
