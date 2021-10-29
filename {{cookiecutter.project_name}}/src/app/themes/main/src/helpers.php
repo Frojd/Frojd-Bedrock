@@ -44,6 +44,34 @@ function asset_path($filename) {
 }
 
 /**
+ * @param $modifiers array  Eg. ['big', 'bold']
+ * @param $baseClass string Eg. 'block-name__item'
+ *
+ * @return string           Eg. "block-name__item--big block-name__item--bold"
+ */
+function array_to_modifiers(array $modifiers, $baseClass) {
+    return $baseClass . ' ' . implode(' ', array_map(function ($modifier) use ($baseClass) {
+        if(empty($modifier))
+            return;
+        return "$baseClass--$modifier";
+    }, $modifiers));
+}
+
+/**
+ * @param $attributes array  Eg. ['src' => 'http://', 'alt' => 'Hello']
+ *
+ * @return string            Eg. src="http://" alt="Hello"
+ */
+function array_to_attributes(array $attributes) {
+    return ' ' . implode(' ', array_map(function($k, $v) {
+        if(is_bool($v)) {
+            return $v ? "$k" : '';
+        }
+        return "$k='$v'";
+    }, array_keys($attributes), $attributes));
+}
+
+/**
  * Page titles
  * @return string
  */
