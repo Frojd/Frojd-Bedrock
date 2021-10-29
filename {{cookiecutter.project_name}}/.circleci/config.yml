@@ -1,5 +1,5 @@
 {% raw -%}
-version: 2
+version: 2.1
 
 defaults: &defaults
   working_directory: ~/repo
@@ -9,7 +9,6 @@ filter_ignore_master: &filter_ignore_master
     branches:
       ignore:
         - master
-        - main
         - /^release.*/
     tags:
       only:
@@ -24,18 +23,26 @@ filter_only_develop_or_tag: &filter_only_develop_or_tag
       only:
         - /^v.*/
 
+executors:
+  base:
+    docker:
+      - image: cimg/base:stable-20.04
+  python:
+    docker:
+      - image: cimg/python:3.9
+  node:
+    docker:
+      - image: cimg/node:14.18
+  php:
+    docker:
+      - image: cimg/php:7.4
+
 references:
-  restore_repo: &restore_repo
-    restore_cache:
-      key: v1-repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-  save_repo: &save_repo
-    save_cache:
-      key: v1-repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-      paths:
-        - .
   restore_npm: &restore_npm
     restore_cache:
-      key: v1-npm-{{ checksum "src/app/themes/main/frontend/package.json" }}
+      keys:
+        - v1-npm-{{ checksum "src/app/themes/main/frontend/package.json" }}
+        - v1-npm-
   save_npm: &save_npm
     save_cache:
       key: v1-npm-{{ checksum "src/app/themes/main/frontend/package.json" }}
@@ -43,72 +50,58 @@ references:
         - ~/repo/src/app/themes/main/frontend/node_modules
   restore_composer: &restore_composer
     restore_cache:
-      key: v1-composer-{{ checksum "composer.lock" }}
+      keys:
+        - v1-composer-{{ checksum "composer.lock" }}
+        - v1-composer-
   save_composer: &save_composer
     save_cache:
       key: v1-composer-{{ checksum "composer.lock" }}
       paths:
         - ~/repo/vendor
-  restore_wp: &restore_wp
+  restore_venv: &restore_venv
     restore_cache:
-      key: v1-wordpress-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-  save_wp: &save_wp
+      keys:
+        - v1-venv-{{ checksum "deploy/requirements.txt" }}
+        - v1-venv-
+  save_venv: &save_venv
     save_cache:
-      key: v1-wordpress-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+      key: v1-venv-{{ checksum "deploy/requirements.txt" }}
       paths:
-        - ~/repo/src
-  restore_frontend: &restore_frontend
-    restore_cache:
-      key: v1-frontend-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-  save_frontend: &save_frontend
-    save_cache:
-      key: v1-frontend-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-      paths:
-        - ~/repo/src/app/themes/main/dist
-  restore_ansible: &restore_ansible
-    restore_cache:
-      key: v1-ansible-{{ checksum "deploy/requirements.txt" }}
-  save_ansible: &save_ansible
-    save_cache:
-      key: v1-ansible-{{ checksum "deploy/requirements.txt" }}
-      paths:
-        - deploy/venv
+        - ~/repo/deploy/venv
 
 jobs:
   checkout_code:
     <<: *defaults
-    docker:
-      - image: circleci/python:3.6
+    executor: base
     steps:
       - checkout
-      - *save_repo
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   frontend:
     <<: *defaults
-    docker:
-      - image: circleci/node:14
+    executor: node
     steps:
-      - *restore_repo
+      - attach_workspace:
+          at: .
       - *restore_npm
       - run: cd src/app/themes/main/frontend && npm install
       - *save_npm
       - run: cd src/app/themes/main/frontend && npm run build:production
-      - *save_frontend
+      - persist_to_workspace:
+          root: .
+          paths:
+            - src/app/themes/main/dist
 
   wordpress:
     <<: *defaults
-    docker:
-      - image: circleci/php:7.4-fpm-node-browsers
-      - image: circleci/mysql:5
+    executor: php
     steps:
-      - *restore_repo
+      - attach_workspace:
+          at: .
       - *restore_composer
-      - run:
-          name: Install PHP Extensions
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y libpng-dev
-            sudo docker-php-ext-install gd
       - run:
           command: |
             php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -119,46 +112,50 @@ jobs:
           command: |
             ACF_PRO_KEY=$ACF_PRO_KEY php composer.phar install --no-scripts --optimize-autoloader --no-dev
       - *save_composer
-      - *save_wp
+      - persist_to_workspace:
+          root: .
+          paths:
+            - src/app/mu-plugins/*
+            - src/app/plugins/*
+            - src/wp
+            - vendor
 
-  ansible:
+  venv:
     <<: *defaults
-    docker:
-      - image: circleci/python:3.6
+    executor: python
     steps:
-      - *restore_repo
-      - *restore_ansible
+      - attach_workspace:
+          at: .
+      - *restore_venv
       - run:
           command: |
             cd deploy
             python3 -m venv venv
             . venv/bin/activate
-            pip install -U pip
+            pip install --upgrade pip
             pip install -r requirements.txt
-      - *save_ansible
+      - *save_venv
 
   deploy:
     <<: *defaults
-    docker:
-      - image: circleci/python:3.6
+    executor: python
     steps:
-      - *restore_repo
-      - *restore_wp
-      - *restore_composer
-      - *restore_frontend
-      - *restore_ansible
-      - run: rm -rf src/app/themes/main/frontend
+      - attach_workspace:
+          at: .
+      - *restore_venv
+      - run:
+          command: |
+            sudo apt-get update
+            sudo apt-get -y -qq install rsync
       - run:
           command: |
             cd deploy
-            sudo apt-get -y -qq install rsync
             . venv/bin/activate
             ansible-galaxy install -r requirements.yml
 
             if [ "${CIRCLE_BRANCH}" == "develop" ]; then
               ansible-playbook deploy.yml -i stages/stage
             fi
-
             if [ "${CIRCLE_TAG}" ]; then
               ansible-playbook deploy.yml -i stages/prod
             fi
@@ -179,15 +176,15 @@ workflows:
             - ACF_PRO_KEY
           requires:
             - checkout_code
-      - ansible:
+      - venv:
           <<: *filter_ignore_master
           requires:
             - checkout_code
       - deploy:
           <<: *filter_only_develop_or_tag
           requires:
-            - frontend
             - wordpress
-            - ansible
+            - frontend
+            - venv
 
 {% endraw %}
