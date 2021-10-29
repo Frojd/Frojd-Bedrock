@@ -35,16 +35,19 @@
     }
 }
 
-@mixin wrap($list: (), $includeSpacing: true, $spacingToWidth: true) {
+@mixin wrap($list: (), $includeSpacing: true, $spacingToWidth: true, $center: true) {
     $spacing: 0;
 
     @if $spacingToWidth {
         $spacing: map-get($gutters, M) * 2;
     }
 
-    @if $includeSpacing {
-        margin: 0 auto;
+    @if $center {
+        margin-left: auto;
+        margin-right: auto;
+    }
 
+    @if $includeSpacing {
         @include spacing();
 
         @include media(M) {

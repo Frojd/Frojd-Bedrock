@@ -1,0 +1,15 @@
+.search {
+    $root: &;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: $grey-5;
+
+    &__wrap {
+        @include wrap(site);
+    }
+
+    &__title {
+        @include textstyle(title);
+    }
+}

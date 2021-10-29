@@ -1,16 +1,29 @@
-<div class="content">
-    <?php get_template_part('partials/content-header'); ?>
+<?php
+global $wp_query;
+$posts = $wp_query->posts;
+?>
+<div class="search">
+    <div class="search__wrap">
+        <div class="search__header">
+            <h1 class="search__title"><?= App\title(); ?></h1>
 
-    <?php if (!have_posts()) : ?>
-        <div class="alert alert--warning">
-            <?php _e('Sorry, no results were found.', 'sage'); ?>
+            <div class="search__form">
+                <?php get_search_form(); ?>
+            </div>
         </div>
-        <?php get_search_form(); ?>
-    <?php endif; ?>
-
-    <?php while (have_posts()) : the_post(); ?>
-        <?php get_template_part('partials/item', get_post_type()); ?>
-    <?php endwhile; ?>
-
-    <?php the_posts_navigation(); ?>
+        <div class="search__result">
+            <?php if(empty($posts)) : ?>
+                <p class="search__no-result">
+                    <?= __('Sorry, no results were found.', 'sage'); ?>
+                </p>
+            <?php else : ?>
+                <?php
+                    App\template_part('partials/list', [
+                        'posts' => $posts,
+                    ]);
+                    App\template_part('partials/pagination');
+                ?>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
