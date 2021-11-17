@@ -3,11 +3,10 @@ version: 2
 defaults: &defaults
   working_directory: ~/repo
 
-filter_ignore_master: &filter_ignore_master
+filter_ignore_main: &filter_ignore_main
   filters:
     branches:
       ignore:
-        - master
         - main
         - /^release.*/
     tags:
@@ -77,7 +76,7 @@ jobs:
   checkout_code:
     <<: *defaults
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:3.9
     steps:
       - checkout
       - *save_repo
@@ -123,7 +122,7 @@ jobs:
   ansible:
     <<: *defaults
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:3.9
     steps:
       - *restore_repo
       - *restore_ansible
@@ -139,7 +138,7 @@ jobs:
   deploy:
     <<: *defaults
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:3.9
     steps:
       - *restore_repo
       - *restore_wp
@@ -155,11 +154,11 @@ jobs:
             ansible-galaxy install -r requirements.yml
 
             if [ "${CIRCLE_BRANCH}" == "develop" ]; then
-              ansible-playbook deploy.yml -i stages/stage
+              ansible-playbook deploy.yml -i stages/stage.yml
             fi
 
             if [ "${CIRCLE_TAG}" ]; then
-              ansible-playbook deploy.yml -i stages/prod
+              ansible-playbook deploy.yml -i stages/prod.yml
             fi
 
 workflows:
@@ -167,19 +166,19 @@ workflows:
   build_test_and_deploy:
     jobs:
       - checkout_code:
-          <<: *filter_ignore_master
+          <<: *filter_ignore_main
       - frontend:
-          <<: *filter_ignore_master
+          <<: *filter_ignore_main
           requires:
             - checkout_code
       - wordpress:
-          <<: *filter_ignore_master
+          <<: *filter_ignore_main
           context:
             - ACF_PRO_KEY
           requires:
             - checkout_code
       - ansible:
-          <<: *filter_ignore_master
+          <<: *filter_ignore_main
           requires:
             - checkout_code
       - deploy:

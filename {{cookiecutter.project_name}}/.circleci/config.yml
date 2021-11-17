@@ -4,11 +4,11 @@ version: 2.1
 defaults: &defaults
   working_directory: ~/repo
 
-filter_ignore_master: &filter_ignore_master
+filter_ignore_main: &filter_ignore_main
   filters:
     branches:
       ignore:
-        - master
+        - main
         - /^release.*/
     tags:
       only:
@@ -154,10 +154,10 @@ jobs:
             ansible-galaxy install -r requirements.yml
 
             if [ "${CIRCLE_BRANCH}" == "develop" ]; then
-              ansible-playbook deploy.yml -i stages/stage
+              ansible-playbook deploy.yml -i stages/stage.yml
             fi
             if [ "${CIRCLE_TAG}" ]; then
-              ansible-playbook deploy.yml -i stages/prod
+              ansible-playbook deploy.yml -i stages/prod.yml
             fi
 
 workflows:
@@ -165,19 +165,19 @@ workflows:
   build_test_and_deploy:
     jobs:
       - checkout_code:
-          <<: *filter_ignore_master
+          <<: *filter_ignore_main
       - frontend:
-          <<: *filter_ignore_master
+          <<: *filter_ignore_main
           requires:
             - checkout_code
       - wordpress:
-          <<: *filter_ignore_master
+          <<: *filter_ignore_main
           context:
             - ACF_PRO_KEY
           requires:
             - checkout_code
       - venv:
-          <<: *filter_ignore_master
+          <<: *filter_ignore_main
           requires:
             - checkout_code
       - deploy:

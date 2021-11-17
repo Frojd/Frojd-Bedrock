@@ -19,5 +19,6 @@ read ACF_PRO_KEY
 
 rm -rf docker/config/web.env
 cat docker/config/web.example.env | sed "s/%%ACF_PRO_KEY%%/$ACF_PRO_KEY/" > docker/config/web.env
+cat docker/config/web-local.example.env | sed "s/%%ACF_PRO_KEY%%/$ACF_PRO_KEY/" | sed "s/%%LOCAL_IP%%/$(ipconfig getifaddr en0)/" > .env
 
 cd -

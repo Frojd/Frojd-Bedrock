@@ -25,6 +25,8 @@
         nonce_salt: "{{ lookup('password', 'tmp/pass8.txt length=60 chars=ascii_letters,digits,!,,,,@,#,$,%,^,&,*,(,),_,-,:,.,?,:.;,|,},{,],[') }}"
 
     - name: Creates directory for shared files
+      become: yes
+      become_user: root
       file:
         path: "{{ ansistrano_deploy_to }}/shared"
         state: directory
@@ -34,6 +36,8 @@
         recurse: yes
 
     - name: Create .env file
+      become: yes
+      become_user: root
       template:
         src: templates/.env.j2
         dest: "{{ ansistrano_deploy_to }}/shared/.env"
@@ -42,10 +46,14 @@
         mode: 0644
 
     - name: Creates mysql database
+      become: yes
+      become_user: root
       mysql_db:
         name: "{{ database_name }}"
 
     - name: Creates mysql user
+      become: yes
+      become_user: root
       mysql_user:
         name: "{{ database_user }}"
         password: "{{ database_password }}"
@@ -53,6 +61,8 @@
         state: present
 
     - name: Create nginx config
+      become: yes
+      become_user: root
       template:
         src: templates/nginx.conf.j2
         dest: "/mnt/persist/nginx/conf.d/{{ project_slug }}.conf"
