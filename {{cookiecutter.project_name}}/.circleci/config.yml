@@ -29,7 +29,7 @@ executors:
       - image: cimg/base:stable-20.04
   python:
     docker:
-      - image: cimg/python:3.9
+      - image: cimg/python:3.9.7
   node:
     docker:
       - image: cimg/node:14.18
