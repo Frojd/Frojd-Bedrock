@@ -16,30 +16,12 @@
     }
 
     &__list {
-        @include media(S) {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -10px;
-        }
+        @extend %grid__list;
 
-        @include media(M) {
-            margin-left: -20px;
-        }
+        margin-top: 16px;
     }
 
     &__item {
-        @include media(S) {
-            width: calc(50% - 10px);
-            margin-left: 10px;
-        }
-
-        @include media(M) {
-            width: calc(25% - 20px);
-            margin-left: 20px;
-        }
-    }
-
-    @media print {
-        display: none !important;
+        @extend %grid__item--fourth;
     }
 }

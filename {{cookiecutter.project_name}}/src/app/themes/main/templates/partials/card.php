@@ -17,6 +17,7 @@ $imageId = $imageId ?: get_post_thumbnail_id($id);
 
 $classes = App\array_to_modifiers([
     $postType,
+    empty($imageId) ? 'no-image' : 'has-image',
 ], 'card');
 ?>
 <article class="<?= $classes; ?>">
@@ -24,9 +25,12 @@ $classes = App\array_to_modifiers([
         <span class="sr-only"><?= $title; ?></span>
     </a>
     <div class="card__container">
-        <div class="card__image">
-            <?php App\the_post_thumbnail_img('thumbnail', null, $imageId); ?>
-        </div>
+        <?php if(!empty($imageId)) : ?>
+            <div class="card__image">
+                <?php App\the_post_thumbnail_img('thumbnail', null, $imageId); ?>
+            </div>
+        <?php endif; ?>
+
         <div class="card__content">
             <h3 class="card__title"><?= $title; ?></h3>
 

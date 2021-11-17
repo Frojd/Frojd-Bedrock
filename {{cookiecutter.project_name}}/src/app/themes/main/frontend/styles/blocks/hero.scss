@@ -1,14 +1,51 @@
 .hero {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+    $root: &;
 
-    &__container {
+    position: relative;
+    color: white;
+    background: black;
+
+    &__background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        img {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            opacity: .4;
+        }
+    }
+
+    &__wrap {
         @include wrap(content);
 
+        position: relative;
         padding-top: 40px;
         padding-bottom: 40px;
-        color: white;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     &__title {
