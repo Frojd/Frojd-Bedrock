@@ -1,0 +1,7 @@
+.card {
+    $root: &;
+
+    &__title {
+        @include textstyle(h3);
+    }
+}

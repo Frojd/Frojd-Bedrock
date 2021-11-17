@@ -1,11 +1,11 @@
 {
-    "key": "group_590c6bfca7ee9",
-    "title": "Post",
+    "key": "group_617c24f5b6f55",
+    "title": "Hero",
     "fields": [
         {
-            "key": "field_61950aa6a2a5f",
-            "label": "Related",
-            "name": "articlelist",
+            "key": "field_617c24f972a20",
+            "label": "Hero",
+            "name": "hero",
             "type": "clone",
             "instructions": "",
             "required": 0,
@@ -16,7 +16,7 @@
                 "id": ""
             },
             "clone": [
-                "field_617c22e24a571"
+                "field_617c23234a573"
             ],
             "display": "seamless",
             "layout": "block",
@@ -27,9 +27,9 @@
     "location": [
         [
             {
-                "param": "post_type",
+                "param": "page_type",
                 "operator": "==",
-                "value": "post"
+                "value": "front_page"
             }
         ]
     ],
@@ -41,5 +41,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1637157551
+    "modified": 1635525918
 }

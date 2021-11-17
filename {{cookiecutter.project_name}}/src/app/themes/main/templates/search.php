@@ -18,8 +18,8 @@ $posts = $wp_query->posts;
                 </p>
             <?php else : ?>
                 <?php
-                    App\template_part('partials/list', [
-                        'posts' => $posts,
+                    App\template_part('partials/articlelist', [
+                        'items' => $posts,
                     ]);
                     App\template_part('partials/pagination');
                 ?>

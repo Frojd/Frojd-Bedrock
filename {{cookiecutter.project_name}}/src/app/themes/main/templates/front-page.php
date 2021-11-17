@@ -6,8 +6,4 @@ $latest = get_posts([
 
 App\template_part('partials/hero');
 
-App\template_part('partials/blurbs');
-
-App\template_part('partials/list', [
-    'posts' => $latest
-]);
+App\template_part('partials/modules');

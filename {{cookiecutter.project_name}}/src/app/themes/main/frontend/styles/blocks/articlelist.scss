@@ -1,6 +1,14 @@
-.list {
-    &__container {
-        @include wrap(content);
+.articlelist {
+    $root: &;
+
+    margin: 20px 0;
+
+    @include media(M) {
+        margin: 40px 0;
+    }
+
+    &__wrap {
+        @include wrap;
     }
 
     &__title {
