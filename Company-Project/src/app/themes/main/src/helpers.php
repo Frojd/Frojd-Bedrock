@@ -12,23 +12,23 @@ function get_ver_tag() {
 }
 
 function template($layout = 'base') {
-    return Template::$instances[$layout];
+    return isset(Template::$instances[$layout]) ? Template::$instances[$layout] : false;
 }
 
 function get_template_part($template, array $context = [], $layout = 'base') {
     ob_start();
     template_part($template, $context, $layout);
+    return ob_get_clean();
+}
+
+function template_part($template, array $context = [], $layout = 'base') {
+    extract($context);
     /**
      * Mock a template wrapper for admin. Otherwise templates will crash
      */
     if (!template($layout)) {
         new Template(new Wrapper(''));
     }
-    return ob_get_clean();
-}
-
-function template_part($template, array $context = [], $layout = 'base') {
-    extract($context);
     include template($layout)->partial($template);
 }
 
@@ -41,6 +41,34 @@ function asset_path($filename) {
     isset($manifest) || $manifest = new JsonManifest(get_template_directory() . '/' . Asset::$dist . '/assets.json');
 
     return (string)new Asset($filename, $manifest);
+}
+
+/**
+ * @param $modifiers array  Eg. ['big', 'bold']
+ * @param $baseClass string Eg. 'block-name__item'
+ *
+ * @return string           Eg. "block-name__item--big block-name__item--bold"
+ */
+function array_to_modifiers(array $modifiers, $baseClass) {
+    return $baseClass . ' ' . implode(' ', array_map(function ($modifier) use ($baseClass) {
+        if(empty($modifier))
+            return;
+        return "$baseClass--$modifier";
+    }, $modifiers));
+}
+
+/**
+ * @param $attributes array  Eg. ['src' => 'http://', 'alt' => 'Hello']
+ *
+ * @return string            Eg. src="http://" alt="Hello"
+ */
+function array_to_attributes(array $attributes) {
+    return ' ' . implode(' ', array_map(function($k, $v) {
+        if(is_bool($v)) {
+            return $v ? "$k" : '';
+        }
+        return "$k='$v'";
+    }, array_keys($attributes), $attributes));
 }
 
 /**
@@ -105,7 +133,8 @@ function get_field_group($field = '', $postId = null) {
  * @param $field string field name in ACF
  * @return array
  */
-function get_flexible_content($field, $postId, $startIndex = 0) {
+function get_flexible_content($field, $postId = null, $startIndex = 0) {
+    $postId = is_null($postId) ? get_the_ID() : $postId;
     $flexible = get_field($field, $postId);
     if(empty($flexible))
         return;
@@ -170,18 +199,21 @@ function get_the_svg_icon($icon, $relPath = '/dist/images/') {
 /**
  * Post thumbnail as background image
  */
-function the_post_thumbnail_background($size = '', $postId = null, $thumbnailId = null) {
+function get_the_post_thumbnail_background($size = '', $postId = null, $thumbnailId = null) {
     $thumbnail = get_post_thumbnail_data($size, $postId, $thumbnailId);
-
-    if(empty($thumbnail->src)) {
+    $src = $thumbnail['src'] ?? '';
+    $alt = $thumbnail['alt'] ?? '';
+    if(empty($src))
         return '';
-    }
-    
-    $html = ' style="background-image:url(\'' . $thumbnail->src . '\');"';
-    if(!empty($thumbnail->alt)) {
-        $html .= ' title="' . $thumbnail->alt . '"';
-    }
-    echo $html;
+
+    $html = ' style="background-image:url(\'' . $src . '\');"';
+    if(!empty($alt))
+        $html .= ' title="' . $alt . '"';
+    return $html;
+}
+
+function the_post_thumbnail_background($size = '', $postId = null, $thumbnailId = null) {
+    echo get_the_post_thumbnail_background($size, $postId, $thumbnailId);
 }
 
 function get_post_thumbnail_data($size = '', $postId = null, $thumbnailId = null) {
@@ -191,11 +223,29 @@ function get_post_thumbnail_data($size = '', $postId = null, $thumbnailId = null
 
     $attachment = get_post($thumbnailId);
     $src = wp_get_attachment_image_src($thumbnailId, $size);
-    return (object) array(
+    if(empty($attachment) || empty($src))
+        return [];
+
+    return [
         'title' => $attachment->post_title,
         'caption' => $attachment->post_excerpt,
         'description' => $attachment->post_content,
-        'src' => !empty($src) ? $src[0] : '',
-        'alt' => trim(strip_tags(get_post_meta($thumbnailId, '_wp_attachment_image_alt', true)))
-    );
+        'src' => $src[0] ?? '',
+        'alt' => trim(strip_tags(get_post_meta($thumbnailId, '_wp_attachment_image_alt', true))),
+        'width' => $src[1] ?? '',
+        'height' => $src[2] ?? '',
+    ];
+}
+
+function the_post_thumbnail_img($size, $postId = null, $thumbnailId = null, $attr = []) {
+    echo get_post_thumbnail_img($size, $postId, $thumbnailId, $attr);
+}
+
+function get_post_thumbnail_img($size, $postId = null, $thumbnailId = null, $attr = []) {
+    $size = empty($size) ? 'thumbnail' : $size;
+    $postId = is_null($postId) ? get_the_ID() : $postId;
+    $thumbnailId = is_null($thumbnailId) ? get_post_thumbnail_id($postId) : $thumbnailId;
+    if(empty($thumbnailId))
+        return '';
+    return wp_get_attachment_image($thumbnailId, $size, false, $attr);
 }

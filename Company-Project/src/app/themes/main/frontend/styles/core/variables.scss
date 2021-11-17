@@ -28,6 +28,7 @@ $mobile-menu: M;
 
 // Z-index bases
 $z-cookie: 200;
+$z-card: 1;
 
 // Transitions & animations
 $transition: .3s ease-in-out;
@@ -37,9 +38,14 @@ $blue: blue;
 $blue-80: darkblue;
 $blue-10: lightblue;
 
+$grey: #ccc;
+$grey-5: #efefef;
+$grey-10: #eee;
+
 $base-color: #000;
-$accent-color: $blue-10;
-$link-color: $blue;
+$primary-color: $blue;
+$secondary-color: $blue-10;
+$link-color: $primary-color;
 $link-hover-color: $blue-80;
 $error-color: red;
 
@@ -92,6 +98,10 @@ $textstyles: (
     body: (
         d: (font-size: 18, line-height: 28),
         M: (font-size: 22, line-height: 38),
+    ),
+    body-small: (
+        d: (font-size: 16, line-height: 20),
+        M: (font-size: 18, line-height: 24),
     ),
     label: (
         d: (font-size: 14, line-height: 14, letter-spacing: .5px, text-transform: uppercase),

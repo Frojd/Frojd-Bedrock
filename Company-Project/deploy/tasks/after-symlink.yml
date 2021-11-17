@@ -1,10 +1,12 @@
 - name: Restart PHP
   service: name=php7.4-fpm state=restarted
   become: true
+  run_once: true
 
 - name: Restart nginx
   service: name=nginx state=reloaded
   become: true
+  run_once: true
 
 - name: Flush permalinks
   shell: chdir="{{ ansistrano_release_path.stdout }}"

@@ -1,4 +1,4 @@
-.blurbs {
+.articlelist {
     $root: &;
 
     margin: 20px 0;
@@ -18,7 +18,9 @@
     &__list {
         @extend %grid__list;
 
-        margin-top: 16px;
+        #{$root}__title + & {
+            margin-top: 16px;
+        }
     }
 
     &__item {

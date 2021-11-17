@@ -1,9 +1,31 @@
 .article {
-    &__container {
+    $root: &;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: $grey-5;
+
+    &__wrap {
         @include wrap(site);
     }
 
     &__content {
-        @include wrap(content);
+        @include wrap(content, false, false);
+    }
+
+    &__title {
+        @include textstyle(title);
+    }
+
+    &__meta {
+        @include textstyle(label);
+
+        margin-top: 20px;
+    }
+
+    &__richtext {
+        @extend %richtext;
+
+        margin-top: 40px;
     }
 }

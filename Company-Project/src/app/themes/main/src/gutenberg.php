@@ -65,8 +65,7 @@ add_filter('allowed_block_types_all', function ($allowedBlocks, $editor) {
         'sage/preamble',
 
         // ACF specific
-        'acf/image-50-50',
-        'acf/image',
+        // 'acf/related',
     ];
     return $allowedBlocks;
 }, 2, 10);
@@ -116,23 +115,18 @@ add_action('enqueue_block_editor_assets', function() {
     register_block_type('sage/preamble', ['editor_script' => 'sage-gutenberg']);
 });
 
-add_action('acf/init', function () {
-    /**
-     * Icon list: @link https://developer.wordpress.org/resource/dashicons/
-     * acf_register_block_type docs: @link https://www.advancedcustomfields.com/resources/acf_register_block_type/
-     */
+// add_action('acf/init', function () {
+//     /**
+//      * Icon list: @link https://developer.wordpress.org/resource/dashicons/
+//      * acf_register_block_type docs: @link https://www.advancedcustomfields.com/resources/acf_register_block_type/
+//      */
 
-    // Image //
-    acf_register_block_type([
-        'name' => 'image',
-        'title' => __('Image', 'sage'),
-        'description' => __('Single image', 'sage'),
-        'render_template' => get_template_directory() . '/templates/partials/block-image.php',
-        'category' => 'common',
-        'icon' => 'format-image',
-        'keywords' => ['image'],
-        'supports' => [
-            'align' => ['full',]
-        ]
-    ]);
-});
+//     // Register acf blocks that need more complicated layout
+//     acf_register_block_type([
+//         'name' => 'related',
+//         'title' => __('Related posts', 'sage'),
+//         'description' => __('List of related posts', 'sage'),
+//         'render_template' => get_template_directory() . '/templates/partials/related.php',
+//         'category' => 'common',
+//     ]);
+// });
