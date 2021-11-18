@@ -7,10 +7,37 @@
 
     &__wrap {
         @include wrap(site);
+
+        display: flex;
+        flex-wrap: wrap;
+
+        @include media(M) {
+            flex-wrap: nowrap;
+        }
+    }
+
+    &__sidebar {
+        flex: 0 0 auto;
+        width: 100%;
+        margin-bottom: 20px;
+        background: white;
+
+        @include media(M) {
+            width: 300px;
+            margin-right: 20px;
+            margin-bottom: 0;
+        }
     }
 
     &__content {
         @include wrap(content, false, false);
+
+        flex: 1 1 auto;
+    }
+
+    &__header {
+        flex: 1 0 auto;
+        width: 100%;
     }
 
     &__title {

@@ -21,7 +21,7 @@
                                 'menu_class' => 'menu menu--primary',
                                 'class' => 'menu',
                                 'container' => '',
-                                'walker' => new App\Walkers\Nav\Nav()
+                                'walker' => new App\Walkers\Nav\Nav(),
                             ]);
                         endif;
                     ?>

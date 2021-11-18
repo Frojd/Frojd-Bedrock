@@ -1,92 +1,169 @@
 <?php
-
 namespace App\Walkers\Nav;
+
+/*
+ * Support for more params than the default in Walker_Nav_Menu, includes:
+ * - class, string, default "menu", (for defining classname to be used with BEM)
+ * - toggle_children, boolean, default true, (for adding class to be able to toggle children in menu)
+ * - show_content, boolean, default true, (for adding item content to menu)
+ * - page_menu, boolean, default false, (when using warker for wp_list_pages)
+ */
+
+function start_el($treeType, $item, $depth = 0, $args = [], $id = 0) {
+    $indent = ($depth) ? str_repeat("\t", $depth) : '';
+
+    if (is_array($args))
+        $args = (object) $args;
+
+    $isPageMenu = $treeType == 'page';
+
+    $before = $args->before ?? '';
+    $after = $args->after ?? '';
+    $linkBefore = $args->link_before ?? '';
+    $linkAfter = $args->link_after ?? '';
+
+    // New params
+    $toggleChildren = $args->toggle_children ?? true;
+    $showContent = $args->show_content ?? true;
+    $class = $args->class ?? '';
+
+    $class = $class ?: ($args->menu_class ?? '');
+    $class = $class ?: 'menu';
+
+    $menuId = $args->menu_id ?? '';
+    $themeLocation = $args->theme_location ?? '';
+    $listItemId = $args->item_id ?? '';
+    $listItemId = $listItemId ?: $menuId;
+    $listItemId = $listItemId ?: $themeLocation;
+    $listItemId = $listItemId ?: $class;
+    $listItemId = "{$listItemId}-{$item->ID}";
+
+    $modifiers = [];
+    $hasChildren = false;
+    if(is_array($item->classes)) {
+        foreach($item->classes as $classname) {
+            if(in_array($classname, ['current_page_item', 'current-menu-item'])) {
+                $modifiers[] = 'current';
+            } elseif(in_array($classname, ['current-page-ancestor', 'current-menu-ancestor'])) {
+                $modifiers[] = 'ancestor';
+            } elseif(in_array($classname, ['current-page-parent', 'current-menu-parent'])) {
+                $modifiers[] = 'parent';
+            } elseif($classname == 'menu-item-has-children') {
+                $modifiers[] = 'has-children';
+                $hasChildren = true;
+            } elseif(
+                !empty($classname) &&
+                strpos($classname, 'menu-item') === false &&
+                strpos($classname, 'page-item') === false &&
+                strpos($classname, 'page_item') === false
+            ) {
+                $modifiers[] = $classname; // Any custom classes
+            }
+        }
+    } else {
+        if($item->ID == $id) {
+            $modifiers[] = 'current';
+        }
+    }
+
+    $hide = get_field('hide_in_menu', $item->object_id);
+    $modifiers[] = $hide === true ? 'hidden' : 'visible';
+
+    $classNames = array_map(function($m) use ($class) {
+        return "{$class}__item--{$m}";
+    }, array_unique(array_filter($modifiers)));
+    $classNames = array_merge(["{$class}__item"], $classNames);
+    $itemClasses = esc_attr(implode(' ', apply_filters('nav_menu_css_class', $classNames, $item)));
+
+    $tag = $hasChildren && $toggleChildren ? 'button' : 'span';
+
+    // link attributes
+    $url = $item->url ?? '';
+    if($isPageMenu && empty($url))
+        $url = get_permalink($item->ID);
+    $isLink = !empty($url);
+    $linkModifiers = [
+        $isLink ? 'is-link' : 'no-link',
+        $hasChildren && $toggleChildren ? 'is-button' : '',
+    ];
+    $attributes = [];
+    if($isLink) {
+        $tag = 'a';
+        $attributes = [
+            'href' => $url,
+            'rel' => $item->rel ?? '',
+            'title' => $item->attr_title ?? '',
+            'target' => $item->target ?? '',
+        ];
+    }
+
+    if($isPageMenu)
+        $attributes = apply_filters('page_menu_link_attributes', $attributes, $item, $depth, $args, $id);
+
+    $linkClasses = \App\array_to_modifiers($linkModifiers, "{$class}__link");
+    $linkClasses .= $hasChildren && $toggleChildren ? ' js-toggle-children' : '';
+    $attributes['class'] = $linkClasses;
+
+    $title = $item->title ?? '';
+    $title = $title ?: ($item->post_title ?? '');
+    $title = apply_filters('the_title', $title, $item->ID);
+    $title = "<span class=\"{$class}__title\">{$title}</span>";
+
+    $content = '';
+    $itemContent = $item->description ?? '';
+    if(!empty($itemContent) && $showContent) {
+        $content = nl2br($itemContent);
+        $content = "<span class=\"{$class}__textc\">{$content}</span>";
+    }
+
+    $linkContent = $linkBefore . $title . $content . $linkAfter;
+    $link = sprintf('%1$s<%2$s%3$s>%4$s</%2$s>%5$s',
+        $before,
+        $tag,
+        \App\array_to_attributes($attributes),
+        $linkContent,
+        $after,
+    );
+
+    $itemStart = "<li id=\"{$listItemId}\" class=\"{$itemClasses}\">";
+    $itemContent = apply_filters('walker_nav_menu_start_el', $link, $item, $depth, $args);
+
+    // build html
+    return $indent . $itemStart . $itemContent;
+}
 
 class Nav extends \Walker_Nav_Menu {
 
-    public function start_lvl(&$output, $depth = 0, $args = array()) {
+    public function start_lvl(&$output, $depth = 0, $args = []) {
         $indent = str_repeat("\t", $depth);
-        $class = isset($args->menu_class) ? $args->menu_class : 'menu';
-        $class = isset($args->class) ? $args->class : $class;
-        $output .= "\n$indent<ul class=\"" . $class . "__children\">\n";
+        $class = $args->class ?? '';
+        $class = $class ?: ($args->menu_class ?? '');
+        $class = $class ?: 'menu';
+        $output .= "\n$indent<ul class=\"{$class}__children\">\n";
     }
 
-    public function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
-        $indent = ($depth) ? str_repeat("\t", $depth) : '';
-        if (is_array($args)) {
-            $args = (object) $args;
-        }
+    public function start_el(&$output, $item, $depth = 0, $args = [], $id = 0) {
+        $output .= start_el($this->tree_type, $item, $depth, $args, $id);
+    }
+}
 
-        $class = isset($args->menu_class) ? $args->menu_class : 'menu';
-        $class = isset($args->class) ? $args->class : $class;
+class Page extends \Walker_Page {
+    public $tree_type = 'page';
 
-        $classes = array('item');
+    public $db_fields = array(
+        'parent' => 'post_parent',
+        'id'     => 'ID',
+    );
 
-        $children = false;
+    public function start_lvl(&$output, $depth = 0, $args = []) {
+        $indent = str_repeat("\t", $depth);
+        $class = $args['class'] ?? '';
+        $class = $class ?: ($args['menu_class'] ?? '');
+        $class = $class ?: 'menu';
+        $output .= "\n$indent<ul class=\"{$class}__children\">\n";
+    }
 
-        if(is_array($item->classes)) {
-            if(in_array('current_page_item', $item->classes) || in_array('current-menu-item', $item->classes)) {
-                $classes[] = 'item--current';
-            }
-            if(in_array('current-page-ancestor', $item->classes) || in_array('current-menu-ancestor', $item->classes)) {
-                $classes[] = 'item--ancestor';
-            }
-            if(in_array('current-page-parent', $item->classes) || in_array('current-menu-parent', $item->classes)) {
-                $classes[] = 'item--parent';
-            }
-            if(in_array('menu-item-has-children', $item->classes)) {
-                $classes[] = 'item--has-children';
-                $children = true;
-            }
-        }
-
-        $hide = get_field('hide_in_menu', $item->object_id);
-        if($hide) {
-            $classes[] = 'item--hidden';
-        } else {
-            $classes[] = 'item--visible';
-        }
-
-        $classNames = preg_filter('/^/', $class . '__', $classes);
-        $classNames = esc_attr(implode(' ', apply_filters('nav_menu_css_class', array_filter($classNames), $item)));
-
-        // build html
-        $output .= $indent . '<li id="nav-menu-item-'. $item->ID . '" class="' . $classNames . '">';
-
-        // link attributes
-        $attributes = ' class="' . $class . '__link' . ($children ? ' js-toggle-children' : '') . '"';
-        $tag = 'span';
-
-        if($children) {
-            $tag = 'a';
-        }
-
-        if(!empty($item->url)) {
-            $tag = 'a';
-            $attributes .= !empty($item->attr_title) ? ' title="'  . esc_attr($item->attr_title) . '"'  : '';
-            $attributes .= !empty($item->target)     ? ' target="' . esc_attr($item->target) . '"'      : '';
-            $attributes .= !empty($item->xfn)        ? ' rel="'    . esc_attr($item->xfn) . '"'         : '';
-            $attributes .= !empty($item->url)        ? ' href="'   . esc_attr($item->url) . '"'         : '';
-        }
-
-        $content = '<span class="' . $class . '__title">' . apply_filters('the_title', $item->title, $item->ID) . '</span>';
-
-        if($item->post_content && !empty($item->post_content)) {
-            $content .= '<span class="' . $class . '__content">' . nl2br($item->post_content) . '</span>';
-        }
-
-        $item_output = sprintf('%1$s<%2$s%3$s>%4$s%5$s%6$s</%2$s>%7$s',
-            $args->before,
-            $tag,
-            $attributes,
-            $args->link_before,
-            $content,
-            $args->link_after,
-            $args->after
-        );
-
-        // build html
-        $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
-
+    public function start_el(&$output, $item, $depth = 0, $args = [], $id = 0) {
+        $output .= start_el($this->tree_type, $item, $depth, $args, $id);
     }
 }
