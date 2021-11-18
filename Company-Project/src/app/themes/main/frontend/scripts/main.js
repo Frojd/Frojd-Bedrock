@@ -4,6 +4,7 @@ import $ from 'jquery';
 import initCookiePopup from './cookie-popup';
 import initScrollTo from './scroll-to';
 import mobileMenu from './mobile-menu';
+import sideMenu from './sidemenu';
 
 $(document).ready(() => {
     const $cookiePopup = $('.js-cookie-popup');
@@ -19,5 +20,10 @@ $(document).ready(() => {
     const $jsMobileMenu = $('.js-toggle-menu');
     if ($jsMobileMenu.length) {
         $jsMobileMenu.map((i, v) => mobileMenu(v));
+    }
+
+    const $jsSideMenu = $('.js-toggle-sidemenu');
+    if ($jsSideMenu.length) {
+        $jsSideMenu.map((i, v) => sideMenu(v));
     }
 });

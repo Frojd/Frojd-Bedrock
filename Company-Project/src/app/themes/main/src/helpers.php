@@ -50,11 +50,12 @@ function asset_path($filename) {
  * @return string           Eg. "block-name__item--big block-name__item--bold"
  */
 function array_to_modifiers(array $modifiers, $baseClass) {
-    return $baseClass . ' ' . implode(' ', array_map(function ($modifier) use ($baseClass) {
+    $classes = array_filter(array_map(function ($modifier) use ($baseClass) {
         if(empty($modifier))
             return;
         return "$baseClass--$modifier";
-    }, $modifiers));
+    }, array_unique($modifiers)));
+    return implode(' ', array_merge([$baseClass], $classes));
 }
 
 /**
@@ -63,12 +64,15 @@ function array_to_modifiers(array $modifiers, $baseClass) {
  * @return string            Eg. src="http://" alt="Hello"
  */
 function array_to_attributes(array $attributes) {
-    return ' ' . implode(' ', array_map(function($k, $v) {
+    $attributes = array_filter(array_map(function($k, $v) {
         if(is_bool($v)) {
             return $v ? "$k" : '';
         }
         return "$k='$v'";
     }, array_keys($attributes), $attributes));
+    if(empty($attributes))
+        return '';
+    return ' ' . implode(' ', $attributes);
 }
 
 /**

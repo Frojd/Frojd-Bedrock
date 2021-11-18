@@ -15,9 +15,17 @@ $text = $text ?: get_the_excerpt($id);
 $url = $url ?: get_permalink($id);
 $imageId = $imageId ?: get_post_thumbnail_id($id);
 
+$imageAttr = [
+    // Change depending on width of each breakpoint
+    'sizes' => "(max-width: 480px) 100vw, (max-width: 1024px) 50vw, 25vw",
+];
+$image = '';
+if(!empty($imageId))
+    $image = App\get_post_thumbnail_img('medium', null, $imageId, $imageAttr);
+
 $classes = App\array_to_modifiers([
     $postType,
-    empty($imageId) ? 'no-image' : 'has-image',
+    empty($image) ? 'no-image' : 'has-image',
 ], 'card');
 ?>
 <article class="<?= $classes; ?>">
@@ -27,7 +35,7 @@ $classes = App\array_to_modifiers([
     <div class="card__container">
         <?php if(!empty($imageId)) : ?>
             <div class="card__image">
-                <?php App\the_post_thumbnail_img('thumbnail', null, $imageId); ?>
+                <?= $image; ?>
             </div>
         <?php endif; ?>
 
@@ -38,13 +46,13 @@ $classes = App\array_to_modifiers([
                 <p class="card__text"><?= $text; ?></p>
             <?php endif; ?>
 
-            <?php if(!empty($linkTitle) && $modifier == 'small') : ?>
+            <?php if(!empty($linkTitle)) : ?>
                 <button
                     class="card__button"
                     type="button"
                     disabled
                     aria-hidden="true"
-                ><?= $linkTitle; ?></a>
+                ><?= $linkTitle; ?></button>
             <?php endif; ?>
         </div>
     </div>
