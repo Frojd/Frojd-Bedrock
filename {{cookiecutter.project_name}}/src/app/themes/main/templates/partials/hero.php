@@ -17,7 +17,12 @@ if(!empty($id))
     $title = $title ?: get_the_title($id);
     $text = $text ?: $heroText;
 
-$image = !empty($imageId) ? App\get_post_thumbnail_img('large', null, $imageId) : '';
+$imageAttr = [
+    'sizes' => '100vw',
+];
+$image = '';
+if(!empty($imageId))
+    $image = App\get_post_thumbnail_img('large', null, $imageId, $imageAttr);
 
 $classes = \App\array_to_modifiers([
     empty($image) ? 'no-image' : 'has-image',

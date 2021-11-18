@@ -47,7 +47,7 @@
                 width: calc(50% - 16px);
             }
 
-            @include media(M) {
+            @include media(L) {
                 width: calc(25% - 24px);
             }
         }

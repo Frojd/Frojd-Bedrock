@@ -11,8 +11,10 @@
         display: flex;
         flex-wrap: wrap;
 
-        @include media(M) {
-            flex-wrap: nowrap;
+        #{$root}--has-sidebar & {
+            @include media(M) {
+                flex-wrap: nowrap;
+            }
         }
     }
 
