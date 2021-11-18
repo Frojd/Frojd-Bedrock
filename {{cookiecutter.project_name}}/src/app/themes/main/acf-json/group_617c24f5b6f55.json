@@ -31,6 +31,13 @@
                 "operator": "==",
                 "value": "front_page"
             }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "templates\/template-landing.php"
+            }
         ]
     ],
     "menu_order": 0,
@@ -41,5 +48,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1635525918
+    "modified": 1637233778
 }
