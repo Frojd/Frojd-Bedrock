@@ -3,10 +3,10 @@
     "title": "Post",
     "fields": [
         {
-            "key": "field_590c6c05546ea",
+            "key": "field_61950aa6a2a5f",
             "label": "Related",
-            "name": "related",
-            "type": "relationship",
+            "name": "articlelist",
+            "type": "clone",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -15,19 +15,13 @@
                 "class": "",
                 "id": ""
             },
-            "post_type": [
-                "post"
+            "clone": [
+                "field_617c22e24a571"
             ],
-            "taxonomy": [],
-            "filters": [
-                "search",
-                "post_type",
-                "taxonomy"
-            ],
-            "elements": "",
-            "min": "",
-            "max": 4,
-            "return_format": "object"
+            "display": "seamless",
+            "layout": "block",
+            "prefix_label": 0,
+            "prefix_name": 0
         }
     ],
     "location": [
@@ -45,7 +39,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1493986856
+    "modified": 1637157551
 }

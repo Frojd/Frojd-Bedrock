@@ -1,0 +1,29 @@
+.articlelist {
+    $root: &;
+
+    margin: 20px 0;
+
+    @include media(M) {
+        margin: 40px 0;
+    }
+
+    &__wrap {
+        @include wrap;
+    }
+
+    &__title {
+        @include textstyle(h2);
+    }
+
+    &__list {
+        @extend %grid__list;
+
+        #{$root}__title + & {
+            margin-top: 16px;
+        }
+    }
+
+    &__item {
+        @extend %grid__item--fourth;
+    }
+}

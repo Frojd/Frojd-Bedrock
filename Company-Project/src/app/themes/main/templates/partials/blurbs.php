@@ -1,20 +1,26 @@
 <?php
-
-$blurbs = get_field('blurbs');
-
-if(!$blurbs)
+$items = $items ?? [];
+if(empty($items))
     return;
-?>
 
+$title = $title ?? '';
+
+$title = $title ?: __('Blurbs', 'sage');
+?>
 <div class="blurbs">
-    <div class="blurbs__container">
-        <h2 class="blurbs__title"><?= __('Blurbs', 'sage'); ?></h2>
-        <div class="blurbs__list">
-            <?php foreach($blurbs as $item) : ?>
-                <div class="blurbs__item">
-                    <?= $item['title']; ?>
-                </div>
+    <div class="blurbs__wrap">
+        <h2 class="blurbs__title"><?= $title; ?></h2>
+        <ul class="blurbs__list">
+            <?php foreach($items as $item) : ?>
+                <?php
+                    $item = (array) $item;
+                    if(isset($item['post']))
+                        $item = array_merge((array) $item['post'], $item);
+                ?>
+                <li class="blurbs__item">
+                    <?php App\template_part('partials/card', $item); ?>
+                </li>
             <?php endforeach; ?>
-        </div>
+        </ul>
     </div>
 </div>

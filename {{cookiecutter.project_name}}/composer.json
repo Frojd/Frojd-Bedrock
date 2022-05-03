@@ -19,7 +19,12 @@
         "forum": "https://discourse.roots.io/category/bedrock"
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "composer/installers": true,
+            "pivvenit/acf-pro-installer": true,
+            "johnpbloch/wordpress-core-installer": true
+        }
     },
     "autoload": {
         "psr-4": {

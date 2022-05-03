@@ -1,0 +1,89 @@
+.sidemenu {
+    $root: &;
+
+    width: 100%;
+    background: white;
+
+    @include media(M) {
+        border: none;
+        background: transparent;
+    }
+
+    &__button {
+        @include textstyle(label);
+
+        display: block;
+        position: relative;
+        width: 100%;
+        padding: 18px 24px 17px;
+        cursor: pointer;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            // background: url('#{$assetsPath}images/arrow-down--black.svg') no-repeat center center;
+            background-size: 18px 18px;
+        }
+
+        @include media(M) {
+            display: none;
+        }
+    }
+
+    &__content {
+        width: 100%;
+        border-top: 1px solid black;
+
+        @include media(M) {
+            display: block !important;
+            border: none;
+        }
+    }
+
+    &__list {
+        width: 100%;
+    }
+
+    &__link {
+        @include textstyle(h6);
+
+        display: block;
+        padding: 20px 20px 17px;
+        color: black;
+        font-weight: $bold;
+        font-family: $base-font;
+        transition: background $transition;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        #{$root}__item--current > & {
+            color: $primary-color;
+        }
+
+        #{$root}__children & {
+            font-size: 1.6rem;
+        }
+
+        @include media(M) {
+            padding: 15px 20px 12px;
+        }
+    }
+
+    &__children {
+        display: none;
+        margin: 0 0 0 17px;
+
+        #{$root}__item--current > &,
+        #{$root}__item--ancestor > &,
+        #{$root}__item--parent > & {
+            display: block;
+        }
+    }
+}

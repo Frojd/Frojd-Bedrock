@@ -1,5 +1,10 @@
 .footer {
-    
+    $root: &;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: $grey;
+
     .js-state-menu-open & {
         display: none;
 
@@ -8,11 +13,11 @@
         }
     }
 
-    &__container {
+    &__wrap {
         @include wrap(site);
     }
 
-    &__list {
+    &__content {
         @include media(S) {
             display: flex;
             flex-wrap: wrap;
@@ -33,6 +38,63 @@
         @include media(M) {
             width: calc(25% - 20px);
             margin-left: 20px;
+        }
+
+        &:last-child {
+            margin-left: auto !important;
+            text-align: right;
+        }
+    }
+
+    &__title {
+        @include textstyle(h3);
+    }
+
+    &__richtext {
+        @extend %richtext;
+
+        @include textstyle(body-small);
+
+        margin-top: 16px;
+    }
+
+    &__list {
+        margin-top: 16px;
+
+        #{$root}__column--follow & {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+
+    &__item {
+        margin-top: 16px;
+
+        #{$root}__column--follow & {
+            margin-top: 0;
+            margin-left: 16px;
+        }
+    }
+
+    &__link {
+        @include textstyle(body-small);
+
+        display: block;
+        color: $link-color;
+
+        &:hover {
+            color: $link-hover-color;
+        }
+
+        &--icon {
+            width: 32px;
+            height: 32px;
+
+            svg {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
         }
     }
 

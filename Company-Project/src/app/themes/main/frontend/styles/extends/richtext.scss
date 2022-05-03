@@ -94,7 +94,7 @@
     }
 
     mark {
-        background: $accent-color;
+        background: $secondary-color;
     }
 
     a {
@@ -171,7 +171,7 @@
                 top: 11px;
                 left: 0;
                 border-radius: 50%;
-                background: $accent-color;
+                background: $primary-color;
 
                 @include media(M) {
                     top: 16px;
@@ -318,7 +318,7 @@
 
     .facts {
         padding: 20px 30px;
-        background: $accent-color;
+        background: $secondary-color;
 
         h2,
         h3,

@@ -10,6 +10,8 @@ if(count($files) <= 0)
     return;
 ?>
 
+<link rel="shortcut icon" href="<?= $path.'favicon.ico'; ?>">
+<link rel="apple-touch-icon" href="<?= $path.'apple-touch-icon.png'; ?>">
 <link rel="apple-touch-icon-precomposed" sizes="57x57" href="<?= $path.'apple-touch-icon-57x57.png'; ?>" />
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?= $path.'apple-touch-icon-114x114.png'; ?>" />
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?= $path.'apple-touch-icon-72x72.png'; ?>" />
@@ -23,8 +25,6 @@ if(count($files) <= 0)
 <link rel="icon" type="image/png" href="<?= $path.'favicon-32x32.png'; ?>" sizes="32x32" />
 <link rel="icon" type="image/png" href="<?= $path.'favicon-16x16.png'; ?>" sizes="16x16" />
 <link rel="icon" type="image/png" href="<?= $path.'favicon-128.png'; ?>" sizes="128x128" />
-<meta name="application-name" content="<?= bloginfo('name'); ?>"/>
-<meta name="msapplication-TileColor" content="#FFFFFF" />
 <meta name="msapplication-TileImage" content="<?= $path.'mstile-144x144.png'; ?>" />
 <meta name="msapplication-square70x70logo" content="<?= $path.'mstile-70x70.png'; ?>" />
 <meta name="msapplication-square150x150logo" content="<?= $path.'mstile-150x150.png'; ?>" />

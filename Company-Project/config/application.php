@@ -83,12 +83,14 @@ if (!defined('ABSPATH')) {
  */
 define('SENTRY_DSN', getenv('SENTRY_DSN') ?: null);
 if (SENTRY_DSN) {
+    $tags = [];
+    if(defined('CURRENT_SITE') && !empty(CURRENT_SITE))
+        $tags['current_site'] = CURRENT_SITE;
+
     Sentry\init([
         'dsn' => SENTRY_DSN,
         'traces_sample_rate' => 1.0,
-        'tags' => [
-            //'current_site' => CURRENT_SITE,
-        ],
+        'tags' => $tags,
         'release' => APP_VERSION,
         'environment' => WP_ENV,
         'prefixes' => [

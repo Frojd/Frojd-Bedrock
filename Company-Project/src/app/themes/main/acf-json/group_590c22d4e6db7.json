@@ -1,12 +1,12 @@
 {
     "key": "group_590c22d4e6db7",
-    "title": "Start page",
+    "title": "Modules",
     "fields": [
         {
-            "key": "field_590c22db455b1",
-            "label": "Hero",
-            "name": "hero",
-            "type": "repeater",
+            "key": "field_617c23e2eea7b",
+            "label": "Modules",
+            "name": "modules",
+            "type": "flexible_content",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -15,182 +15,81 @@
                 "class": "",
                 "id": ""
             },
-            "collapsed": "",
-            "min": 0,
-            "max": 1,
-            "layout": "block",
-            "button_label": "Lägg till anslag",
-            "sub_fields": [
-                {
-                    "key": "field_590c2c04455b2",
-                    "label": "Rubrik",
-                    "name": "title",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": ""
+            "layouts": {
+                "layout_617c23f6ec8d7": {
+                    "key": "layout_617c23f6ec8d7",
+                    "name": "blurbs",
+                    "label": "Blurbs",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_617c240aeea7c",
+                            "label": "Component: Blurbs",
+                            "name": "blurbs",
+                            "type": "clone",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "clone": [
+                                "field_617c23794a574"
+                            ],
+                            "display": "seamless",
+                            "layout": "",
+                            "prefix_label": 0,
+                            "prefix_name": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 },
-                {
-                    "key": "field_590c2c0e455b3",
-                    "label": "Beskrivning",
-                    "name": "content",
-                    "type": "textarea",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "maxlength": "",
-                    "rows": 3,
-                    "new_lines": ""
-                },
-                {
-                    "key": "field_590c2c23455b4",
-                    "label": "Bild",
-                    "name": "image",
-                    "type": "image",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "preview_size": "thumbnail",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": ""
+                "layout_617c2425eea7d": {
+                    "key": "layout_617c2425eea7d",
+                    "name": "articlelist",
+                    "label": "Article list",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_617c2425eea7e",
+                            "label": "Component: Article list",
+                            "name": "articlelist",
+                            "type": "clone",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "clone": [
+                                "field_617c22e24a571"
+                            ],
+                            "display": "seamless",
+                            "layout": "block",
+                            "prefix_label": 0,
+                            "prefix_name": 0
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
-            ]
-        },
-        {
-            "key": "field_590c3954c85e3",
-            "label": "Blurbs",
-            "name": "blurbs",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
             },
-            "collapsed": "",
-            "min": 0,
-            "max": 4,
-            "layout": "row",
-            "button_label": "",
-            "sub_fields": [
-                {
-                    "key": "field_590c3970c85e4",
-                    "label": "Rubrik",
-                    "name": "title",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": ""
-                },
-                {
-                    "key": "field_590c397ac85e5",
-                    "label": "Länk",
-                    "name": "link",
-                    "type": "url",
-                    "instructions": "",
-                    "required": 1,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": ""
-                },
-                {
-                    "key": "field_590c3988c85e6",
-                    "label": "Beskrivning",
-                    "name": "content",
-                    "type": "textarea",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "maxlength": "",
-                    "rows": 3,
-                    "new_lines": ""
-                },
-                {
-                    "key": "field_590c39c3c85e7",
-                    "label": "Bild",
-                    "name": "image",
-                    "type": "image",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array",
-                    "preview_size": "thumbnail",
-                    "library": "all",
-                    "min_width": "",
-                    "min_height": "",
-                    "min_size": "",
-                    "max_width": "",
-                    "max_height": "",
-                    "max_size": "",
-                    "mime_types": ""
-                }
-            ]
+            "button_label": "Add module",
+            "min": "",
+            "max": ""
         }
     ],
     "location": [
         [
             {
-                "param": "page_type",
+                "param": "post_type",
                 "operator": "==",
-                "value": "front_page"
+                "value": "page"
             }
         ]
     ],
@@ -212,7 +111,7 @@
         "categories",
         "tags"
     ],
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1493986918
+    "modified": 1637155911
 }

@@ -1,17 +1,14 @@
 <?php
-    $related = get_field('related');
-?>
+$postType = get_post_type();
 
-<div class="content">
-    <?php while (have_posts()) : the_post(); ?>
-        <?php
-            get_template_part('partials/content-header');
-            
-            get_template_part('partials/article', get_post_type());
+$related = get_field('articlelist');
+$related = $related['articlelist'] ?? $related;
+$relatedTitle = $related['title'] ?? '';
 
-            App\template_part('partials/list', array(
-                'posts' => $related
-            ));
-        ?>
-    <?php endwhile; ?>
-</div>
+$relatedTitle = $title ?: __('Related', 'sage');
+$related['title'] = $relatedTitle;
+
+App\template_part("partials/article-{$postType}");
+
+if(!empty($related))
+    App\template_part('partials/articlelist', $related);
