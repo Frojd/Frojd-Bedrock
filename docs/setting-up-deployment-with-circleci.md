@@ -19,11 +19,11 @@ In this tutorial we'll explain how to successfully set up a Continious Integrati
 - Start by generating a new ssh-key (without a passphrase) for your stage environment
 - Run: `ssh-keygen -m PEM -t rsa -b 4096 -C "ci@frojd.se"`
 - When the "Enter file in which to save the key" prompt pops up, select a name for your key. I recommend naming it after the environment you wish to connect, such as `stage.example.com`, to makes it easier to identify which key belong where.
-- On the next prompt ("Enter passphrase"), press Enter
-- On the next prompt ("Enter passphrase again"), press Enter
+- On the next prompt ("Enter passphrase"), leave empty and press Enter
+- On the next prompt ("Enter passphrase again"), leave empty and press Enter
 - You now have two files:
-    - `stage.myserver.com` (your private key)
-    - `stage.myserver.com.pub` (your public key)
+    - `stage.example.com` (your private key)
+    - `stage.example.com.pub` (your public key)
 - Now repeat the steps above and generate a new set of key for production by following the same instructions we did for stage but with your production domain
 
 - Now that you have generated ssh keys for both stage and prod it is time to add your private key to Circle CI, so Circle CI can access your servers
@@ -32,9 +32,9 @@ In this tutorial we'll explain how to successfully set up a Continious Integrati
 - Press "Add an SSH Key"
 - In the field "Hostname" supply the host in you wish to connect to (in this case `stage.example.com` and `example.com`)
 - In the second field called "Private key", copy and paste the content within your private key here
-    - (For Mac) Copy file content to clipboard: `cat stage.myserver.com | pbcopy`
+    - (For Mac) Copy file content to clipboard: `cat stage.example.com | pbcopy`
 - Press Add SSH Key to save and finialize the CI configuration
-- Send the public part of your key (`stage.myserver.com.pub`) to your hosting partner
+- Send the public part of your key (`stage.example.com.pub`) to your hosting partner
     - Or if you manage the server yourself, add it to `~/.ssh/authorized_users` on your server
 
 - When this is done, run your Circle CI build by either doing a new commit to your repository or trigger a build from the Circle CI interface
