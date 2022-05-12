@@ -84,8 +84,9 @@ if (!defined('ABSPATH')) {
 define('SENTRY_DSN', getenv('SENTRY_DSN') ?: null);
 if (SENTRY_DSN) {
     $tags = [];
-    if(defined('CURRENT_SITE') && !empty(CURRENT_SITE))
+    if(defined('CURRENT_SITE') && !empty(CURRENT_SITE)) {
         $tags['current_site'] = CURRENT_SITE;
+    }
 
     Sentry\init([
         'dsn' => SENTRY_DSN,
