@@ -1,7 +1,7 @@
 {% raw -%}
 
 ---
-- name: Installs wordpress application on server (secret gen, db setup, nginx config)
+- name: Installs wordpress application on server (secret gen, db setup)
   hosts: all
 
   vars:
@@ -59,14 +59,6 @@
         password: "{{ database_password }}"
         priv: '{{ database_name }}.*:ALL,GRANT'
         state: present
-
-    - name: Create nginx config
-      become: yes
-      become_user: root
-      template:
-        src: templates/nginx.conf.j2
-        dest: "/mnt/persist/nginx/conf.d/{{ project_slug }}.conf"
-        mode: 0644
 
     - name: Delete temp pass files
       become: False
