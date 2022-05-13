@@ -29,7 +29,7 @@ In this tutorial we'll explain how to successfully set up a Continious Integrati
 - Now that you have generated ssh keys for both stage and prod it is time to add your private key to Circle CI, so Circle CI can access your servers
 - Login to [Circle CI](https://circleci.com/) and add your project repo
 - Open your project settings in Circle CI by going to My repository / Project Settings / SSH Keys and then scoll down to "Additional SSH Keys")
-- Press "Add an SSH Key"
+- Press "Add SSH Key"
 - In the field "Hostname" supply the host in you wish to connect to (in this case `stage.example.com` and `example.com`)
 - In the second field called "Private key", copy and paste the content within your private key here
     - (For Mac) Copy file content to clipboard: `cat stage.example.com | pbcopy`
