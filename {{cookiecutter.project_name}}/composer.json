@@ -52,7 +52,8 @@
         "wpackagist-plugin/redirection": "*",
         "wpackagist-plugin/duracelltomi-google-tag-manager": "*",
         "wpackagist-plugin/elasticpress": "*",
-        "wpackagist-plugin/nginx-cache": "*"
+        "wpackagist-plugin/nginx-cache": "*",
+        "wpackagist-plugin/disable-embeds": "*"
     },
     "require-dev": {
         "wpackagist-plugin/debug-bar": "*",
@@ -60,7 +61,10 @@
     },
     "extra": {
         "installer-paths": {
-            "src/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+            "src/app/mu-plugins/{$name}/": [
+                "type:wordpress-muplugin",
+                "wpackagist-plugin/disable-embeds"
+            ],
             "src/app/plugins/{$name}/": ["type:wordpress-plugin"],
             "src/app/themes/{$name}/": ["type:wordpress-theme"]
         },
