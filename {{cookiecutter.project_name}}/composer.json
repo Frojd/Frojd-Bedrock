@@ -57,7 +57,8 @@
     },
     "require-dev": {
         "wpackagist-plugin/debug-bar": "*",
-        "wpackagist-plugin/debug-bar-elasticpress": "*"
+        "wpackagist-plugin/debug-bar-elasticpress": "*",
+        "wpackagist-plugin/query-monitor": "*"
     },
     "extra": {
         "installer-paths": {
