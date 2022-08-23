@@ -30,9 +30,9 @@ fi
 
 
 ssh $REMOTE_USER@$REMOTE_HOST "cd $REMOTE_SRC_PATH;
-    wp --allow-root db export /tmp/latest.sql;"
+    wp --allow-root db export /mnt/persist/tmp/latest.sql;"
 
-scp $REMOTE_USER@$REMOTE_HOST:/tmp/latest.sql docker/files/db-dumps/latest.sql
+scp $REMOTE_USER@$REMOTE_HOST:/mnt/persist/tmp/latest.sql docker/files/db-dumps/latest.sql
 
 docker-compose run --rm wp-cli sh -c "
     wp --allow-root db import /app/db-dumps/latest.sql;
