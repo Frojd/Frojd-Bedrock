@@ -11,6 +11,9 @@ src/app/upgrade
 src/app/uploads/*
 !src/app/uploads/.gitkeep
 
+# Db.php added by Query monitor
+src/app/db.php
+
 # WordPress
 /src/wp
 /src/.htaccess
