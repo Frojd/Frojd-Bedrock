@@ -45,6 +45,18 @@ add_action('load-post-new.php', function() {
 });
 
 /**
+ * Hide comments from admin
+ */
+add_action('admin_menu', function() {
+    remove_menu_page( 'edit-comments.php' );
+});
+
+add_action('wp_before_admin_bar_render', function() {
+    global $wp_admin_bar;
+    $wp_admin_bar->remove_menu('comments');
+});
+
+/**
  * Add name to default template
  */
 add_filter('default_page_template_title', function() {
