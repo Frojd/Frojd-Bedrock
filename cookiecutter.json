@@ -17,6 +17,10 @@
   "version": "0.1.0",
   "software_license": ["proprietary", "MIT"],
   "_copy_without_render": [
-    "*.git"
+    "*.git",
+    "*src/app/plugins/gravityforms/*.js",
+    "*src/app/plugins/gravityforms/*.html",
+    "*src/app/plugins/gravityforms/*.php",
+    "*src/app/plugins/gravityforms/*.css"
   ]
 }
