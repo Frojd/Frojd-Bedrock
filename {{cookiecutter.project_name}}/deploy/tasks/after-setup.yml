@@ -8,14 +8,4 @@
     group: www-data
     recurse: true
     follow: yes
-    
-- name: Make sure deploy:www-data has ownership of current
-  file:
-    path: "{{ item }}"
-    owner: deploy
-    group: www-data
-    state: directory
-    recurse: yes
-  with_items:
-    - "{{ ansistrano_deploy_to }}/current"
 {% endraw %}

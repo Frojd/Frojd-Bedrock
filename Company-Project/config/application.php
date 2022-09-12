@@ -14,6 +14,14 @@ if (file_exists(ROOT_DIR . '/.env')) {
   $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'WP_SITEURL']);
 }
 
+function getenv_bool($variable, $default = false) {
+  $val = getenv($variable) ?: $default; // Fallback to default if not exists
+  // Check if false or true, otherwise fallback to value
+  $val = $val === 'false' ? false : ($val === 'true' ? true : $val);
+  // If boolean value return it, otherwise fallback to default
+  return is_bool($val) ? $val : $default;
+}
+
 /**
  * Set up our global environment constant and load its config first
  * Default: development
@@ -68,8 +76,24 @@ define('NONCE_SALT', getenv('NONCE_SALT'));
 define('AUTOMATIC_UPDATER_DISABLED', true);
 define('DISABLE_WP_CRON', true);
 define('WP_POST_REVISIONS', 10);
-
 define('WP_MEMORY_LIMIT', '124M');
+
+/* Cookie script */
+define('COOKIE_SCRIPT', getenv('COOKIE_SCRIPT', ''));
+
+/**
+ * Gravity forms
+ */
+define('GF_LICENSE_KEY', getenv('GF_LICENSE_KEY', ''));
+define('GF_RECAPTCHA_PRIVATE_KEY', getenv('GF_RECAPTCHA_PRIVATE_KEY', ''));
+define('GF_RECAPTCHA_PUBLIC_KEY', getenv('GF_RECAPTCHA_PUBLIC_KEY', ''));
+define('GF_DEBUG', getenv_bool('GF_DEBUG', false));
+define('GFORM_DISABLE_AUTO_UPDATE', getenv_bool('GFORM_DISABLE_AUTO_UPDATE', true));
+
+/**
+ * Elasticpress
+ */
+define('EP_HOST', getenv('EP_HOST'));
 
 /**
  * Bootstrap WordPress
@@ -84,8 +108,9 @@ if (!defined('ABSPATH')) {
 define('SENTRY_DSN', getenv('SENTRY_DSN') ?: null);
 if (SENTRY_DSN) {
     $tags = [];
-    if(defined('CURRENT_SITE') && !empty(CURRENT_SITE))
+    if(defined('CURRENT_SITE') && !empty(CURRENT_SITE)) {
         $tags['current_site'] = CURRENT_SITE;
+    }
 
     Sentry\init([
         'dsn' => SENTRY_DSN,

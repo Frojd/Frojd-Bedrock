@@ -28,14 +28,18 @@ const styleConf = {
                 { loader: 'postcss-loader', options: { sourceMap: 'inline' } },
                 {
                     loader: 'sass-loader',
-                    options: { sourceMap: true, importer: globImporter() }
-                }
-            ]
+                    options: {
+                        sourceMap: true,
+                        sassOptions: { importer: globImporter() },
+                    },
+                },
+            ],
         }, {
             test: /\.*$/,
             include: /assets/,
             exclude: [/\.js$/, /\.html$/, /\.json$/, /\.scss$/,],
-            loader: 'file-loader?name=[path][name].[ext]',
+            type: 'asset/resource',
+            // loader: 'file-loader?name=[path][name].[ext]',
         }],
     },
     plugins: [
@@ -74,10 +78,12 @@ const jsConf = {
         ]
     },
     plugins: [
-        new CopyWebpackPlugin([{
-            from: __dirname + '/assets',
-            to: __dirname + '/../dist/assets'
-        }]),
+        new CopyWebpackPlugin({
+            patterns: [{
+                from: __dirname + '/assets',
+                to: __dirname + '/../dist/assets'
+            }],
+        }),
     ],
 };
 

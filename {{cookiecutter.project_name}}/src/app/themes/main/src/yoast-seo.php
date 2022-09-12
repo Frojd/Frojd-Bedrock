@@ -31,3 +31,11 @@ function _wpseoRegisterCustomExcerpt() {
 
     return wp_trim_words($heroText, 20, $more);
 }
+
+/**
+ * Exclude CTPs from yoast SEO sitemap
+ */
+add_filter('wpseo_sitemap_exclude_post_type', function ($value, $post_type) {
+    $post_type_to_exclude = array('post');
+    if(in_array($post_type, $post_type_to_exclude)) return true;
+}, 10, 2 );

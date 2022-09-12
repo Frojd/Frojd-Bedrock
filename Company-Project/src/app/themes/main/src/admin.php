@@ -18,6 +18,45 @@ add_action('customize_preview_init', function () {
 });
 
 /**
+ * Hide post from admin and add extra seperators
+ */
+add_action('admin_menu', function() {
+    global $menu;
+
+    remove_menu_page('edit.php');
+
+    $menu[] = ['', 'read', 'separator10', '', 'wp-menu-separator'];
+    $menu[] = ['', 'read', 'separator11', '', 'wp-menu-separator'];
+});
+
+add_action('admin_bar_menu', function($wpAdminBar) {
+    $wpAdminBar->remove_node('new-post');
+}, 999);
+
+add_action('wp_dashboard_setup', function() {
+    remove_meta_box('dashboard_quick_press', 'dashboard', 'side');
+});
+
+add_action('load-post-new.php', function() {
+    if (get_current_screen()->post_type == 'post') {
+        wp_redirect(admin_url('post-new.php?post_type=page'));
+        die;
+    }
+});
+
+/**
+ * Hide comments from admin
+ */
+add_action('admin_menu', function() {
+    remove_menu_page( 'edit-comments.php' );
+});
+
+add_action('wp_before_admin_bar_render', function() {
+    global $wp_admin_bar;
+    $wp_admin_bar->remove_menu('comments');
+});
+
+/**
  * Add name to default template
  */
 add_filter('default_page_template_title', function() {

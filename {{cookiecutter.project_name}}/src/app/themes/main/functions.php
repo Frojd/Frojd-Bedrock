@@ -42,6 +42,7 @@ $sage_includes = [
     'src/acf.php',
     'src/admin.php',
     'src/classic-editor.php',
+    'src/cookie-script.php',
     'src/gravity-forms.php',
     'src/gutenberg.php',
     'src/helpers.php',
@@ -57,6 +58,14 @@ array_walk($sage_includes, function ($file) {
         trigger_error(sprintf('Error locating %s for inclusion', $file), E_USER_ERROR);
     }
 });
+
+if (defined('WP_CLI') && WP_CLI) {
+    foreach (glob(__DIR__ . '/src/commands/*') as $file) {
+        if (!preg_match('|fixture|', $file)){
+            require_once $file;
+        }
+    }
+}
 
 foreach (glob(__DIR__.'/src/posttypes/*') as $file) {
     require_once $file;

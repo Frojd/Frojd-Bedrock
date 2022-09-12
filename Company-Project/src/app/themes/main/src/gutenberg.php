@@ -70,6 +70,11 @@ add_filter('allowed_block_types_all', function ($allowedBlocks, $editor) {
     return $allowedBlocks;
 }, 2, 10);
 
+// Add blocks to be allowed for excerpt
+add_filter('excerpt_allowed_blocks', function($allowedBlocks) {
+    return array_merge($allowedBlocks, ['sage/preamble']);
+});
+
 add_action('init', function() {
     wp_set_script_translations('sage-gutenberg', 'sage', get_template_directory() . '/lang');
 
