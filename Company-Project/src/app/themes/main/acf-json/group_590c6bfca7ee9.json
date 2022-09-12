@@ -1,6 +1,6 @@
 {
     "key": "group_590c6bfca7ee9",
-    "title": "Post",
+    "title": "News",
     "fields": [
         {
             "key": "field_61950aa6a2a5f",
@@ -29,7 +29,7 @@
             {
                 "param": "post_type",
                 "operator": "==",
-                "value": "post"
+                "value": "news"
             }
         ]
     ],
@@ -41,5 +41,6 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1637157551
+    "show_in_rest": 0,
+    "modified": 1662964314
 }
