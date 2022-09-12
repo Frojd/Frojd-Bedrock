@@ -50,7 +50,7 @@
                         "id": ""
                     },
                     "post_type": [
-                        "post"
+                        "news"
                     ],
                     "taxonomy": "",
                     "filters": [
@@ -191,7 +191,7 @@
                         "class": "",
                         "id": ""
                     },
-                    "collapsed": "",
+                    "collapsed": "field_617c245349eb6",
                     "min": 0,
                     "max": 0,
                     "layout": "block",
@@ -211,8 +211,8 @@
                                 "id": ""
                             },
                             "post_type": [
-                                "post",
-                                "page"
+                                "page",
+                                "news"
                             ],
                             "taxonomy": "",
                             "allow_null": 1,
@@ -319,5 +319,6 @@
     "hide_on_screen": "",
     "active": false,
     "description": "",
-    "modified": 1637157267
+    "show_in_rest": 0,
+    "modified": 1662964286
 }
