@@ -1,13 +1,13 @@
 PROD_USER=root
 PROD_HOST=example.com
-PROD_SRC_PATH=/mnt/persist/www/company_project/current
-PROD_UPLOAD_PATH=/mnt/persist/www/company_project/shared/src/app/uploads
+PROD_SRC_PATH=/mnt/persist/www/example.com/current
+PROD_UPLOAD_PATH=/mnt/persist/www/example.com/shared/src/app/uploads
 PROD_DOMAIN=example.com
 
 STAGE_USER=root
 STAGE_HOST=stage.example.com
-STAGE_SRC_PATH=/mnt/persist/www/company_project/current
-STAGE_UPLOAD_PATH=/mnt/persist/www/company_project/shared/src/app/uploads
+STAGE_SRC_PATH=/mnt/persist/www/example.com/current
+STAGE_UPLOAD_PATH=/mnt/persist/www/example.com/shared/src/app/uploads
 STAGE_DOMAIN=stage.example.com
 
 LOCAL_DOMAIN=example.com.test:8080
