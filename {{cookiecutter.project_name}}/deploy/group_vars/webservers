@@ -1,6 +1,6 @@
 ---
 python_version: python3
-ansistrano_deploy_to: /mnt/persist/www/{{ cookiecutter.project_slug }}
+ansistrano_deploy_to: /mnt/persist/www/{{ cookiecutter.deploy_dir }}
 database_name: {{ cookiecutter.db_name_prod }}
-database_user: {{ cookiecutter.project_slug }}
+database_user: {{ cookiecutter.db_name_prod }}
 project_slug: {{ cookiecutter.project_slug }}
