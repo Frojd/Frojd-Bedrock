@@ -1,6 +1,6 @@
 {
-    "name": "Project",
-    "short_name": "Project",
+    "name": "Name of site for public display used in manifest",
+    "short_name": "Name of site for public display used in manifest",
     "description": "A short description for public display of site used in manifest",
     "icons": [
         {
