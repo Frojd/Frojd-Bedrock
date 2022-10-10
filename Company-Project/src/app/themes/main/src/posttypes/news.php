@@ -22,7 +22,6 @@ add_action('init', function() {
         'has_archive' => true,
         'hierarchical' => false,
         'capability_type' => 'page',
-        'menu_icon' => 'dashicons-media-text',
         'taxonomies' => ['category', 'post_tag'],
         'menu_icon' => 'dashicons-testimonial',
     ];

@@ -2,7 +2,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const IgnoreEmitPlugin = require('ignore-emit-webpack-plugin');
-const globImporter = require('node-sass-glob-importer');
+const globImporter = require('node-sass-glob-importer-plus');
 
 const path = require('path');
 const isProd = process.env.NODE_ENV === '';

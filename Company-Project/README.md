@@ -116,6 +116,12 @@ export XDEBUG_REMOTE_HOST=$(ifconfig | grep "inet " | grep broadcast | head -n 1
 export XDEBUG_IDEKEY="PHPSTORM"
 ```
 
+## Commands
+
+### `wp acf-sync clear`
+Possibility to clear the ACF field group data saved in database to reset any mismatches between field changes in environment and JSON-files.
+
+
 ## Deployment
 
 ### Initial provisioning
