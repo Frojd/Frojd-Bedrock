@@ -34,19 +34,23 @@ cookiecutter https://github.com/Frojd/Frojd-Bedrock.git
 
 3. Insert your custom vars:
 ```
-project_name [Client-Project]: Example-Project
+repo_name [Frojd/Company-project.se]: Org/Example-project.se
+project_name [Example-Project]:
 project_slug [example_project]:
-author_name [You]:
-email [you@example.com]:
 description [A short description of the project.]: Example description.
+public_site_name [Example Project]
+public_site_description: Example public description
 domain_prod [example.com]:
 domain_stage [stage.example.com]:
-ssh_prod [user@prod-server]:
-ssh_stage [user@stage-server]:
-db_name_prod [prod_db]:
-db_name_stage [stage_db]:
-docker_web_port [8081]:
-docker_db_port [5433]:
+ssh_prod [example.com]: host.com
+ssh_stage [stage.example.com]: stage.host.com
+deploy_dir [example.com]: host.com
+db_name_prod [example_com]: host_com
+db_name_stage [example_com]: host_com
+docker_web_port [8080]:
+docker_web_ssl_port [8081]
+docker_db_port [8082]:
+docker_search_port [8083]:
 version [0.1.0]: 1.0.0
 Select software_license:
 1 - MIT
