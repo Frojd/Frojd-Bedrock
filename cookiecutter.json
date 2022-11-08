@@ -1,9 +1,10 @@
 {
-  "project_name": "Company-Project",
+  "repo_name": "Frojd/Company-project.se",
+  "project_name": "{{ cookiecutter.repo_name|replace('.se', '')|replace('Frojd/', '') }}",
   "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '') }}",
   "description": "A short description of the project.",
-  "site_name": "Name of site for public display used in manifest",
-  "site_description": "A short description for public display of site used in manifest",
+  "public_site_name": "{{ cookiecutter.project_name.lower()|replace('-', ' ')|replace('.se', '') }}",
+  "public_site_description": "A short description for public display",
   "domain_prod": "example.com",
   "domain_stage": "stage.{{ cookiecutter.domain_prod }}",
   "ssh_host_prod": "{{ cookiecutter.domain_prod }}",

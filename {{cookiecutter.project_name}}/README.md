@@ -7,15 +7,34 @@
 * [Docker](https://www.docker.com/) or [Valet](https://laravel.com/docs/8.x/valet)
 * [Git flow](https://github.com/petervanderdoes/gitflow-avh)
 
+
+## Setup project first time
+
+1. After cookiecutter has been used to create project, run script to setup git:
+    ```
+    make setup
+    ```
+2. Create first commit
+    ```
+    git add .
+    git commit -m "Initial commit"
+    ```
+3. Push branches:
+    ```
+    git push -u origin develop
+    git push -u origin main
+    ```
+4. Move on to Installation and Deployment Initial provisioning
+
+
 ## Installation (Using Docker)
 
 1. Make sure you have Docker installed
-2. In root folder, run:
+2. Use make to setup git flow and .env-files. In root folder, run:
     ```
     make init
     ```
-    
-2. Include this ip on your hosts-file
+3. Include this ip on your hosts-file
 
     ```
     127.0.0.1 {{cookiecutter.domain_prod}}.test
@@ -27,7 +46,7 @@
     echo 127.0.0.1 {{cookiecutter.domain_prod}}.test >> c:\windows\System32\drivers\etc\hosts
     ```
 
-3. Start project
+4. Start project
 
     ```
     docker-compose up
@@ -125,9 +144,14 @@ Possibility to clear the ACF field group data saved in database to reset any mis
 ## Deployment
 
 ### Initial provisioning
-To set up the project on a server run the provisioning. Only needed once. 
+To set up the project on a server run the provisioning. Only needed once.
 
-Prepare local build environment:
+1. Make sure you have access to server and check provision files for correct info:
+    - deploy/group_vars/webservers
+    - deploy/stages/prod.yml
+    - deploy/stages/stage.yml
+
+2. Prepare local build environment:
 ```bash
 cd deploy
 python3 -m venv venv
@@ -135,9 +159,15 @@ python3 -m venv venv
 pip install -r requirements.txt
 ansible-galaxy install -r requirements.yml
 ```
-Run provisioning on stage or prod:
+
+3. Run provisioning on stage or prod:
 - Stage: `ansible-playbook provision.yml -i stages/stage.yml`
 - Prod: `ansible-playbook provision.yml -i stages/prod.yml`
+
+4. After provisioning is setup on server, make sure your CircleCI project as access to server
+
+5. Commit and push your changes and Happy deployment!
+
 
 ## Documentation
 
