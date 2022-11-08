@@ -7,26 +7,6 @@
 * [Docker](https://www.docker.com/) or [Valet](https://laravel.com/docs/8.x/valet)
 * [Git flow](https://github.com/petervanderdoes/gitflow-avh)
 
-
-## Setup project first time
-
-1. After cookiecutter has been used to create project, run script to setup git:
-    ```
-    make setup
-    ```
-2. Create first commit
-    ```
-    git add .
-    git commit -m "Initial commit"
-    ```
-3. Push branches:
-    ```
-    git push -u origin develop
-    git push -u origin main
-    ```
-4. Move on to Installation and Deployment Initial provisioning
-
-
 ## Installation (Using Docker)
 
 1. Make sure you have Docker installed
@@ -139,6 +119,29 @@ export XDEBUG_IDEKEY="PHPSTORM"
 
 ### `wp acf-sync clear`
 Possibility to clear the ACF field group data saved in database to reset any mismatches between field changes in environment and JSON-files.
+
+
+## Setup project first time
+
+1. After cookiecutter has been used to create project, run script to setup git:
+    ```
+    make setup
+    ```
+2. Use make to setup git flow and .env-files. In root folder, run:
+    ```
+    make init
+    ```
+3. Create first commit
+    ```
+    git add .
+    git commit -m "Initial commit"
+    ```
+4. Push branches:
+    ```
+    git push -u origin develop
+    git push -u origin main
+    ```
+5. Move on to Installation and Deployment Initial provisioning
 
 
 ## Deployment
