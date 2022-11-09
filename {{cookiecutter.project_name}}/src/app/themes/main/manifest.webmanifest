@@ -1,7 +1,7 @@
 {
-    "name": "{{cookiecutter.site_name}}",
-    "short_name": "{{cookiecutter.site_name}}",
-    "description": "{{cookiecutter.site_description}}",
+    "name": "{{cookiecutter.public_site_name}}",
+    "short_name": "{{cookiecutter.public_site_name}}",
+    "description": "{{cookiecutter.public_site_description}}",
     "icons": [
         {
             "src": "/app/themes/main/favicons/maskable-192.png",

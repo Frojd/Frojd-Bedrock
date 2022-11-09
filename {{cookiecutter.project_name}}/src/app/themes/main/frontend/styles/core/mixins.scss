@@ -81,12 +81,14 @@
 
         @each $media, $style in $map {
             @include media($media) {
-                @if map-has-key($style, font-size) and map-has-key($style, line-height) {
-                    $font-size: map-get($style, font-size);
-                    $line-height: map-get($style, line-height);
-
+                @if map-has-key($style, font-size) {
+                    $font-size: get-default($style, font-size);
                     font-size: #{$font-size / 10}rem;
-                    line-height: #{round($line-height / $font-size * 100) / 100};
+
+                    @if map-has-key($style, line-height) {
+                        $line-height: get-default($style, line-height);
+                        line-height: #{round($line-height / $font-size * 100) / 100};
+                    }
                 }
 
                 @each $param, $value in $style {

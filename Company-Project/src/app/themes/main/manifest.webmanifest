@@ -1,7 +1,7 @@
 {
-    "name": "Name of site for public display used in manifest",
-    "short_name": "Name of site for public display used in manifest",
-    "description": "A short description for public display of site used in manifest",
+    "name": "Company project",
+    "short_name": "Company project",
+    "description": "A short description for public display",
     "icons": [
         {
             "src": "/app/themes/main/favicons/maskable-192.png",
