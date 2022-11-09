@@ -1,6 +1,6 @@
 ---
 python_version: python3
 ansistrano_deploy_to: /mnt/persist/www/example.com
-database_name: examplecom
-database_user: examplecom
+database_name: example_com
+database_user: example_com
 project_slug: company_project

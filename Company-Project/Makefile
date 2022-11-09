@@ -1,3 +1,6 @@
+setup:
+	./scripts/provision/setup_git.sh
+
 init:
-	./scripts/setup_git_flow.sh
-	./scripts/setup_envfiles.sh
+	./scripts/provision/setup_git_flow.sh
+	./scripts/provision/setup_envfiles.sh
