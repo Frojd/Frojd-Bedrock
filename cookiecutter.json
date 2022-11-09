@@ -1,5 +1,5 @@
 {
-  "repo_name": "Frojd/Company-project.se",
+  "repo_name": "Frojd/Company-project",
   "project_name": "{{ cookiecutter.repo_name|replace('Frojd/', '')|replace('/', '-') }}",
   "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '') }}",
   "description": "A short description of the project.",
