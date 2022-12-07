@@ -1,8 +1,9 @@
 .header {
+    $root: &;
 
     .js-state-menu-open & {
         height: 100vh;
-        background: $blue-10;
+        background: $purple-20;
     }
 
     .js-state-menu-open.admin-bar & {

@@ -12,7 +12,7 @@
     }
 
     &__title {
-        @include textstyle(h2);
+        @include textstyle(module-title);
     }
 
     &__list {
