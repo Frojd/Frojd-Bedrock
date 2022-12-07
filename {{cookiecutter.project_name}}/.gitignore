@@ -47,6 +47,7 @@ docker/files/db-dumps/*
 
 docker/config/web.env
 
+docker-compose.override.yml
 
 
 ### IDE / editor files ###
