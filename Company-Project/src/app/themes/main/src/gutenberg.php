@@ -55,6 +55,7 @@ add_filter('allowed_block_types_all', function ($allowedBlocks, $editor) {
         'core/paragraph',
         'core/heading',
         'core/list',
+        'core/list-item',
         'core/quote',
         'core/file',
         'core/media-text',
