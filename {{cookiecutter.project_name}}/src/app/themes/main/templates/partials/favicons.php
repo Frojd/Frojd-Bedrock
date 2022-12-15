@@ -1,6 +1,11 @@
 <?php
 /*
  * Generate favicons with www.favicomatic.com
+ * Add custom image for apple-touch-icon.png as 192x192
+ *
+ * Generate maskable images for webmanifest with https://maskable.app/
+ * - maskable_icon_x192.png as 192x192
+ * - maskable_icon_x512.png as 512x512
  */
 $path = get_template_directory_uri() . '/favicons/';
 $dir = get_template_directory() . '/favicons/';
