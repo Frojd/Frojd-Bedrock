@@ -1,21 +1,23 @@
 @mixin href-external() {
-    &:not([type='submit']):not([type='button']):not([href^='mailto:']):not([href^='tel:']):not([href='']):not([href^='#']):not([href^='/']):not([href^='http://{{cookiecutter.domain_prod}}']):not([href^='https://{{cookiecutter.domain_prod}}']):not([href*='www.{{cookiecutter.domain_prod}}']):not([href*='{{cookiecutter.domain_stage}}']) {
+    &[href]:not([href^='mailto:']):not([href^='tel:']):not([href='']):not([href^='#']):not([href^='/']):not([href^='http://{{cookiecutter.domain_prod}}']):not([href^='https://{{cookiecutter.domain_prod}}']):not([href*='www.{{cookiecutter.domain_prod}}']):not([href*='{{cookiecutter.domain_stage}}']) {
         @content;
     }
 }
 
 @mixin href-download() {
-    &[href$='.pdf'],
-    &[href$='.doc'],
-    &[href$='.docx'],
-    &[href$='.ppt'],
-    &[href$='.pptx'],
-    &[href$='.xls'],
-    &[href$='.xlsx'],
-    &[href$='.odt'],
-    &[href$='.eps'],
-    &[href$='.zip'] {
-        @content;
+    &[href] {
+        &[href$='.pdf'],
+        &[href$='.doc'],
+        &[href$='.docx'],
+        &[href$='.ppt'],
+        &[href$='.pptx'],
+        &[href$='.xls'],
+        &[href$='.xlsx'],
+        &[href$='.odt'],
+        &[href$='.eps'],
+        &[href$='.zip'] {
+            @content;
+        }
     }
 }
 
