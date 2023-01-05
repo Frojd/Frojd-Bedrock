@@ -22,7 +22,7 @@ services:
                 - XDEBUG_REMOTE_HOST=${XDEBUG_REMOTE_HOST}
                 - XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
         environment:
-            XDEBUG_MODE: debug
+            XDEBUG_MODE: develop
             XDEBUG_CONFIG: "
                 client_host=host.docker.internal
                 start_with_request=yes
