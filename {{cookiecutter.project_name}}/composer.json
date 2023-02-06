@@ -22,7 +22,6 @@
         "preferred-install": "dist",
         "allow-plugins": {
             "composer/installers": true,
-            "pivvenit/acf-pro-installer": true,
             "johnpbloch/wordpress-core-installer": true
         }
     },
@@ -38,7 +37,7 @@
         },
         {
             "type": "composer",
-            "url": "https://pivvenit.github.io/acf-composer-bridge/composer/v3/wordpress-muplugin/"
+            "url": "https://connect.advancedcustomfields.com"
         }
     ],
     "require": {
@@ -47,7 +46,7 @@
         "vlucas/phpdotenv": "3.*",
         "johnpbloch/wordpress": "*",
         "sentry/sdk": "*",
-        "advanced-custom-fields/advanced-custom-fields-pro": "*",
+        "wpengine/advanced-custom-fields-pro": "*",
         "wpackagist-plugin/wordpress-seo": "*",
         "wpackagist-plugin/redirection": "*",
         "wpackagist-plugin/duracelltomi-google-tag-manager": "*",
@@ -64,7 +63,8 @@
         "installer-paths": {
             "src/app/mu-plugins/{$name}/": [
                 "type:wordpress-muplugin",
-                "wpackagist-plugin/disable-embeds"
+                "wpackagist-plugin/disable-embeds",
+                "wpengine/advanced-custom-fields-pro"
             ],
             "src/app/plugins/{$name}/": ["type:wordpress-plugin"],
             "src/app/themes/{$name}/": ["type:wordpress-theme"]
