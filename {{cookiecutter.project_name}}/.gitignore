@@ -29,6 +29,7 @@ sql-dump-*.sql
 !.env.example
 
 # Vendor (e.g. Composer)
+auth.json
 /vendor/*
 /!vendor/.gitkeep
 

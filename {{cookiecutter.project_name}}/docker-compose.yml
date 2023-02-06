@@ -70,5 +70,6 @@ services:
             - ./src:/app/src
             - ./composer.json:/app/composer.json
             - "./composer.lock:/app/composer.lock"
+            - ./auth.json:/app/auth.json
             - ./docker/config/web.env:/app/.env
             - ./vendor:/app/vendor
