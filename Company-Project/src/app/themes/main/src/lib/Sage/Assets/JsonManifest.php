@@ -21,7 +21,7 @@ class JsonManifest implements ManifestInterface {
 
     /** @inheritdoc */
     public function get($file) {
-        return isset($this->manifest[$file]) ? $this->manifest[$file] : $file;
+        return isset($this->manifest[$file]) ? $this->manifest[$file]['file'] : $file;
     }
 
     /** @inheritdoc */

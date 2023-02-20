@@ -4,6 +4,7 @@ const APP_VERSION = "2.2.1";
 define('ROOT_DIR', dirname(__DIR__));
 define('WEBROOT_DIR', ROOT_DIR . '/src');
 define('VENDOR_DIR', ROOT_DIR . '/vendor');
+define("IS_DEVELOPMENT", WP_ENV == 'development');
 
 /**
  * Use Dotenv to set required environment variables and load .env file in root

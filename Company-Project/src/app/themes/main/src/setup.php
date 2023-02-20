@@ -10,9 +10,13 @@ use Roots\Sage\Template\Wrapper;
  */
 add_action('wp_enqueue_scripts', function () {
     $verTag = \App\get_ver_tag();
-    wp_enqueue_style('sage/main.css', \App\asset_path('styles/main.css'), false, $verTag);
-    wp_enqueue_script('sage/vendor.js', \App\asset_path('scripts/vendor.js'), ['jquery'], $verTag, true);
-    wp_enqueue_script('sage/main.js', \App\asset_path('scripts/main.js'), ['sage/vendor.js'], $verTag, true);
+    if (IS_DEVELOPMENT) {
+        wp_enqueue_style('sage/main.css', '//localhost:3000/styles/main.scss', false, $verTag);
+        wp_enqueue_script('sage/main.js', '//localhost:3000/scripts/main.js', $verTag, true);
+    } else {
+        wp_enqueue_style('sage/main.css', \App\asset_path('styles/main.scss'), false, $verTag);
+        wp_enqueue_script('sage/main.js', \App\asset_path('scripts/main.js'), $verTag, true);
+    }
 }, 100);
 
 /**
