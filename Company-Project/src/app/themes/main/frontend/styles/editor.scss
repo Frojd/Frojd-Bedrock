@@ -1,5 +1,10 @@
-@import 'core/*';
-@import 'extends/*';
+@import 'core/functions';
+@import 'core/mixins';
+@import 'core/variables';
+
+@import 'extends/grid';
+@import 'extends/richtext';
+
 @import 'global/fonts';
 
 html {

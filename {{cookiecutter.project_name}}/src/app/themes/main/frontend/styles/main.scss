@@ -1,4 +1,28 @@
-@import 'core/*';
-@import 'extends/*';
-@import 'global/*';
-@import 'blocks/*';
+@import 'core/functions';
+@import 'core/mixins';
+@import 'core/variables';
+
+@import 'extends/grid';
+@import 'extends/richtext';
+
+@import 'global/_reset';
+@import 'global/base';
+@import 'global/fonts';
+@import 'global/keyframes';
+
+@import 'blocks/alert';
+@import 'blocks/archive';
+@import 'blocks/article';
+@import 'blocks/articlelist';
+@import 'blocks/blurbs';
+@import 'blocks/card';
+@import 'blocks/content';
+@import 'blocks/footer';
+@import 'blocks/header';
+@import 'blocks/hero';
+@import 'blocks/main';
+@import 'blocks/menu-main';
+@import 'blocks/menu-service';
+@import 'blocks/popup';
+@import 'blocks/search';
+@import 'blocks/sidemenu';

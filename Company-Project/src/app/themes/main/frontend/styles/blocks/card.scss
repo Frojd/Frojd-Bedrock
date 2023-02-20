@@ -83,7 +83,7 @@
     }
 
     &__title {
-        @include textstyle(h3);
+        @include textstyle(card-title);
 
         flex: 0 0 auto;
     }

@@ -43,7 +43,7 @@
     }
 
     &__title {
-        @include textstyle(title);
+        @include textstyle(page-title);
     }
 
     &__meta {

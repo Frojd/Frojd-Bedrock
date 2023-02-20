@@ -29,6 +29,7 @@ sql-dump-*.sql
 !.env.example
 
 # Vendor (e.g. Composer)
+auth.json
 /vendor/*
 /!vendor/.gitkeep
 
@@ -47,6 +48,7 @@ docker/files/db-dumps/*
 
 docker/config/web.env
 
+docker-compose.override.yml
 
 
 ### IDE / editor files ###

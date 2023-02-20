@@ -36,7 +36,7 @@ scp $REMOTE_USER@$REMOTE_HOST:/mnt/persist/tmp/latest.sql docker/files/db-dumps/
 
 docker-compose run --rm wp-cli sh -c "
     wp --allow-root db import /app/db-dumps/latest.sql;
-    wp --allow-root search-replace $REMOTE_DOMAIN $LOCAL_DOMAIN;
+    wp --allow-root search-replace https://$REMOTE_DOMAIN http://$LOCAL_DOMAIN --all-tables;
     wp --allow-root cache flush;
     wp --allow-root option set ep_host http://search:9200
     wp --allow-root elasticpress index

@@ -1,8 +1,9 @@
 .header {
+    $root: &;
 
     .js-state-menu-open & {
         height: 100vh;
-        background: $blue-10;
+        background: $purple-20;
     }
 
     .js-state-menu-open.admin-bar & {
@@ -13,11 +14,23 @@
         }
     }
 
-    &__container {
-        @include wrap(site);
+    &__top {
+        background: $purple-20;
+    }
+
+    &__nav {
+        &--service {
+            @include wrap(site);
+
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
     }
 
     &__content {
+        @include wrap(site);
+
         position: relative;
 
         @include media($mobile-menu) {
@@ -30,24 +43,19 @@
         display: block;
     }
 
-    &__nav {
+    &__menu {
         position: relative;
         padding-right: 40px;
         display: none;
 
         @include media($mobile-menu) {
+            display: flex !important;
+            margin-left: auto;
             padding-right: 0;
-            flex: 1 0 auto;
-            display: flex;
-            justify-content: space-between;
         }
 
         .js-state-menu-open & {
             display: block;
-
-            @include media($mobile-menu) {
-                display: flex;
-            }
         }
     }
 

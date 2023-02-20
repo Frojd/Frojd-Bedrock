@@ -27,6 +27,7 @@ function getenv_bool($variable, $default = false) {
  * Default: development
  */
 define('WP_ENV', getenv('WP_ENV') ?: 'development');
+define("IS_DEVELOPMENT", WP_ENV == 'development');
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 

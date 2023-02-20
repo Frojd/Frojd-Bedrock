@@ -1,14 +1,20 @@
-.menu {
+.menu-service {
+    $root: &;
+
     padding: 10px 0;
+    display: flex;
 
     @include media($mobile-menu) {
         padding: 0;
-        display: flex;
     }
 
     &__item {
         &--hidden {
             display: none;
         }
+    }
+
+    &__children {
+        display: none;
     }
 }

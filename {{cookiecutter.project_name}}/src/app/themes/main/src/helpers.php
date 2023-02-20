@@ -5,6 +5,7 @@ namespace App;
 use Roots\Sage\Asset;
 use Roots\Sage\Assets\JsonManifest;
 use Roots\Sage\Template;
+use Roots\Sage\Template\Wrapper;
 
 function get_ver_tag() {
     $themeVersion = wp_get_theme()->get('Version');
@@ -22,6 +23,7 @@ function get_template_part($template, array $context = [], $layout = 'base') {
 }
 
 function template_part($template, array $context = [], $layout = 'base') {
+    $layout = $layout ? $layout : 'base';
     extract($context);
     /**
      * Mock a template wrapper for admin. Otherwise templates will crash
@@ -29,7 +31,13 @@ function template_part($template, array $context = [], $layout = 'base') {
     if (!template($layout)) {
         new Template(new Wrapper(''));
     }
-    include template($layout)->partial($template);
+
+    $include = template($layout)->partial($template);
+    if(empty($include)) {
+        error_log("Template part \"{$template}\" is missing");
+        return new \WP_Error("Template part \"{$template}\" is missing");
+    }
+    include $include;
 }
 
 /**
@@ -38,7 +46,7 @@ function template_part($template, array $context = [], $layout = 'base') {
  */
 function asset_path($filename) {
     static $manifest;
-    isset($manifest) || $manifest = new JsonManifest(get_template_directory() . '/' . Asset::$dist . '/assets.json');
+    isset($manifest) || $manifest = new JsonManifest(get_stylesheet_directory() . Asset::$dist . '/manifest.json');
 
     return (string)new Asset($filename, $manifest);
 }

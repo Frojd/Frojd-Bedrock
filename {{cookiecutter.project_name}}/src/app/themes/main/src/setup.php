@@ -10,10 +10,25 @@ use Roots\Sage\Template\Wrapper;
  */
 add_action('wp_enqueue_scripts', function () {
     $verTag = \App\get_ver_tag();
-    wp_enqueue_style('sage/main.css', \App\asset_path('styles/main.css'), false, $verTag);
-    wp_enqueue_script('sage/vendor.js', \App\asset_path('scripts/vendor.js'), ['jquery'], $verTag, true);
-    wp_enqueue_script('sage/main.js', \App\asset_path('scripts/main.js'), ['sage/vendor.js'], $verTag, true);
+    if (IS_DEVELOPMENT) {
+        wp_enqueue_style('sage/main.css', '//localhost:3000/styles/main.scss', false, $verTag);
+        wp_register_script('sage/main.js', '//localhost:3000/scripts/main.js', $verTag, true);
+    } else {
+        wp_enqueue_style('sage/main.css', \App\asset_path('styles/main.scss'), false, $verTag);
+        wp_register_script('sage/main.js', \App\asset_path('scripts/main.js'), $verTag, true);
+    }
+    wp_script_add_data('sage/main.js', 'type', 'module');
+    wp_enqueue_script('sage/main.js');
 }, 100);
+
+// Load scripts as type='module'
+add_filter('script_loader_tag', function ($tag, $handle) {
+    $type = wp_scripts()->get_data($handle, 'type');
+    if ($type) {
+        $tag = preg_replace('|type=\W.|', 'type="' . esc_attr($type) . '"', $tag);
+    }
+    return $tag;
+}, 10, 2);
 
 /**
  * Use theme wrapper
@@ -106,8 +121,8 @@ add_action('after_setup_theme', function () {
      * @link http://codex.wordpress.org/Function_Reference/register_nav_menus
      */
     register_nav_menus([
-        'primary_navigation' => __('Primary Navigation', 'sage'),
-        'service_navigation' => __('Service Navigation', 'sage'),
+        'primary_navigation' => __('Primary navigation', 'sage'),
+        'service_navigation' => __('Service navigation', 'sage'),
     ]);
 
     /**

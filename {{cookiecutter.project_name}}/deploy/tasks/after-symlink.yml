@@ -1,6 +1,6 @@
 {% raw -%}
 - name: Restart PHP
-  service: name=php7.4-fpm state=restarted
+  service: name=php8.1-fpm state=restarted
   become: true
   run_once: true
 

@@ -4,13 +4,13 @@
     "description": "{{cookiecutter.public_site_description}}",
     "icons": [
         {
-            "src": "/app/themes/main/favicons/maskable-192.png",
+            "src": "/app/themes/main/favicons/maskable_icon_x192.png",
             "type": "image/png",
             "sizes": "192x192",
             "purpose": "any maskable"
         },
         {
-            "src": "/app/themes/main/favicons/maskable-512.png",
+            "src": "/app/themes/main/favicons/maskable_icon_x512.png",
             "type": "image/png",
             "sizes": "512x512",
             "purpose": "any maskable"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bedrock\n"
-"POT-Creation-Date: 2020-05-08 16:31+0200\n"
+"POT-Creation-Date: 2022-12-07 11:39+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Fröjd\n"
@@ -9,8 +9,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_x:1,2c;_n:1,2;_c;_ex:1,2c;_nx:4c,1,2;"
 "_nc:4c,1,2;_n_noop:1,2;_nx_noop:4c,1,2;__ngettext:1,2;__ngettext_noop:1,2;"
@@ -20,163 +20,235 @@ msgstr ""
 "X-Poedit-SearchPath-0: src\n"
 "X-Poedit-SearchPath-1: templates\n"
 
-#: src/filters.php:44
-msgid "Read more"
-msgstr "Läs mer"
+#: src/acf.php:29 src/acf.php:30
+msgid "Site settings"
+msgstr "Sajtinställningar"
 
-#: src/filters.php:103
-msgid "Facts"
-msgstr "Faktaruta"
+#: src/admin.php:63
+msgid "Default template"
+msgstr "Standardmall"
 
-#: src/gutenberg.php:43
-msgid "Image"
-msgstr ""
+#: src/admin.php:71
+msgid "Template"
+msgstr "Mall"
 
-#: src/gutenberg.php:44
-msgid "Single image"
-msgstr ""
-
-#: src/helpers.php:48
+#: src/helpers.php:95
 msgid "Latest Posts"
 msgstr "Senaste inläggen"
 
-#: src/helpers.php:54
+#: src/helpers.php:101
 #, php-format
 msgid "Search Results for %s"
 msgstr "Sökresultat för %s"
 
-#: src/posttypes/contact.php:5
+#: src/helpers.php:112
+msgid "Small"
+msgstr "Liten"
+
+#: src/helpers.php:116
+msgid "Medium"
+msgstr "Mellan"
+
+#: src/helpers.php:120
+msgid "Large"
+msgstr "Stor"
+
+#: src/helpers.php:124
+msgid "Full"
+msgstr "Fullbredd"
+
+#: src/posttypes/contact.php:6
 msgctxt "Post type single string"
 msgid "Contact"
 msgstr "Kontaktperson"
 
-#: src/posttypes/contact.php:6
+#: src/posttypes/contact.php:7
 msgctxt "Post type plural string"
 msgid "Contacts"
 msgstr "Kontaktpersoner"
 
-#: src/posttypes/contact.php:10
+#: src/posttypes/contact.php:11
 msgid "Contact"
 msgstr "Kontakt"
 
-#: src/posttypes/contact.php:11
+#: src/posttypes/contact.php:12
 msgid "Contact person"
 msgstr "Kontaktperson"
 
-#: src/posttypes/helpers.php:10 src/taxonomies/helpers.php:9
+#: src/posttypes/helpers.php:12 src/taxonomies/helpers.php:11
 #, php-format
 msgid "All %s"
 msgstr "Alla %s"
 
-#: src/posttypes/helpers.php:11
+#: src/posttypes/helpers.php:13
 msgid "Add new"
 msgstr "Lägg till ny"
 
-#: src/posttypes/helpers.php:12 src/taxonomies/helpers.php:13
+#: src/posttypes/helpers.php:14 src/taxonomies/helpers.php:15
 #, php-format
 msgid "Add new %s"
 msgstr "Lägg till ny %s"
 
-#: src/posttypes/helpers.php:13 src/taxonomies/helpers.php:10
+#: src/posttypes/helpers.php:15 src/taxonomies/helpers.php:12
 #, php-format
 msgid "Edit %s"
 msgstr "Redigera %s"
 
-#: src/posttypes/helpers.php:14
+#: src/posttypes/helpers.php:16
 #, php-format
 msgid "New %s"
 msgstr "Ny %s"
 
-#: src/posttypes/helpers.php:15 src/taxonomies/helpers.php:11
+#: src/posttypes/helpers.php:17 src/taxonomies/helpers.php:13
 #, php-format
 msgid "View %s"
 msgstr "Visa %s"
 
-#: src/posttypes/helpers.php:16 src/taxonomies/helpers.php:17
+#: src/posttypes/helpers.php:18 src/taxonomies/helpers.php:19
 #, php-format
 msgid "Search %s"
 msgstr "Sök %s"
 
-#: src/posttypes/helpers.php:17 src/taxonomies/helpers.php:22
+#: src/posttypes/helpers.php:19 src/taxonomies/helpers.php:24
 #, php-format
 msgid "No %s found"
 msgstr "Inga %s hittades"
 
-#: src/posttypes/helpers.php:18
+#: src/posttypes/helpers.php:20
 #, php-format
 msgid "No %s found in Trash"
 msgstr "Inga %s hittades i papperskorgen"
 
-#: src/posttypes/helpers.php:19 src/taxonomies/helpers.php:15
+#: src/posttypes/helpers.php:21 src/taxonomies/helpers.php:17
 #, php-format
 msgid "Parent %s"
 msgstr "Överordnad %s"
 
-#: src/setup.php:43
-msgid "Primary Navigation"
+#: src/posttypes/news.php:6
+msgctxt "Post type single string"
+msgid "News"
+msgstr "Nyhet"
+
+#: src/posttypes/news.php:7
+msgctxt "Post type plural string"
+msgid "News"
+msgstr "Nyheter"
+
+#: src/posttypes/news.php:11
+msgid "News"
+msgstr "Nyheter"
+
+#: src/setup.php:109 templates/partials/header.php:16
+msgid "Primary navigation"
 msgstr "Huvudmeny"
 
-#: src/setup.php:44
-msgid "Service Navigation"
+#: src/setup.php:110
+msgid "Service navigation"
 msgstr "Servicemeny"
 
-#: src/setup.php:77 src/setup.php:78
-msgid "Site settings"
-msgstr "Sajtinställningar"
-
-#: src/taxonomies/helpers.php:12
+#: src/taxonomies/helpers.php:14
 #, php-format
 msgid "Update %s"
 msgstr "Uppdatera %s"
 
-#: src/taxonomies/helpers.php:14
+#: src/taxonomies/helpers.php:16
 #, php-format
 msgid "New %s Name"
 msgstr "Nytt %s namn"
 
-#: src/taxonomies/helpers.php:16
+#: src/taxonomies/helpers.php:18
 #, php-format
 msgid "Parent %s:"
 msgstr "Överordnad %s:"
 
-#: src/taxonomies/helpers.php:18
+#: src/taxonomies/helpers.php:20
 #, php-format
 msgid "Popular %s"
 msgstr "Populära %s"
 
-#: src/taxonomies/helpers.php:19
+#: src/taxonomies/helpers.php:21
 #, php-format
 msgid "Separate %s with commas"
 msgstr "Separera %s med kommatecken"
 
-#: src/taxonomies/helpers.php:20
+#: src/taxonomies/helpers.php:22
 #, php-format
 msgid "Add or remove %s"
 msgstr "Lägg till eller ta bort %s"
 
-#: src/taxonomies/helpers.php:21
+#: src/taxonomies/helpers.php:23
 #, php-format
 msgid "Choose from the most used %s"
 msgstr "Välj bland de mest använda %s"
 
-#: src/taxonomies/title.php:5
+#: src/taxonomies/title.php:6
 msgctxt "Taxonomy single string"
 msgid "Title"
 msgstr "Titel"
 
-#: src/taxonomies/title.php:6
+#: src/taxonomies/title.php:7
 msgctxt "Taxonomy plural string"
 msgid "Titles"
 msgstr "Titlar"
 
-#: templates/index.php:6 templates/search.php:6
-msgid "Sorry, no results were found."
-msgstr "Tyvärr, inga resultat hittades."
-
-#: templates/partials/entry-meta.php:2
+#: templates/partials/article-post.php:16 templates/partials/entry-meta.php:2
 msgid "By"
 msgstr "Av"
 
-#: templates/partials/popup-cookie.php:9
+#: templates/partials/blurbs.php:8
+msgid "Blurbs"
+msgstr "Puffar"
+
+#: templates/partials/embed-message.php:7
+msgid "Show player"
+msgstr "Visa spelare"
+
+#: templates/partials/embed-message.php:11
+msgid "Show video"
+msgstr "Visa video"
+
+#: templates/partials/embed-message.php:19
+msgid "terms and conditions"
+msgstr "villkoren"
+
+#: templates/partials/embed-message.php:20
+#, php-format
+msgid ""
+"The player requires acceptance of third-party cookies from %s. By showing "
+"the player you accept the %s of %s"
+msgstr ""
+"Spelaren kräver godkännelse av cookies från tredjepartstjänsten %s. Genom "
+"att klicka på “Visa spelare” godkänner du %s från %s"
+
+#: templates/partials/embed-message.php:21
+#, php-format
+msgid "Go to %s"
+msgstr "Gå till %s"
+
+#: templates/partials/header.php:9
+msgid "To startpage"
+msgstr "Till startsida"
+
+#: templates/partials/header.php:13
+msgid "Toggle menu"
+msgstr "Visa meny"
+
+#: templates/partials/header.php:29
+msgid "Secondary navigation"
+msgstr "Servicemeny"
+
+#: templates/partials/popup-cookie.php:14
 msgid "Close"
 msgstr "Stäng"
+
+#: templates/partials/sidemenu.php:15
+msgid "Show side menu"
+msgstr "Visa undermeny"
+
+#: templates/search.php:17
+msgid "Sorry, no results were found."
+msgstr "Tyvärr, inga resultat hittades."
+
+#: templates/single.php:8
+msgid "Related"
+msgstr "Relaterade"

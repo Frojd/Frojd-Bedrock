@@ -34,7 +34,7 @@ executors:
       - image: cimg/node:16.17
   php:
     docker:
-      - image: cimg/php:7.4
+      - image: cimg/php:8.1
 
 references:
   restore_npm: &restore_npm
@@ -88,11 +88,11 @@ jobs:
       - *restore_npm
       - run: cd src/app/themes/main/frontend && npm install
       - *save_npm
-      - run: cd src/app/themes/main/frontend && npm run build:production
+      - run: cd src/app/themes/main/frontend && npm run build
       - persist_to_workspace:
           root: .
           paths:
-            - src/app/themes/main/dist
+            - src/app/themes/main/frontend/dist
 
   wordpress:
     <<: *defaults
@@ -109,6 +109,7 @@ jobs:
             php -r "unlink('composer-setup.php');"
       - run:
           command: |
+            php composer.phar config http-basic.connect.advancedcustomfields.com $ACF_PRO_KEY https://{{cookiecutter.domain_prod}}
             ACF_PRO_KEY=$ACF_PRO_KEY php composer.phar install --no-scripts --optimize-autoloader --no-dev
       - *save_composer
       - persist_to_workspace:

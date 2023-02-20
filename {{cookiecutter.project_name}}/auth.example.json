@@ -1,0 +1,8 @@
+{
+    "http-basic": {
+        "connect.advancedcustomfields.com": {
+            "username": "%%ACF_PRO_KEY%%",
+            "password": "https://{{cookiecutter.domain_prod}}"
+        }
+    }
+}
