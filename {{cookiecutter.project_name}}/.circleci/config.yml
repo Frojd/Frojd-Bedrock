@@ -89,11 +89,11 @@ jobs:
       - *restore_npm
       - run: cd src/app/themes/main/frontend && npm install
       - *save_npm
-      - run: cd src/app/themes/main/frontend && npm run build:production
+      - run: cd src/app/themes/main/frontend && npm run build
       - persist_to_workspace:
           root: .
           paths:
-            - src/app/themes/main/dist
+            - src/app/themes/main/frontend/dist
 
   wordpress:
     <<: *defaults
