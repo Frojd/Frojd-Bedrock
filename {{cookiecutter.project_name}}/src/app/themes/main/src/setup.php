@@ -12,12 +12,23 @@ add_action('wp_enqueue_scripts', function () {
     $verTag = \App\get_ver_tag();
     if (IS_DEVELOPMENT) {
         wp_enqueue_style('sage/main.css', '//localhost:3000/styles/main.scss', false, $verTag);
-        wp_enqueue_script('sage/main.js', '//localhost:3000/scripts/main.js', $verTag, true);
+        wp_register_script('sage/main.js', '//localhost:3000/scripts/main.js', $verTag, true);
     } else {
         wp_enqueue_style('sage/main.css', \App\asset_path('styles/main.scss'), false, $verTag);
-        wp_enqueue_script('sage/main.js', \App\asset_path('scripts/main.js'), $verTag, true);
+        wp_register_script('sage/main.js', \App\asset_path('scripts/main.js'), $verTag, true);
     }
+    wp_script_add_data('sage/main.js', 'type', 'module');
+    wp_enqueue_script('sage/main.js');
 }, 100);
+
+// Load scripts as type='module'
+add_filter('script_loader_tag', function ($tag, $handle) {
+    $type = wp_scripts()->get_data($handle, 'type');
+    if ($type) {
+        $tag = preg_replace('|type=\W.|', 'type="' . esc_attr($type) . '"', $tag);
+    }
+    return $tag;
+}, 10, 2);
 
 /**
  * Use theme wrapper

@@ -24,6 +24,8 @@ export default defineConfig((env) => ({
             // edit live reload paths according to your source code
             // for example:
             __dirname + '../**/*.php',
+            __dirname + '**/*.scss',
+            __dirname + 'scripts/*.js',
         ])
     ],
 
