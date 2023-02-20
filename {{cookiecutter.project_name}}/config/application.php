@@ -4,7 +4,6 @@ const APP_VERSION = "2.2.1";
 define('ROOT_DIR', dirname(__DIR__));
 define('WEBROOT_DIR', ROOT_DIR . '/src');
 define('VENDOR_DIR', ROOT_DIR . '/vendor');
-define("IS_DEVELOPMENT", WP_ENV == 'development');
 
 /**
  * Use Dotenv to set required environment variables and load .env file in root
@@ -28,6 +27,7 @@ function getenv_bool($variable, $default = false) {
  * Default: development
  */
 define('WP_ENV', getenv('WP_ENV') ?: 'development');
+define("IS_DEVELOPMENT", WP_ENV == 'development');
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 
