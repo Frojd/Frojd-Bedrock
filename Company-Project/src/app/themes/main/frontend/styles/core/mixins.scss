@@ -24,7 +24,7 @@
 @mixin media($key) {
     @if $key == 'd' {
         @content;
-    } @elseif map-has-key($breakpoints, $key) {
+    } @else if map-has-key($breakpoints, $key) {
         @media (min-width: map-get($breakpoints, $key)) {
             @content;
         }
@@ -36,7 +36,7 @@
 @mixin media-max($key) {
     @if $key == 'd' {
         @content;
-    } @elseif map-has-key($breakpoints, $key) {
+    } @else if map-has-key($breakpoints, $key) {
         @media (max-width: map-get($breakpoints, $key)-1) {
             @content;
         }
