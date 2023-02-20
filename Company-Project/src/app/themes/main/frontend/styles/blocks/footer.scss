@@ -47,7 +47,7 @@
     }
 
     &__title {
-        @include textstyle(h3);
+        @include textstyle(footer-title);
     }
 
     &__richtext {

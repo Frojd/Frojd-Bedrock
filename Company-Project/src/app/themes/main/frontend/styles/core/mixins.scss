@@ -1,3 +1,25 @@
+@mixin href-external() {
+    &[href]:not([href^='mailto:']):not([href^='tel:']):not([href='']):not([href^='#']):not([href^='/']):not([href^='http://example.com']):not([href^='https://example.com']):not([href*='www.example.com']):not([href*='stage.example.com']) {
+        @content;
+    }
+}
+
+@mixin href-download() {
+    &[href] {
+        &[href$='.pdf'],
+        &[href$='.doc'],
+        &[href$='.docx'],
+        &[href$='.ppt'],
+        &[href$='.pptx'],
+        &[href$='.xls'],
+        &[href$='.xlsx'],
+        &[href$='.odt'],
+        &[href$='.eps'],
+        &[href$='.zip'] {
+            @content;
+        }
+    }
+}
 
 @mixin media($key) {
     @if $key == 'd' {
@@ -7,8 +29,7 @@
             @content;
         }
     } @else {
-        @error 'Unfortunately, `#{$key}` could be retrieved from `#{$breakpoints}`. '
-        + 'Please make sure it is defined in `$breakpoints` map.';
+        @error 'Unfortunately, `#{$key}` could be retrieved from `#{$breakpoints}`. Please make sure it is defined in `$breakpoints` map.';
     }
 }
 
@@ -20,8 +41,7 @@
             @content;
         }
     } @else {
-        @error 'Unfortunately, `#{$key}` could be retrieved from `#{$breakpoints}`. '
-            + 'Please make sure it is defined in `$breakpoints` map.';
+        @error 'Unfortunately, `#{$key}` could be retrieved from `#{$breakpoints}`. Please make sure it is defined in `$breakpoints` map.';
     }
 }
 
@@ -55,12 +75,10 @@
         }
     }
 
-    @if contains($list, site) {
-        max-width: (map-get($maxwidths, site) + $spacing);
-    }
-
-    @if contains($list, content) {
-        max-width: (map-get($maxwidths, content) + $spacing);
+    @each $size in $list {
+        @if map-has-key($maxwidths, $size) {
+            max-width: (map-get($maxwidths, $size) + $spacing);
+        }
     }
 }
 
@@ -71,13 +89,14 @@
     padding-right: $spacing;
 }
 
-// For setting font-size and line-height on elements defined by variabels, including media queries
+/// For setting font-size and line-height on elements defined by variabels,
+// including media queries
 // Usage: @include textstyle(h1);
 @mixin textstyle($key) {
 
-    // Loop through text map and set font-size and line-height for each media query
+    // Loop through map and set font-size and line-height for each media query
     @if map-has-key($textstyles, $key) {
-        $map: map-get($textstyles, $key);
+        $map: get-default($textstyles, $key);
 
         @each $media, $style in $map {
             @include media($media) {
@@ -98,5 +117,7 @@
                 }
             }
         }
+    } @else {
+        @error 'Unfortunately, `#{$key}` is missing from `$textstyles` map.';
     }
 }

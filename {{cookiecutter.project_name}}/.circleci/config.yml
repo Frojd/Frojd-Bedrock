@@ -35,7 +35,7 @@ executors:
       - image: cimg/node:16.17
   php:
     docker:
-      - image: cimg/php:7.4
+      - image: cimg/php:8.1
 
 references:
   restore_npm: &restore_npm

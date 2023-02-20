@@ -22,7 +22,7 @@ services:
                 - XDEBUG_REMOTE_HOST=${XDEBUG_REMOTE_HOST}
                 - XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
         environment:
-            XDEBUG_MODE: debug
+            XDEBUG_MODE: develop
             XDEBUG_CONFIG: "
                 client_host=host.docker.internal
                 start_with_request=yes
@@ -34,7 +34,7 @@ services:
             - ./vendor:/app/vendor:cached
             - ./config:/app/config:cached
             - ./docker/files/profiles:/app/profiles:delegated
-            - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini:cached
+            - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/8.1/fpm/conf.d/99-overrides.ini:cached
 
     web:
         image: nginx:alpine
@@ -52,7 +52,7 @@ services:
             - ./src:/app/src:cached
 
     wp-cli:
-        image: frojd/wp-cli-php-7.4:latest
+        image: frojd/wp-cli-php-8.1:latest
         links:
             - db
         volumes:
@@ -64,11 +64,12 @@ services:
             - ./docker/files/db-dumps:/app/db-dumps
 
     composer:
-        image: frojd/composer-php-7.4:latest
+        image: frojd/composer-php-8.1:latest
         command: install
         volumes:
             - ./src:/app/src
             - ./composer.json:/app/composer.json
             - "./composer.lock:/app/composer.lock"
+            - ./auth.json:/app/auth.json
             - ./docker/config/web.env:/app/.env
             - ./vendor:/app/vendor

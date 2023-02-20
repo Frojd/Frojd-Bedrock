@@ -26,84 +26,169 @@ $wp-admin-bar-height--wp-M: 32px;
 
 $mobile-menu: M;
 
-// Z-index bases
+/** Z-index bases **/
 $z-cookie: 200;
 $z-card: 1;
 
-// Transitions & animations
+/** Transitions & animations **/
 $transition: .3s ease-in-out;
 
-// Colors
-$blue: blue;
-$blue-80: darkblue;
-$blue-10: lightblue;
+/** Color definintions from styleguide **/
+$grey: #9E9E9E;
+$grey-5: #FAFAFA;
+$grey-10: #F5F5F5;
+$grey-20: #EEE;
+$grey-30: #E0E0E0;
+$grey-40: #BDBDBD;
+$grey-60: #757575;
+$grey-70: #616161;
+$grey-80: #424242;
+$grey-90: #212121;
 
-$grey: #ccc;
-$grey-5: #efefef;
-$grey-10: #eee;
+$purple: #673AB7;
+$purple-20: #EDE7F6;
+$purple-60: #B39DDB;
+$purple-90: #4527a0;
 
-$base-color: #000;
-$primary-color: $blue;
-$secondary-color: $blue-10;
+$yellow: #FFEE58;
+$yellow-20: #FFFDE7;
+$yellow-40: #FFF59d;
+$yellow-60: #FDD835;
+
+$pink: #E91E63;
+
+$system-error: #D32F2F;
+$system-error-10: #FBEBEB;
+$system-success: #1DAC2C;
+
+/** Color definitions custom vars **/
+$bg-color: white;
+$base-color: $grey-90;
+$primary-color: $purple;
+$accent-color: $yellow;
+
 $link-color: $primary-color;
-$link-hover-color: $blue-80;
-$error-color: red;
+$link-hover-color: darken($purple, 20%);
+
+$error-color: $system-error;
+$error-bg: $system-error-10;
+$success-color: $system-success;
+
+/** Text styles variables **/
 
 // Style
 $fontfamilies: (
-    sans: #{Arial, sans-serif},
+    sans: #{'Roboto', Arial, sans-serif},
     serif: #{Times, serif},
 );
 
 $base-font: map-get($fontfamilies, 'sans');
-$heading-font: map-get($fontfamilies, 'serif');
+$heading-font: map-get($fontfamilies, 'sans');
+$richtext-font: map-get($fontfamilies, 'sans');
 
-// Font weights
+$base-size: 1.6rem;
+
+// Match names of weights here with the weights of the fonts in fonts.scss
 $light: 300;
 $regular: 400;
+$medium: 500;
 $bold: 700;
-$heavy: 900;
 
 // No other font sizes are needed
 // Font sizes and line heights as defined by styleguide in pixels
 $textstyles: (
-    title: (
-        d: (font-size: 40, line-height: 36, font-weight: $bold, font-family: $heading-font),
-        M: (font-size: 56, line-height: 64),
+    page-title: (
+        d: (font-size: 44, line-height: 59.8, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 64, line-height: 84.5),
     ),
-    h2: (
-        d: (font-size: 32, line-height: 30, font-weight: $bold, font-family: $heading-font),
-        M: (font-size: 36, line-height: 36),
+    module-title: (
+        d: (font-size: 34, line-height: 47.6, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 44, line-height: 60.3),
     ),
-    h3: (
-        d: (font-size: 24, line-height: 28, font-weight: $bold, font-family: $heading-font),
-        M: (font-size: 28),
+    card-title: (
+        d: (font-size: 34, line-height: 36.5, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 26, line-height: 39.5),
     ),
-    h4: (
-        d: (font-size: 20, line-height: 24, font-weight: $bold, font-family: $heading-font),
-        M: (font-size: 22),
+    accordion-title: (
+        d: (font-size: 16, line-height: 23.8, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 22, line-height: 28.4),
     ),
-    h5: (
-        d: (font-size: 18, line-height: 20, font-weight: $bold, font-family: $heading-font),
-        M: (font-size: 20),
+    footer-title: (
+        d: (font-size: 14, line-height: 1.5, font-weight: $medium, font-family: $heading-font),
     ),
-    h6: (
-        d: (font-size: 16, line-height: 16, font-weight: $bold, font-family: $heading-font),
-        M: (font-size: 18),
+    richtext-h2: (
+        d: (font-size: 36, line-height: 48.2, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 40, line-height: 55.6),
     ),
-    preamble: (
-        d: (font-size: 18, line-height: 24, font-weight: $bold),
-        M: (font-size: 28, line-height: 38),
+    richtext-h3: (
+        d: (font-size: 28, line-height: 39.8, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 32, line-height: 45.1),
+    ),
+    richtext-h4: (
+        d: (font-size: 24, line-height: 36.5, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 26, line-height: 39.5),
+    ),
+    richtext-h5: (
+        d: (font-size: 20, line-height: 28.4, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 22, line-height: 32.6),
+    ),
+    richtext-h6: (
+        d: (font-size: 16, line-height: 23.7, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 18, line-height: 26.6),
     ),
     body: (
-        d: (font-size: 18, line-height: 28),
-        M: (font-size: 22, line-height: 38),
+        d: (font-size: 16, line-height: 23.5),
     ),
     body-small: (
-        d: (font-size: 16, line-height: 20),
-        M: (font-size: 18, line-height: 24),
+        d: (font-size: 16, line-height: 23.5),
+    ),
+    preamble: (
+        d: (font-size: 18, line-height: 27.4, font-weight: $light),
+        M: (font-size: 22, line-height: 32.6),
+    ),
+    paragraph: (
+        d: (font-size: 16, line-height: 23.5),
+        M: (font-size: 18, line-height: 27.7),
+    ),
+    quote: (
+        d: (font-size: 20, line-height: 39.4, font-weight: $bold, font-family: $heading-font),
+        M: (font-size: 26, line-height: 39.5),
+    ),
+    cite: (
+        d: (font-size: 14, line-height: 23.5),  // Quote name
+        M: (font-size: 18, line-height: 26.5),
+    ),
+    caption: (
+        d: (font-size: 12, line-height: 16.3, letter-spacing: .2px),
+    ),
+    button: (
+        d: (font-size: 16, line-height: 19.8, font-weight: $medium),
+        M: (font-size: 18, line-height: 24.5),
+    ),
+    textlink: (
+        d: (font-size: 16, line-height: 23.5),  // Footer link
+        M: (font-size: 18, line-height: 27.7),
+    ),
+    mainmenu: (
+        d: (font-size: 16, line-height: 23.7),
+    ),
+    servicemenu: (
+        d: (font-size: 14, line-height: 23.5),
+    ),
+    submenu: (
+        d: (font-size: 16, line-height: 19.7, font-weight: $bold),  // Add bold to active and first level instead of new text style
+    ),
+    breadcrumb: (
+        d: (font-size: 10, line-height: 12.2),
+        M: (font-size: 12, line-height: 16.3),
     ),
     label: (
-        d: (font-size: 14, line-height: 14, letter-spacing: .5px, text-transform: uppercase),
+        d: (font-size: 14, line-height: 16.5, font-weight: $bold, text-transform: uppercase),
+    ),
+    label-card: (
+        d: (font-size: 12, line-height: 14, font-weight: $bold, text-transform: uppercase),
+    ),
+    date: (
+        d: (font-size: 14, line-height: 23.5),
     ),
 );

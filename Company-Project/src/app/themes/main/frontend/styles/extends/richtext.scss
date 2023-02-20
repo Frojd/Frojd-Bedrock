@@ -64,23 +64,23 @@
     }
 
     h2 {
-        @include textstyle(h2);
+        @include textstyle(richtext-h2);
     }
 
     h3 {
-        @include textstyle(h3);
+        @include textstyle(richtext-h3);
     }
 
     h4 {
-        @include textstyle(h4);
+        @include textstyle(richtext-h4);
     }
 
     h5 {
-        @include textstyle(h5);
+        @include textstyle(richtext-h5);
     }
 
     h6 {
-        @include textstyle(h6);
+        @include textstyle(richtext-h6);
     }
 
     strong,
@@ -94,7 +94,7 @@
     }
 
     mark {
-        background: $secondary-color;
+        background: $accent-color;
     }
 
     a {
@@ -106,16 +106,7 @@
             color: $link-hover-color;
         }
 
-        &[href$=".pdf"],
-        &[href$=".doc"],
-        &[href$=".docx"],
-        &[href$=".ppt"],
-        &[href$=".pptx"],
-        &[href$=".xls"],
-        &[href$=".xlsx"],
-        &[href$=".odt"],
-        &[href$=".eps"],
-        &[href$=".zip"] {
+        @include href-download {
             position: relative;
             padding-left: 27px;
             margin: 0 5px;
@@ -222,14 +213,14 @@
         }
 
         p {
-            @include textstyle(blockquote);
+            @include textstyle(quote);
 
             color: $base-color;
             font-family: $heading-font;
         }
 
         cite {
-            @include textstyle(body);
+            @include textstyle(cite);
 
             margin-top: 20px;
         }
@@ -264,7 +255,7 @@
     }
 
     figcaption {
-        @include textstyle(h5);
+        @include textstyle(caption);
 
         color: $base-color;
         font-weight: $regular;
@@ -286,7 +277,7 @@
 
     .iframe {
         width: 100%;
-        padding-bottom: percentage(9/16);
+        padding-bottom: #{percentage(9/16)};
         height: 0;
         position: relative;
 
@@ -318,7 +309,7 @@
 
     .facts {
         padding: 20px 30px;
-        background: $secondary-color;
+        background: $accent-color;
 
         h2,
         h3,
