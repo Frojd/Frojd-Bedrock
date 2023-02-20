@@ -24,6 +24,7 @@
     "opera 12"
   ],
   "scripts": {
+    "start": "vite",
     "dev": "vite",
     "build": "vite build"
   },
