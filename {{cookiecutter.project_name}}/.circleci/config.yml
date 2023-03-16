@@ -41,18 +41,16 @@ references:
   restore_npm: &restore_npm
     restore_cache:
       keys:
-        - v1-npm-{{ checksum "src/app/themes/main/frontend/package.json" }}
-        - v1-npm-
+        - v1-npm-{{ checksum "src/app/themes/main/frontend/package-lock.json" }}
   save_npm: &save_npm
     save_cache:
-      key: v1-npm-{{ checksum "src/app/themes/main/frontend/package.json" }}
+      key: v1-npm-{{ checksum "src/app/themes/main/frontend/package-lock.json" }}
       paths:
         - ~/repo/src/app/themes/main/frontend/node_modules
   restore_composer: &restore_composer
     restore_cache:
       keys:
         - v1-composer-{{ checksum "composer.lock" }}
-        - v1-composer-
   save_composer: &save_composer
     save_cache:
       key: v1-composer-{{ checksum "composer.lock" }}
@@ -62,7 +60,6 @@ references:
     restore_cache:
       keys:
         - v1-venv-{{ checksum "deploy/requirements.txt" }}
-        - v1-venv-
   save_venv: &save_venv
     save_cache:
       key: v1-venv-{{ checksum "deploy/requirements.txt" }}
@@ -110,8 +107,7 @@ jobs:
             php -r "unlink('composer-setup.php');"
       - run:
           command: |
-            php composer.phar config http-basic.connect.advancedcustomfields.com $ACF_PRO_KEY https://{{cookiecutter.domain_prod}}
-            ACF_PRO_KEY=$ACF_PRO_KEY php composer.phar install --no-scripts --optimize-autoloader --no-dev
+            COMPOSER_AUTH=$COMPOSER_AUTH php composer.phar install --no-scripts --optimize-autoloader --no-dev
       - *save_composer
       - persist_to_workspace:
           root: .
@@ -173,8 +169,6 @@ workflows:
             - checkout_code
       - wordpress:
           <<: *filter_ignore_main
-          context:
-            - ACF_PRO_KEY
           requires:
             - checkout_code
       - venv:
