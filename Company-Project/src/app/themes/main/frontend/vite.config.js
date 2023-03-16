@@ -31,7 +31,7 @@ export default defineConfig((env) => ({
 
     // config
     base: env.command === 'build'
-        ? '/app/themes/main/dist/'
+        ? '/app/themes/main/frontend/dist/'
         : '/',
 
     build: {
