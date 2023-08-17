@@ -92,7 +92,7 @@ add_filter('excerpt_length', function() {
  */
 add_filter('sanitize_file_name', function($filename) {
     $filename = remove_accents($filename);
-    $filename = preg_replace('/[^A-Za-z0-9-\. ]/', '', $filename);
+    $filename = preg_replace('/[^A-Za-z0-9-\. _]/', '', $filename);
     return $filename;
 });
 
