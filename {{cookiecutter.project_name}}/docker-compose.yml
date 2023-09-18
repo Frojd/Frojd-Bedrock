@@ -37,7 +37,7 @@ services:
             - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/8.1/fpm/conf.d/99-overrides.ini:cached
 
     web:
-        image: nginx:alpine
+        image: nginx:latest
         working_dir: /app
         ports:
             - "{{cookiecutter.docker_web_port}}:80"

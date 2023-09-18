@@ -107,7 +107,8 @@ jobs:
             php -r "unlink('composer-setup.php');"
       - run:
           command: |
-            COMPOSER_AUTH=$COMPOSER_AUTH php composer.phar install --no-scripts --optimize-autoloader --no-dev
+            php composer.phar config http-basic.connect.advancedcustomfields.com $ACF_PRO_KEY https://{{cookiecutter.domain_prod}}
+            ACF_PRO_KEY=$ACF_PRO_KEY php composer.phar install --no-scripts --optimize-autoloader --no-dev
       - *save_composer
       - persist_to_workspace:
           root: .
@@ -169,6 +170,8 @@ workflows:
             - checkout_code
       - wordpress:
           <<: *filter_ignore_main
+          context:
+            - ACF_PRO_KEY
           requires:
             - checkout_code
       - venv:
