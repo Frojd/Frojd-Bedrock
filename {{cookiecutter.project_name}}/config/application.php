@@ -115,7 +115,7 @@ if (SENTRY_DSN) {
 
     Sentry\init([
         'dsn' => SENTRY_DSN,
-        'traces_sample_rate' => 1.0,
+        'traces_sample_rate' => WP_ENV === "staging" ? 1.0 : 0.1,
         'tags' => $tags,
         'release' => APP_VERSION,
         'environment' => WP_ENV,
