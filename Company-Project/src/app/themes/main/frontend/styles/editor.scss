@@ -21,6 +21,13 @@ html {
 }
 
 .block-editor {
+
+    .is-root-container {
+        @extend %richtext;
+
+        @include wrap(content, false, false);
+    }
+
     .wp-block {
         @extend %richtext;
 
