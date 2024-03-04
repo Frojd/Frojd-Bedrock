@@ -52,7 +52,7 @@ services:
             - ./src:/app/src:cached
 
     wp-cli:
-        image: frojd/wp-cli-php-8.1:latest
+        image: ghci.io/frojd/dockerimages/wp-cli-php-8.1:latest
         links:
             - db
         volumes:
@@ -64,7 +64,7 @@ services:
             - ./docker/files/db-dumps:/app/db-dumps
 
     composer:
-        image: frojd/composer-php-8.1:latest
+        image: ghci.io/frojd/dockerimages/composer-php-8.1:latest
         command: install
         volumes:
             - ./src:/app/src
