@@ -1,8 +1,17 @@
 <?php
-
 /**
- * Do not edit anything in this file unless you know what you're doing
+ * Fix compatibility issues with alternative template path in
+ * WP >6.3
  */
+add_filter('stylesheet_directory', function ($stylesheet_dir) {
+    $subdirectory = 'templates';
+
+    if (basename($stylesheet_dir) === $subdirectory) {
+        return $stylesheet_dir;
+    }
+
+    return $stylesheet_dir . '/' . $subdirectory;
+}, 10, 3);
 
 /**
  * Here's what's happening with these hooks:
@@ -78,3 +87,5 @@ foreach (glob(__DIR__.'/src/taxonomies/*') as $file) {
 foreach (glob(__DIR__.'/src/walkers/*') as $file) {
     require_once $file;
 }
+
+
