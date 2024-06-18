@@ -52,6 +52,7 @@ $sage_includes = [
     'src/admin.php',
     'src/classic-editor.php',
     'src/cookie-script.php',
+    'src/elasticpress.php',
     'src/gravity-forms.php',
     'src/gutenberg.php',
     'src/helpers.php',
