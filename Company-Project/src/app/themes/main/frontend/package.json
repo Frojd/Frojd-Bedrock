@@ -32,7 +32,6 @@
     "node": ">= 18.0.0"
   },
   "dependencies": {
-    "@sentry/browser": "^7.38.0",
     "core-js": "^3.28.0",
     "jquery": "^3.6.3",
     "regenerator-runtime": "^0.13.11",

@@ -59,7 +59,6 @@ $sage_includes = [
     'src/nginx-cache.php',
     'src/permissions.php',
     'src/security.php',
-    'src/sentry.php',
     'src/setup.php',
     'src/yoast-seo.php',
 ];
