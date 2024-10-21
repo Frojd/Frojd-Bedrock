@@ -19,7 +19,7 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
     plugins: [
-        legacy({ targets: ["defaults", "IE 11"] }),
+        legacy({ targets: ["defaults"] }),
         liveReload([
             // edit live reload paths according to your source code
             // for example:

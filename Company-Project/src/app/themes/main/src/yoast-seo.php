@@ -8,26 +8,27 @@ add_filter('wpseo_metabox_prio', function() {
 });
 
 /**
- * Add custom variable to be able to show hero text as fallback to excerpt
+ * Add custom variable to be able to show hero text as fallback to content
  */
 add_action('wpseo_register_extra_replacements', function() {
     wpseo_register_var_replacement(
-        '%%custom_excerpt%%',
-        __NAMESPACE__ . '\\_wpseoRegisterCustomExcerpt',
+        '%%custom_preamble%%',
+        __NAMESPACE__ . '\\_wpseoRegisterCustomPreamble',
         'advanced',
-        'Shows hero text if it exists, and otherwise excerpt'
+        'Shows hero text if it exists, and otherwise content'
     );
 });
 
-function _wpseoRegisterCustomExcerpt() {
+function _wpseoRegisterCustomPreamble() {
     global $post;
 
     $more = apply_filters('excerpt_more', '...');
     $default = wp_trim_words($post->post_content, 20, $more);
 
     $heroText = get_field('hero_text', $post->ID);
-    if(empty($heroText))
+    if(empty($heroText)) {
         return $default;
+    }
 
     return wp_trim_words($heroText, 20, $more);
 }
@@ -36,6 +37,6 @@ function _wpseoRegisterCustomExcerpt() {
  * Exclude CTPs from yoast SEO sitemap
  */
 add_filter('wpseo_sitemap_exclude_post_type', function ($value, $post_type) {
-    $post_type_to_exclude = array('post');
+    $post_type_to_exclude = ['post'];
     if(in_array($post_type, $post_type_to_exclude)) return true;
 }, 10, 2 );

@@ -9,4 +9,8 @@
     <?php get_template_part('partials/favicons'); ?>
 
     <?php wp_head(); ?>
+
+    <?php if (IS_DEVELOPMENT): ?>
+        <script type="module" src="//localhost:3000/@vite/client"></script>
+    <?php endif; ?>
 </head>

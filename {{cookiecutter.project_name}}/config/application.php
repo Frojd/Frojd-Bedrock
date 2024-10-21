@@ -108,19 +108,16 @@ if (!defined('ABSPATH')) {
  */
 define('SENTRY_DSN', getenv('SENTRY_DSN') ?: null);
 if (SENTRY_DSN) {
-    $tags = [];
-    if(defined('CURRENT_SITE') && !empty(CURRENT_SITE)) {
-        $tags['current_site'] = CURRENT_SITE;
-    }
+  define("WP_SENTRY_PHP_DSN", SENTRY_DSN);
 
-    Sentry\init([
-        'dsn' => SENTRY_DSN,
-        'traces_sample_rate' => WP_ENV === "staging" ? 1.0 : 0.1,
-        'tags' => $tags,
-        'release' => APP_VERSION,
-        'environment' => WP_ENV,
-        'prefixes' => [
-            dirname(__DIR__)
-        ],
-    ]);
+  if (defined('CURRENT_SITE') && !empty(CURRENT_SITE)) {
+    $env = CURRENT_SITE . "-" . WP_ENV . "-php";
+  }
+  define("WP_SENTRY_ENV", $env);
+
+  define("WP_SENTRY_TRACES_SAMPLE_RATE", WP_ENV == "production" ? .2 : 1.0);
+  define("WP_SENTRY_PROFILES_SAMPLE_RATE", WP_ENV == "production" ? .2 : 1.0);
+
+  define("WP_SENTRY_BROWSER_DSN", true);
+  define("WP_SENTRY_BROWSER_TRACES_SAMPLE_RATE", WP_ENV == "production" ? .05 : 1.0);
 }
