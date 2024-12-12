@@ -78,6 +78,7 @@ define('AUTOMATIC_UPDATER_DISABLED', true);
 define('DISABLE_WP_CRON', true);
 define('WP_POST_REVISIONS', 10);
 define('WP_MEMORY_LIMIT', '124M');
+define('FS_METHOD', 'direct');
 
 /**
  * ACF PRO
