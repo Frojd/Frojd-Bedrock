@@ -79,6 +79,11 @@ define('DISABLE_WP_CRON', true);
 define('WP_POST_REVISIONS', 10);
 define('WP_MEMORY_LIMIT', '124M');
 
+/**
+ * ACF PRO
+ */
+define('ACF_PRO_LICENSE', getenv('ACF_PRO_KEY', ''));
+
 /* Cookie script */
 define('COOKIE_SCRIPT', getenv('COOKIE_SCRIPT', ''));
 
