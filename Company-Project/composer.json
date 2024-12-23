@@ -43,7 +43,7 @@
     "require": {
         "php": "8.1.*",
         "composer/installers": "*",
-        "vlucas/phpdotenv": "3.*",
+        "vlucas/phpdotenv": "*",
         "johnpbloch/wordpress": "*",
         "sentry/sdk": "*",
         "stayallive/wp-sentry": "*",
