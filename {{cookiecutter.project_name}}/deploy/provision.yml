@@ -45,6 +45,15 @@
         group: www-data
         mode: 0644
 
+    - name: Create .htaccess file
+      become: yes
+      become_user: root
+      file:
+        dest: "{{ ansistrano_deploy_to }}/shared/src/.env"
+        owner: www-data
+        group: www-data
+        mode: 0775
+
     - name: Creates mysql database
       become: yes
       become_user: root

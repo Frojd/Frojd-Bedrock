@@ -7,11 +7,23 @@ define('VENDOR_DIR', ROOT_DIR . '/vendor');
 
 /**
  * Use Dotenv to set required environment variables and load .env file in root
+ * .env.local will override .env if it exists
  */
-$dotenv = Dotenv\Dotenv::create(ROOT_DIR);
-if (file_exists(ROOT_DIR . '/.env')) {
-  $dotenv->load();
-  $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'WP_SITEURL']);
+if (file_exists($root_dir . '/.env')) {
+    $env_files = file_exists(ROOT_DIR . '/.env.local')
+        ? ['.env', '.env.local']
+        : ['.env'];
+
+    $repository = Dotenv\Repository\RepositoryBuilder::createWithNoAdapters()
+        ->addAdapter(Dotenv\Repository\Adapter\EnvConstAdapter::class)
+        ->addAdapter(Dotenv\Repository\Adapter\PutenvAdapter::class)
+        ->immutable()
+        ->make();
+
+    $dotenv = Dotenv\Dotenv::create($repository, $root_dir, $env_files, false);
+    $dotenv->load();
+
+    $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'WP_SITEURL']);
 }
 
 function getenv_bool($variable, $default = false) {
