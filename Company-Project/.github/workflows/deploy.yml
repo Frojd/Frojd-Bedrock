@@ -1,0 +1,130 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+  composer:
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'prod' || 'stage' }}
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Set up ACF auth
+      run: composer config http-basic.connect.advancedcustomfields.com $ACF_PRO_KEY https://example.com
+      env:
+        ACF_PRO_KEY: ${{ secrets.ACF_PRO_KEY }}
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer install --no-progress --no-scripts --optimize-autoloader --no-dev
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: main
+        retention-days: 1
+        path: |
+            vendor
+            src
+            !src/app/themes/main/frontend
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache-dependency-path: src/app/themes/main/frontend/package-lock.json
+          cache: 'npm'
+
+      - name: Build frontend
+        working-directory: src/app/themes/main/frontend
+        run: npm ci && npm run build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend
+          path: src/app/themes/main/frontend
+          retention-days: 1
+          include-hidden-files: true
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [composer, frontend]
+    environment: ${{ github.ref == 'refs/heads/main' && 'prod' || 'stage' }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: main
+          path: main
+
+      - name: Install artifacts
+        run: |
+          rm -rf src
+          mv main/src src
+          mv main/vendor vendor
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: frontend
+          path: src/app/themes/main/frontend
+
+      - name: Setup SSH key
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          mkdir -p /home/runner/.ssh
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            ssh-keyscan example.com >> /home/runner/.ssh/known_hosts
+            echo "${{ secrets.SSH_PRIVATE_KEY }}" > /home/runner/.ssh/example.com
+            chmod 600 /home/runner/.ssh/example.com
+          else
+            ssh-keyscan stage.example.com >> /home/runner/.ssh/known_hosts
+            echo "${{ secrets.SSH_PRIVATE_KEY }}" > /home/runner/.ssh/stage.example.com
+            chmod 600 /home/runner/.ssh/stage.example.com
+          fi
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            ssh-add /home/runner/.ssh/example.com
+          else
+            ssh-add /home/runner/.ssh/stage.example.com
+          fi
+
+      - name: Setup ansible
+        run: cd deploy && pip install -r requirements.txt && ansible-galaxy install -r requirements.yml
+
+      - name: Deploy to staging
+        if: github.ref == 'refs/heads/develop'
+        run: cd deploy && ansible-playbook deploy.yml -i stages/stage.yml
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+
+      - name: Deploy to production
+        if: github.ref == 'refs/heads/main'
+        run: cd deploy && ansible-playbook deploy.yml -i stages/prod.yml
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock

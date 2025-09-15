@@ -14,6 +14,7 @@
       - src/app/uploads
     ansistrano_shared_files:
       - .env
+      - src/.htaccess
   roles:
     - { role: ansistrano.deploy }
 

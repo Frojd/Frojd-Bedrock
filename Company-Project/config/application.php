@@ -9,6 +9,7 @@ define('VENDOR_DIR', ROOT_DIR . '/vendor');
  * Use Dotenv to set required environment variables and load .env file in root
  * .env.local will override .env if it exists
  */
+$root_dir = ROOT_DIR;
 if (file_exists($root_dir . '/.env')) {
     $env_files = file_exists(ROOT_DIR . '/.env.local')
         ? ['.env', '.env.local']
@@ -90,6 +91,12 @@ define('AUTOMATIC_UPDATER_DISABLED', true);
 define('DISABLE_WP_CRON', true);
 define('WP_POST_REVISIONS', 10);
 define('WP_MEMORY_LIMIT', '124M');
+define('FS_METHOD', 'direct');
+
+/**
+ * ACF PRO
+ */
+define('ACF_PRO_LICENSE', getenv('ACF_PRO_KEY', ''));
 
 /* Cookie script */
 define('COOKIE_SCRIPT', getenv('COOKIE_SCRIPT', ''));

@@ -1,0 +1,136 @@
+name: Update Dependencies
+
+on:
+  schedule:
+    # Run every Monday at 3:00 AM UTC
+    - cron: '0 3 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-npm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: src/app/themes/main/frontend/package-lock.json
+
+      - name: Update npm dependencies
+        working-directory: src/app/themes/main/frontend
+        run: |
+          # Run npm audit fix to fix security vulnerabilities
+          npm audit fix || true
+
+          # Update all dependencies to latest minor/patch versions
+          npm update --save
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          # Check if there are changes
+          if [[ -n $(git status -s) ]]; then
+            git add src/app/themes/main/frontend/package*.json
+            git commit -m "fix: update npm dependencies [skip ci]"
+            git push origin develop
+          else
+            echo "No npm dependency updates available"
+          fi
+
+  update-composer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+
+      - name: Update Composer dependencies
+        run: |
+          # Update dependencies (excluding major versions as per original config)
+          composer update --no-scripts --no-interaction --prefer-dist --no-dev
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          # Check if there are changes
+          if [[ -n $(git status -s) ]]; then
+            git add composer.json composer.lock
+            git commit -m "fix: update composer dependencies [skip ci]"
+            git push origin develop
+          else
+            echo "No composer dependency updates available"
+          fi
+
+  update-pip:
+    runs-on: ubuntu-latest
+    # Run monthly (first Monday of each month)
+    if: {% raw %}github.event_name == 'workflow_dispatch' || (github.event.schedule && format('{0:dd}', github.event.repository.pushed_at) <= '07'){% endraw %}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Update pip dependencies
+        working-directory: deploy
+        run: |
+          # Create virtual environment
+          python -m venv venv
+          source venv/bin/activate
+
+          # Install pip-tools for better dependency management
+          pip install pip-tools
+
+          # Update requirements
+          pip-compile --upgrade requirements.in -o requirements.txt 2>/dev/null || \
+          pip list --outdated --format=json | python -c "
+          import sys, json
+          for pkg in json.load(sys.stdin):
+              print(f'{pkg[\"name\"]}=={pkg[\"latest_version\"]}')
+          " > /tmp/updates.txt
+
+          if [ -f /tmp/updates.txt ] && [ -s /tmp/updates.txt ]; then
+            while read line; do
+              pip install "$line"
+            done < /tmp/updates.txt
+            pip freeze > requirements.txt
+          fi
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          # Check if there are changes
+          if [[ -n $(git status -s) ]]; then
+            git add deploy/requirements.txt
+            git commit -m "fix: update python dependencies [skip ci]"
+            git push origin develop
+          else
+            echo "No python dependency updates available"
+          fi
