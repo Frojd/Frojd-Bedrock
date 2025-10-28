@@ -34,7 +34,7 @@ ssh $REMOTE_USER@$REMOTE_HOST "cd $REMOTE_SRC_PATH;
 
 scp $REMOTE_USER@$REMOTE_HOST:/mnt/persist/tmp/latest.sql docker/files/db-dumps/latest.sql
 
-docker-compose run --rm wp-cli sh -c "
+docker compose run --rm wp-cli sh -c "
     wp --allow-root db import /app/db-dumps/latest.sql;
     wp --allow-root search-replace https://$REMOTE_DOMAIN http://$LOCAL_DOMAIN --all-tables;
     wp --allow-root cache flush;

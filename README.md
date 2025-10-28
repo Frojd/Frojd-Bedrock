@@ -10,7 +10,7 @@ Bedrock is a modern WordPress stack inspired by [Twelve-Factor App](http://12fac
 - Wordpress
 - Bedrock
 - Sage
-- Docker and Docker-compose support
+- Docker and Docker Compose support
 - [12-Factor](https://12factor.net/) based
 - Settings primed for production
 - Third part integrations:

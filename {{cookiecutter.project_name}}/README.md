@@ -29,7 +29,7 @@
 4. Start project
 
     ```
-    docker-compose up
+    docker compose up
     ```
 
 5. Visit your site on: [http://{{cookiecutter.domain_prod}}.test:{{cookiecutter.docker_web_port}}](http://{{cookiecutter.domain_prod}}.test:{{cookiecutter.docker_web_port}})
@@ -50,10 +50,10 @@
    Either create a local database and reconfigure ROOT_FOLDER/.env accordingly, or you could use docker:
    ```
    # Run in forground
-   docker-compose up db
+   docker compose up db
 
    # Run in background
-   docker-compose up -d db
+   docker compose up -d db
    ```
 
    If you are using docker, the DB_HOST should be set to "$LOCALIPADDRESS:$DOCKERPORT", this is configured by default by `make init`.
@@ -67,7 +67,7 @@
 4. Install composer dependencies
 
    By running `composer install`, if versions are conflicting or if you do not have composer installed
-   it is also possible to run supplied docker container: `docker-compose run composer install`
+   it is also possible to run supplied docker container: `docker compose run composer install`
 
 5. Create a valet link in the src-folder:
    ```
@@ -101,7 +101,7 @@ to intercept secure requests from your machine. Do not share it!
 ### Remote debugging for xdebug
 
 If you want remote-debugging for xdebug you need to make sure some ENV-vars is available 
-when docker-compose build.
+when docker compose build.
 You could either add them to your local environment (e.g. .zshrc) or add a .env-file in the 
 project root.
 ```
