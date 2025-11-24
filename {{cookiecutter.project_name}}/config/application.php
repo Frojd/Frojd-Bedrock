@@ -128,15 +128,14 @@ if (!defined('ABSPATH')) {
 define('SENTRY_DSN', getenv('SENTRY_DSN') ?: null);
 if (SENTRY_DSN) {
   define("WP_SENTRY_PHP_DSN", SENTRY_DSN);
+  define("WP_SENTRY_BROWSER_DSN", SENTRY_DSN);
 
   if (defined('CURRENT_SITE') && !empty(CURRENT_SITE)) {
-    $env = CURRENT_SITE . "-" . WP_ENV . "-php";
+    $env = CURRENT_SITE . "-" . WP_ENV;
   }
   define("WP_SENTRY_ENV", $env);
 
   define("WP_SENTRY_TRACES_SAMPLE_RATE", WP_ENV == "production" ? .2 : 1.0);
   define("WP_SENTRY_PROFILES_SAMPLE_RATE", WP_ENV == "production" ? .2 : 1.0);
-
-  define("WP_SENTRY_BROWSER_DSN", true);
   define("WP_SENTRY_BROWSER_TRACES_SAMPLE_RATE", WP_ENV == "production" ? .05 : 1.0);
 }
