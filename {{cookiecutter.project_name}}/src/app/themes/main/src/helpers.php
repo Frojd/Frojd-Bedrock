@@ -45,8 +45,12 @@ function template_part($template, array $context = [], $layout = 'base') {
  * @return string
  */
 function asset_path($filename) {
+    if (IS_DEVELOPMENT) {
+        return '//localhost:3000/' . $filename;
+    }
+
     static $manifest;
-    isset($manifest) || $manifest = new JsonManifest(get_stylesheet_directory() . "/.." . Asset::$dist . '/manifest.json');
+    isset($manifest) || $manifest = new JsonManifest(get_stylesheet_directory() . "/.." . Asset::$dist . '/.vite/manifest.json');
 
     return (string)new Asset($filename, $manifest);
 }
