@@ -1,6 +1,6 @@
 webservers:
   hosts:
-    prod1:
+    prod:
       ansible_user: deploy
       ansible_port: 22
       ansible_host: {{cookiecutter.ssh_host_prod}}
