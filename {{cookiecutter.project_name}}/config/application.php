@@ -140,4 +140,9 @@ if (SENTRY_DSN) {
   define("WP_SENTRY_TRACES_SAMPLE_RATE", WP_ENV == "production" ? .2 : 1.0);
   define("WP_SENTRY_PROFILES_SAMPLE_RATE", WP_ENV == "production" ? .2 : 1.0);
   define("WP_SENTRY_BROWSER_TRACES_SAMPLE_RATE", WP_ENV == "production" ? .05 : 1.0);
+
+  // You can _optionally_ enable or disable the JavaScript tracker in certain parts of your site with these constants:
+  define('WP_SENTRY_BROWSER_ADMIN_ENABLED', true);
+  define('WP_SENTRY_BROWSER_LOGIN_ENABLED', true);
+  define('WP_SENTRY_BROWSER_FRONTEND_ENABLED', true);
 }
