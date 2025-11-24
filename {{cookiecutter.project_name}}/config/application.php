@@ -134,6 +134,7 @@ if (SENTRY_DSN) {
     $env = CURRENT_SITE . "-" . WP_ENV;
   }
   define("WP_SENTRY_ENV", $env);
+  define("WP_SENTRY_VERSION", APP_VERSION);
 
   define("WP_SENTRY_TRACES_SAMPLE_RATE", WP_ENV == "production" ? .2 : 1.0);
   define("WP_SENTRY_PROFILES_SAMPLE_RATE", WP_ENV == "production" ? .2 : 1.0);
