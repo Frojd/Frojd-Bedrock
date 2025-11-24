@@ -130,10 +130,11 @@ if (SENTRY_DSN) {
   define("WP_SENTRY_PHP_DSN", SENTRY_DSN);
   define("WP_SENTRY_BROWSER_DSN", SENTRY_DSN);
 
+  $sentry_env = WP_ENV;
   if (defined('CURRENT_SITE') && !empty(CURRENT_SITE)) {
-    $env = CURRENT_SITE . "-" . WP_ENV;
+    $sentry_env = CURRENT_SITE . "-" . $sentry_env;
   }
-  define("WP_SENTRY_ENV", $env);
+  define("WP_SENTRY_ENV", $sentry_env);
   define("WP_SENTRY_VERSION", APP_VERSION);
 
   define("WP_SENTRY_TRACES_SAMPLE_RATE", WP_ENV == "production" ? .2 : 1.0);
