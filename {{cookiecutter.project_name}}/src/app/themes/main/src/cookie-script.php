@@ -23,14 +23,16 @@ add_action('wp_enqueue_scripts', function() {
         dataLayer.push(arguments);
     }
     gtag('consent', 'default', {
-        ad_storage: 'denied',
-        analytics_storage: 'denied',
-        wait_for_update: 500
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied',
+        'wait_for_update': 500,
     });
     gtag('set', 'ads_data_redaction', true);
     <?php
     $script = ob_get_clean();
-    wp_add_inline_script('cookie-script', $script, 'after');
+    wp_add_inline_script('cookie-script', $script, 'before');
 }, 0);
 
 // Parse embeds if user hasn't accepted cookies and instead show message
