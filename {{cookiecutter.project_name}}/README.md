@@ -77,7 +77,14 @@
 
 6. Visit your site on `{{cookiecutter.domain_prod}}.test`
 
-7. (optional) Set up SSL
+7. Set up git-hooks
+   ```
+   chmod +x $PWD/git-hooks/bump-version.sh
+   ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-release-start
+   ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-hotfix-start
+   ```
+   
+8. (optional) Set up SSL
    ```
    cd src
    valet secure
