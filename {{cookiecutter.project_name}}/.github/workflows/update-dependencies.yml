@@ -41,6 +41,7 @@ jobs:
           if [[ -n $(git status -s) ]]; then
             git add src/app/themes/main/frontend/package*.json
             git commit -m "fix: update npm dependencies [skip ci]"
+            git pull --rebase origin develop
             git push origin develop
           else
             echo "No npm dependency updates available"
@@ -56,10 +57,13 @@ jobs:
           token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          tools: composer:v2
+        run: |
+          sudo add-apt-repository ppa:ondrej/php -y
+          sudo apt-get update
+          sudo apt-get install -y php8.3-cli php8.3-mbstring php8.3-xml php8.3-curl php8.3-zip
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+          php -r "unlink('composer-setup.php');"
 
       - name: Update Composer dependencies
         run: |
@@ -75,6 +79,7 @@ jobs:
           if [[ -n $(git status -s) ]]; then
             git add composer.json composer.lock
             git commit -m "fix: update composer dependencies [skip ci]"
+            git pull --rebase origin develop
             git push origin develop
           else
             echo "No composer dependency updates available"
@@ -130,6 +135,7 @@ jobs:
           if [[ -n $(git status -s) ]]; then
             git add deploy/requirements.txt
             git commit -m "fix: update python dependencies [skip ci]"
+            git pull --rebase origin develop
             git push origin develop
           else
             echo "No python dependency updates available"
