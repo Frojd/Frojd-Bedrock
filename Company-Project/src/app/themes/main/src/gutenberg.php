@@ -114,12 +114,34 @@ add_action('enqueue_block_editor_assets', function() {
     wp_enqueue_script(
         'sage-gutenberg',
         get_template_directory_uri() . '/src/scripts/gutenberg.js',
-        ['wp-blocks', 'wp-element', 'wp-dom-ready', 'wp-edit-post', 'wp-i18n']
+        ['wp-blocks', 'wp-element', 'wp-dom-ready', 'wp-edit-post', 'wp-i18n', 'wp-rich-text', 'wp-block-editor']
     );
 
     // For registering blocks from js
     register_block_type('sage/preamble', ['editor_script' => 'sage-gutenberg']);
 });
+
+/*
+ * Unwrap the editor-only soft hyphen marker on the frontend.
+ *
+ * The sage/soft-hyphen format (src/scripts/gutenberg.js) wraps each U+00AD in a
+ * <span class="soft-hyphen"> so editors can see it. On the frontend we strip the
+ * span and keep the bare soft hyphen character.
+ */
+add_filter('render_block', function($blockContent, $block) {
+    // Cheap bail-out: only the soft-hyphen format adds this class.
+    if (strpos($blockContent, 'soft-hyphen') === false) {
+        return $blockContent;
+    }
+
+    // Match any <span> carrying the soft-hyphen class (regardless of attribute
+    // order or extra attributes like title) and keep only the inner character.
+    return preg_replace(
+        '/<span\b[^>]*\bclass="[^"]*\bsoft-hyphen\b[^"]*"[^>]*>(\x{00AD})<\/span>/u',
+        '$1',
+        $blockContent
+    );
+}, 10, 2);
 
 // add_action('acf/init', function () {
 //     /**
