@@ -41,7 +41,9 @@ export default defineConfig((env) => ({
         minify: 'terser',
 
         // emit manifest so PHP can find the hashed files
-        manifest: true,
+        // (string path keeps it at dist/manifest.json where Roots\Sage\Asset looks,
+        // instead of vite's default dist/.vite/manifest.json)
+        manifest: 'manifest.json',
 
         rollupOptions: {
             input: [
