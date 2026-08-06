@@ -1,56 +1,49 @@
 #!/usr/bin/env bash
 #
-# Sync db and assets from remote to local
+# Sync db and assets from remote to local.
 #
-# SSH-keys is mandatory
+# SSH-keys are mandatory.
 # Example usage `scripts/sync/remote_to_local.sh prod`
+#
+# This is the orchestrator: it asks the questions and runs the steps. Each step
+# is also runnable on its own with the stage as an argument
+# (e.g. `scripts/sync/reset_local.sh prod`):
+#   - fetch_remote_db.sh <stage>          export + download + import the remote db
+#   - reset_local.sh <stage>              rewrite urls and reset plugins/admin
+#   - remote_uploads_to_local.sh <stage>  sync the uploads directory
 set -e
 
-# Resolve paths relative to this script so it works from any directory
-# (and before the project is a git repo).
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR/../.."
 
-STAGE=$(echo $1 | awk '{print toupper($0)}')
-
+STAGE=$(echo "$1" | awk '{print toupper($0)}')
 source "$SCRIPT_DIR/STAGES"
 
-REMOTE_HOST=$(eval "echo $"${STAGE}_HOST)
-REMOTE_USER=$(eval "echo $"${STAGE}_USER)
-REMOTE_SRC_PATH=$(eval "echo $"${STAGE}_SRC_PATH)
-REMOTE_UPLOAD_PATH=$(eval "echo $"${STAGE}_UPLOAD_PATH)
-REMOTE_DOMAIN=$(eval "echo $"${STAGE}_DOMAIN)
+[[ -z $(eval "echo $"${STAGE}_HOST) ]] && echo "Unknown stage ${STAGE}" && exit 1
 
-[[ -z $REMOTE_HOST ]] && echo "Unknown stage ${STAGE}" && cd - && exit 1
+# Pick the local target url; default to http, use SSL if the dev opts in. This
+# is exported so the reset step rewrites urls to the chosen scheme.
+export LOCAL_URL="http://$LOCAL_DOMAIN"
+read -p "Use SSL locally? [y/n]" -n 1 -r
+echo # nl
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    export LOCAL_URL="https://${SSL_LOCAL_DOMAIN:-$LOCAL_DOMAIN}"
+fi
 
 read -p "This will replace your LOCAL database from stage ${STAGE} - Are you sure? [y/n]" -n 1 -r
 echo # nl
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
-    cd -
     [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1
 fi
 
+"$SCRIPT_DIR/fetch_remote_db.sh" "$1"
+"$SCRIPT_DIR/reset_local.sh" "$1"
 
-ssh $REMOTE_USER@$REMOTE_HOST "cd $REMOTE_SRC_PATH;
-    wp --allow-root db export /mnt/persist/tmp/latest.sql;"
-
-scp $REMOTE_USER@$REMOTE_HOST:/mnt/persist/tmp/latest.sql docker/files/db-dumps/latest.sql
-
-# Strip the sandbox-mode comment that newer mariadb-dump prepends; it aborts the import otherwise
-docker compose exec -T db sh -c "sed -i '/^\/\*M!999999\\\\-.*\*\//d' /docker-entrypoint-initdb.d/latest.sql"
-
-docker compose exec -T db mysql -uroot -pwp wp < docker/files/db-dumps/latest.sql
-
-docker compose run --rm wp-cli sh -c "
-    wp --allow-root search-replace https://$REMOTE_DOMAIN http://$LOCAL_DOMAIN --all-tables;
-    wp --allow-root cache flush;
-    wp --allow-root option set ep_host http://search:9200
-    wp --allow-root elasticpress sync
-    wp --allow-root plugin activate debug-bar;
-    wp --allow-root plugin deactivate nginx-cache;
-    wp --allow-root user update admin --user_pass=admin;"
-
-rsync -re ssh $REMOTE_USER@$REMOTE_HOST:$REMOTE_UPLOAD_PATH/* src/app/uploads/
-
-cd -
+read -p "This will sync all uploads from stage ${STAGE} to src/app/uploads/ - Are you sure? [y/n]" -n 1 -r
+echo # nl
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    "$SCRIPT_DIR/remote_uploads_to_local.sh" "$1"
+fi
