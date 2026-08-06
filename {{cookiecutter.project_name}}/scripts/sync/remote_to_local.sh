@@ -6,11 +6,14 @@
 # Example usage `scripts/sync/remote_to_local.sh prod`
 set -e
 
-cd $(git rev-parse --show-toplevel)
+# Resolve paths relative to this script so it works from any directory
+# (and before the project is a git repo).
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR/../.."
 
 STAGE=$(echo $1 | awk '{print toupper($0)}')
 
-source scripts/sync/STAGES
+source "$SCRIPT_DIR/STAGES"
 
 REMOTE_HOST=$(eval "echo $"${STAGE}_HOST)
 REMOTE_USER=$(eval "echo $"${STAGE}_USER)
