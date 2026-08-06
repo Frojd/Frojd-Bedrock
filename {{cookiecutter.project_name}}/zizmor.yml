@@ -1,0 +1,11 @@
+# zizmor configuration
+# https://docs.zizmor.sh/configuration/
+# FROJD-CICD-021
+#
+# To suppress specific findings, add entries under `rules:`:
+#   rules:
+#     template-injection:
+#       ignore:
+#         - .github/workflows/foo.yml:42
+
+rules: {}

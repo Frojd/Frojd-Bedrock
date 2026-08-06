@@ -187,6 +187,25 @@ ansible-galaxy install -r requirements.yml
 
 5. Commit and push your changes and Happy deployment!
 
+### Automated deployment (GitHub Actions)
+
+Deployment runs through GitHub Actions (`.github/workflows/ci.yml` → `deploy.yml`).
+`ci.yml` runs the quality gates (Trivy + zizmor) on every push and PR, and on
+deployable refs it calls the reusable `deploy.yml`:
+
+* **Push to `develop`** → deploys to **staging**
+* **Push a `v*` tag** (e.g. via `git flow release finish`) → deploys to **production**
+* **Manual run** (`deploy.yml` → "Run workflow") → deploy or roll back a chosen
+  environment/ref via `workflow_dispatch`
+
+Required repository secrets: `ACF_PRO_KEY`, `SSH_PRIVATE_KEY` (and the org-level
+`SLACK_BOT_TOKEN` plus a `SLACK_CHANNEL` variable for failure notifications).
+
+The deploy target host and path come from `deploy/stages/*.yml` and
+`deploy/group_vars/webservers` — adjust `ansistrano_deploy_to` / `ansible_user`
+there to match your hosting (e.g. Cloudnet's `/mnt/persist/www/...` vs a
+`/home/<user>/...` layout).
+
 
 ## Documentation
 
