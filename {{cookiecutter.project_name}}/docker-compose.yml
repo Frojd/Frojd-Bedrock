@@ -1,4 +1,3 @@
-version: '3.1'
 services:
     search:
         image: elasticsearch:7.10.1
@@ -18,9 +17,6 @@ services:
     php-fpm:
         build:
             context: docker/php-fpm
-            args:
-                - XDEBUG_REMOTE_HOST=${XDEBUG_REMOTE_HOST}
-                - XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
         environment:
             XDEBUG_MODE: develop
             XDEBUG_CONFIG: "
@@ -34,7 +30,7 @@ services:
             - ./vendor:/app/vendor:cached
             - ./config:/app/config:cached
             - ./docker/files/profiles:/app/profiles:delegated
-            - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/8.1/fpm/conf.d/99-overrides.ini:cached
+            - ./docker/php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini:cached
 
     web:
         image: nginx:stable-alpine
@@ -52,7 +48,7 @@ services:
             - ./src:/app/src:cached
 
     wp-cli:
-        image: ghcr.io/frojd/dockerimages/wp-cli-php-8.1:latest
+        image: ghcr.io/frojd/dockerimages/wp-cli-php-8.3:latest
         links:
             - db
         volumes:
@@ -64,7 +60,7 @@ services:
             - ./docker/files/db-dumps:/app/db-dumps
 
     composer:
-        image: ghcr.io/frojd/dockerimages/composer-php-8.1:latest
+        image: ghcr.io/frojd/dockerimages/composer-php-8.3:latest
         command: install
         volumes:
             - ./src:/app/src
