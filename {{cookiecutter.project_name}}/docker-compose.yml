@@ -26,7 +26,12 @@ services:
         working_dir: /app
         volumes:
             - ./src:/app/src:cached
-            - ./docker/config/web.env:/app/.env:cached
+            # Fail if web.env is missing instead of creating a stray directory.
+            - type: bind
+              source: ./docker/config/web.env
+              target: /app/.env
+              bind:
+                  create_host_path: false
             - ./vendor:/app/vendor:cached
             - ./config:/app/config:cached
             - ./docker/files/profiles:/app/profiles:delegated
@@ -49,23 +54,42 @@ services:
 
     wp-cli:
         image: ghcr.io/frojd/dockerimages/wp-cli-php-8.3:latest
+        # On-demand tool container (run via `docker compose run wp-cli ...` or
+        # `make wp ...`); the profile keeps it out of the default `up` set.
+        profiles: ["tools"]
         links:
             - db
         volumes:
             - ./src:/app/src:delegated
             - ./wp-cli.yml:/app/wp-cli.yml:cached
             - ./vendor:/app/vendor:cached
-            - ./docker/config/web.env:/app/.env:cached
+            # Fail if web.env is missing instead of creating a stray directory.
+            - type: bind
+              source: ./docker/config/web.env
+              target: /app/.env
+              bind:
+                  create_host_path: false
             - ./config:/app/config:cached
             - ./docker/files/db-dumps:/app/db-dumps
 
     composer:
         image: ghcr.io/frojd/dockerimages/composer-php-8.3:latest
-        command: install
+        # On-demand tool container (run via `docker compose run composer ...` or
+        # `make composer ...`); the profile keeps it out of the default `up` set.
+        profiles: ["tools"]
         volumes:
             - ./src:/app/src
             - ./composer.json:/app/composer.json
             - "./composer.lock:/app/composer.lock"
-            - ./auth.json:/app/auth.json
-            - ./docker/config/web.env:/app/.env
+            # Fail if these are missing instead of creating stray directories.
+            - type: bind
+              source: ./auth.json
+              target: /app/auth.json
+              bind:
+                  create_host_path: false
+            - type: bind
+              source: ./docker/config/web.env
+              target: /app/.env
+              bind:
+                  create_host_path: false
             - ./vendor:/app/vendor
