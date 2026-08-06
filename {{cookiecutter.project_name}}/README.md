@@ -198,13 +198,42 @@ deployable refs it calls the reusable `deploy.yml`:
 * **Manual run** (`deploy.yml` → "Run workflow") → deploy or roll back a chosen
   environment/ref via `workflow_dispatch`
 
-Required repository secrets: `ACF_PRO_KEY`, `SSH_PRIVATE_KEY` (and the org-level
-`SLACK_BOT_TOKEN` plus a `SLACK_CHANNEL` variable for failure notifications).
-
 The deploy target host and path come from `deploy/stages/*.yml` and
 `deploy/group_vars/webservers` — adjust `ansistrano_deploy_to` / `ansible_user`
-there to match your hosting (e.g. Cloudnet's `/mnt/persist/www/...` vs a
-`/home/<user>/...` layout).
+there to match your hosting (the deploy path varies by provider, e.g.
+`/mnt/persist/www/...` vs a `/home/<user>/...` layout).
+
+### Secrets
+
+The workflows use these GitHub secrets and variables:
+
+* `ACF_PRO_KEY` — ACF Pro licence, used to install `advanced-custom-fields-pro`.
+  If your organisation provides it as an organisation-level secret it is already
+  available; otherwise add it as a repository secret.
+* `SLACK_BOT_TOKEN` — bot token for failure notifications (usually an
+  organisation-level secret). Optional.
+* `SSH_PRIVATE_KEY` — the deploy key, added as an **environment** secret on both
+  the `stage` and `prod` environments (see below).
+* `SLACK_CHANNEL` — repository **variable** (not a secret) naming the Slack
+  channel for notifications; leave unset to disable. Optional.
+* `GITHUB_TOKEN` is provided automatically by GitHub Actions.
+
+**Setting up the deploy key:**
+
+1. Generate an SSH keypair per environment — either with a secret manager (e.g.
+   1Password, which stores the private key in the vault) or with
+   `ssh-keygen -t ed25519 -C "github-actions-deploy"`.
+2. Add each **public** key to the deploy user's `~/.ssh/authorized_keys` on the
+   matching server (or send it to your hosting provider).
+3. Add each **private** key as `SSH_PRIVATE_KEY` under
+   **Settings → Environments → `stage` / `prod` → Environment secrets**
+   (create the two environments first if they don't exist).
+
+To enable Slack notifications, add the `SLACK_CHANNEL` variable under
+**Settings → Secrets and variables → Actions → Variables**.
+
+Full walkthrough:
+[Setting up deployment with GitHub Actions](https://github.com/Frojd/Frojd-Bedrock/blob/main/docs/setting-up-deployment-with-github-actions.md).
 
 
 ## Documentation
