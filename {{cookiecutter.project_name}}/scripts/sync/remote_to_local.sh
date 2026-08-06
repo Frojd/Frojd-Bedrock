@@ -34,12 +34,16 @@ ssh $REMOTE_USER@$REMOTE_HOST "cd $REMOTE_SRC_PATH;
 
 scp $REMOTE_USER@$REMOTE_HOST:/mnt/persist/tmp/latest.sql docker/files/db-dumps/latest.sql
 
+# Strip the sandbox-mode comment that newer mariadb-dump prepends; it aborts the import otherwise
+docker compose exec -T db sh -c "sed -i '/^\/\*M!999999\\\\-.*\*\//d' /docker-entrypoint-initdb.d/latest.sql"
+
+docker compose exec -T db mysql -uroot -pwp wp < docker/files/db-dumps/latest.sql
+
 docker compose run --rm wp-cli sh -c "
-    wp --allow-root db import /app/db-dumps/latest.sql;
     wp --allow-root search-replace https://$REMOTE_DOMAIN http://$LOCAL_DOMAIN --all-tables;
     wp --allow-root cache flush;
     wp --allow-root option set ep_host http://search:9200
-    wp --allow-root elasticpress index
+    wp --allow-root elasticpress sync
     wp --allow-root plugin activate debug-bar;
     wp --allow-root plugin deactivate nginx-cache;
     wp --allow-root user update admin --user_pass=admin;"
