@@ -49,6 +49,7 @@ export default defineConfig((env) => ({
             input: [
                 "./scripts/main.js",
                 "./styles/main.scss",
+                "./styles/editor.scss",
             ]
         },
         assetsDir: "./frontend/assets",
