@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           ref: develop
           token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: '22'
           cache: 'npm'
@@ -40,7 +40,7 @@ jobs:
           # Check if there are changes
           if [[ -n $(git status -s) ]]; then
             git add src/app/themes/main/frontend/package*.json
-            git commit -m "fix: update npm dependencies [skip ci]"
+            git commit -m "fix: update npm dependencies"
             git pull --rebase origin develop
             git push origin develop
           else
@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           ref: develop
           token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
@@ -78,7 +78,7 @@ jobs:
           # Check if there are changes
           if [[ -n $(git status -s) ]]; then
             git add composer.json composer.lock
-            git commit -m "fix: update composer dependencies [skip ci]"
+            git commit -m "fix: update composer dependencies"
             git pull --rebase origin develop
             git push origin develop
           else
@@ -91,13 +91,13 @@ jobs:
     if: {% raw %}github.event_name == 'workflow_dispatch' || (github.event.schedule && format('{0:dd}', github.event.repository.pushed_at) <= '07'){% endraw %}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           ref: develop
           token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@83679a892e2d95755f2dac6acb0bfd1e9ac5d548 # v6.1.0
         with:
           python-version: '3.11'
 
@@ -134,7 +134,7 @@ jobs:
           # Check if there are changes
           if [[ -n $(git status -s) ]]; then
             git add deploy/requirements.txt
-            git commit -m "fix: update python dependencies [skip ci]"
+            git commit -m "fix: update python dependencies"
             git pull --rebase origin develop
             git push origin develop
           else
