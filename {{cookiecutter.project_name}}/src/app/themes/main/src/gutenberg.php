@@ -108,7 +108,7 @@ add_action('after_setup_theme', function() {
 });
 
 add_action('enqueue_block_editor_assets', function() {
-    wp_enqueue_style('gutenberg-block-style', \App\asset_path('styles/editor.css'));
+    wp_enqueue_style('gutenberg-block-style', \App\asset_path('styles/editor.scss'));
 
     // Used for editing default blocks
     wp_enqueue_script(
