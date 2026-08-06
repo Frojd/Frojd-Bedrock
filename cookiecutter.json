@@ -23,6 +23,18 @@
     "*src/app/plugins/gravityforms/*.js",
     "*src/app/plugins/gravityforms/*.html",
     "*src/app/plugins/gravityforms/*.php",
-    "*src/app/plugins/gravityforms/*.css"
+    "*src/app/plugins/gravityforms/*.css",
+    "*.mo",
+    "*.png",
+    "*.jpg",
+    "*.jpeg",
+    "*.gif",
+    "*.ico",
+    "*.webp",
+    "*.woff",
+    "*.woff2",
+    "*.ttf",
+    "*.otf",
+    "*.eot"
   ]
 }
