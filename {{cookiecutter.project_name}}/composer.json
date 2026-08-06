@@ -76,6 +76,6 @@
         "wordpress-install-dir": "src/wp"
     },
     "scripts": {
-        "build": "cd src/app/themes/main && npm install && npm run build:production"
+        "build": "cd src/app/themes/main/frontend && npm install && npm run build"
     }
 }
