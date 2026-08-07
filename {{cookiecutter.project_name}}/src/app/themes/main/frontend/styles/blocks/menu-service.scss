@@ -1,4 +1,5 @@
 @use "../shared" as *;
+@use "../extends/button";
 
 .menu-service {
     $root: &;
@@ -17,7 +18,7 @@
     }
 
     &__link {
-        @include link-icons;
+        @extend %button--link;
     }
 
     &__children {

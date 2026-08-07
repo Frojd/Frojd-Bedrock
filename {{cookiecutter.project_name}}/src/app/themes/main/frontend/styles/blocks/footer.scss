@@ -1,4 +1,5 @@
 @use "../shared" as *;
+@use "../extends/button";
 @use "../extends/richtext";
 
 .footer {
@@ -80,16 +81,10 @@
     }
 
     &__link {
+        @extend %button--link;
         @include textstyle(body-small);
-        @include link-icons;
 
         display: block;
-        color: $link-color;
-        transition: color $transition;
-
-        &:hover {
-            color: $link-hover-color;
-        }
 
         &--icon {
             width: 32px;

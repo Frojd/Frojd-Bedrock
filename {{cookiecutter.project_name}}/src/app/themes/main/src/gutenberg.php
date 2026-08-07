@@ -61,6 +61,8 @@ add_filter('allowed_block_types_all', function ($allowedBlocks, $editor) {
         'core/media-text',
         'core/group',
         'core/embed',
+        'core/buttons',
+        'core/button',
 
         // Theme specific
         'sage/preamble',
@@ -78,6 +80,15 @@ add_filter('excerpt_allowed_blocks', function($allowedBlocks) {
 
 add_action('init', function() {
     wp_set_script_translations('sage-gutenberg', 'sage', get_template_directory() . '/lang');
+
+    // Register a "Link" style for the button block (fill and outline ship with
+    // core). The theme maps fill -> primary, outline -> secondary, link -> link.
+    if (function_exists('register_block_style')) {
+        register_block_style('core/button', [
+            'name'  => 'link',
+            'label' => __('Link', 'sage'),
+        ]);
+    }
 
     // This adds preamble as default block to post types
     $postTypes = ['post', 'page'];
@@ -108,7 +119,8 @@ add_action('after_setup_theme', function() {
 });
 
 add_action('enqueue_block_editor_assets', function() {
-    wp_enqueue_style('gutenberg-block-style', \App\asset_path('styles/editor.scss'));
+    // Editor styles load without the Vite client, so always use the built CSS.
+    wp_enqueue_style('gutenberg-block-style', \App\built_asset_path('styles/editor.scss'));
 
     // Used for editing default blocks
     wp_enqueue_script(

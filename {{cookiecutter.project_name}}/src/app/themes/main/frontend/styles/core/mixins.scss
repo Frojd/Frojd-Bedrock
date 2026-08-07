@@ -4,7 +4,12 @@
 @use 'variables' as *;
 
 @mixin href-external() {
-    &[href]:not([href^='mailto:']):not([href^='tel:']):not([href='']):not([href^='#']):not([href^='/']):not([href^='http://{{cookiecutter.domain_prod}}']):not([href^='https://{{cookiecutter.domain_prod}}']):not([href*='www.{{cookiecutter.domain_prod}}']):not([href*='{{cookiecutter.domain_stage}}']) {
+    // Matches links pointing off-site. All :not() parts must stay contiguous —
+    // any whitespace between them becomes a descendant combinator and the
+    // selector silently stops matching. Domains are anchored (^=http(s)://) or
+    // matched with the www. prefix so unrelated domains that merely contain the
+    // name aren't excluded.
+    &[href]:not([type='submit']):not([type='button']):not([href^='mailto:']):not([href^='tel:']):not([href='']):not([href^='#']):not([href^='/']):not([href^='?']):not([href^='http://{{cookiecutter.domain_prod}}']):not([href^='https://{{cookiecutter.domain_prod}}']):not([href^='http://www.{{cookiecutter.domain_prod}}']):not([href^='https://www.{{cookiecutter.domain_prod}}']):not([href^='http://{{cookiecutter.domain_stage}}']):not([href^='https://{{cookiecutter.domain_stage}}']) {
         @content;
     }
 }
@@ -33,11 +38,10 @@
     &::after {
         content: '';
         display: none;
-        position: relative;
-        top: 3px;
-        width: 16px;
-        height: 16px;
-        margin-left: 6px;
+        width: 1em;
+        height: 1em;
+        margin-left: 0.4em;
+        vertical-align: -0.2em;
         background-color: currentColor;
         mask-repeat: no-repeat;
         mask-position: center;

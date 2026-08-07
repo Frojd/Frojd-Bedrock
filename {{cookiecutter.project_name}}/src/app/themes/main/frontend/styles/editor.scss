@@ -1,44 +1,37 @@
+@use 'sass:map';
 @use 'shared' as *;
 
-@use 'extends/grid';
-@use 'extends/richtext';
-
+@use 'extends/gutenberg';
 @use 'global/fonts';
 
 html {
     font-size: 62.5%;
 }
 
+// Classic (TinyMCE) editor body.
 .mce-content-body {
     margin: 9px 10px;
     max-width: 100%;
     color: $base-color;
     font-family: $base-font;
 
-    @extend %richtext;
+    @extend %gutenberg;
 }
 
-.block-editor {
-
+// Block editor canvas. WordPress wraps editor styles in .editor-styles-wrapper
+// (inside the editor iframe); the content lives in .is-root-container.
+.editor-styles-wrapper {
     .is-root-container {
-        @extend %richtext;
-
-        @include wrap(content, false, false);
-    }
-
-    .wp-block {
-        @extend %richtext;
-
-        @include wrap(content, false, false);
+        @extend %gutenberg;
 
         color: $base-color;
         font-family: $base-font;
 
-        .editor-post-title {
-            &__input {
-                color: $base-color;
-                font-family: $base-font;
-            }
+        // Constrain blocks to the same width as the front end.
+        > .wp-block {
+            max-width: map.get($maxwidths, content);
+            margin-left: auto;
+            margin-right: auto;
         }
 
         // Editor-only marker so the invisible soft hyphen is visible/findable.

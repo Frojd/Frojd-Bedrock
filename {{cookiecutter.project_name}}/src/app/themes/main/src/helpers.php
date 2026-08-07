@@ -99,6 +99,16 @@ function asset_path($filename) {
         return vite_dev_server_url() . '/' . ltrim($filename, '/');
     }
 
+    return built_asset_path($filename);
+}
+
+/**
+ * Always resolve to the built (dist) asset via the manifest, never the Vite dev
+ * server. Use for assets loaded without the Vite client (e.g. editor styles via
+ * add_editor_style / wp_enqueue_style), which can't consume the dev server's
+ * module URLs.
+ */
+function built_asset_path($filename) {
     static $manifest;
     isset($manifest) || $manifest = new JsonManifest(get_template_directory() . Asset::$dist . '/.vite/manifest.json');
 
