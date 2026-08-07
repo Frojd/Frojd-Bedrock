@@ -5,6 +5,7 @@
   "author": "Roots <team@roots.io>",
   "homepage": "https://roots.io/sage/",
   "private": true,
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git://github.com/roots/sage.git"
@@ -19,9 +20,10 @@
     }
   ],
   "browserslist": [
+    "> 0.5%",
     "last 2 versions",
-    "android 4",
-    "opera 12"
+    "not dead",
+    "not op_mini all"
   ],
   "scripts": {
     "start": "vite",
@@ -29,20 +31,17 @@
     "build": "vite build"
   },
   "engines": {
-    "node": ">= 22.12.0"
+    "node": ">= 24"
   },
   "dependencies": {
-    "core-js": "^3.28.0",
-    "jquery": "^3.6.3",
-    "regenerator-runtime": "^0.13.11",
+    "jquery": "^3.7.1",
     "store": "^2.0.12"
   },
   "devDependencies": {
-    "@vitejs/plugin-legacy": "^8.1.0",
-    "sass": "^1.69.5",
-    "terser": "^5.24.0",
-    "vite": "^8.1.3",
+    "sass": "^1.102.0",
+    "terser": "^5.49.1",
+    "vite": "^8.2.0",
     "vite-plugin-live-reload": "^3.1.0",
-    "vite-plugin-static-copy": "^4.1.0"
+    "vite-plugin-static-copy": "^4.1.1"
   }
 }

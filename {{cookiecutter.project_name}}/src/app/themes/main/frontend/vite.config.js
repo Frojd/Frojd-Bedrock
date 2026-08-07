@@ -7,18 +7,16 @@
 import {defineConfig} from 'vite'
 import {viteStaticCopy} from 'vite-plugin-static-copy'
 import liveReload from 'vite-plugin-live-reload'
-import legacy from '@vitejs/plugin-legacy'
 import path from 'path'
 
 
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
     plugins: [
-        legacy({ targets: ["defaults"] }),
         liveReload([
-            __dirname + '/../**/*.php',
-            __dirname + '/**/*.scss',
-            __dirname + '/scripts/*.js',
+            import.meta.dirname + '/../**/*.php',
+            import.meta.dirname + '/**/*.scss',
+            import.meta.dirname + '/scripts/*.js',
         ]),
         // Copy static assets that are referenced by path (not imported) into
         // dist so they are available from the built theme without a symlink.
@@ -40,7 +38,7 @@ export default defineConfig((env) => ({
         : '/',
 
     build: {
-        outDir: path.resolve(__dirname, '../dist'),
+        outDir: path.resolve(import.meta.dirname, '../dist'),
         emptyOutDir: true,
         manifest: true,
         minify: 'terser',
