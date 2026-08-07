@@ -16,13 +16,17 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_script('sage/main.js');
 }, 100);
 
-// Load scripts as type='module'
+// Load flagged scripts as type='module'. Modern WordPress no longer emits a
+// `type` attribute on script tags, so set it if present and otherwise inject it.
 add_filter('script_loader_tag', function ($tag, $handle) {
     $type = wp_scripts()->get_data($handle, 'type');
-    if ($type) {
-        $tag = preg_replace('|type=\W.|', 'type="' . esc_attr($type) . '"', $tag);
+    if (!$type) {
+        return $tag;
     }
-    return $tag;
+    if (strpos($tag, 'type=') !== false) {
+        return preg_replace('/type=(["\']).*?\1/', 'type="' . esc_attr($type) . '"', $tag);
+    }
+    return preg_replace('/<script /', '<script type="' . esc_attr($type) . '" ', $tag, 1);
 }, 10, 2);
 
 /**
