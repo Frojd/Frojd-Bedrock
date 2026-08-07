@@ -1,0 +1,101 @@
+@use "../shared" as *;
+
+// Bare reset. Extend %button--primary, %button--secondary or %button--link.
+%button {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    line-height: 1.2;
+    text-align: inherit;
+    text-decoration: none;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    outline-offset: 2px;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+        text-decoration: none;
+    }
+
+    &:disabled,
+    &.is-disabled {
+        opacity: 0.5;
+        cursor: default;
+    }
+}
+
+// Shared skin for the boxed buttons.
+%button--base {
+    @extend %button;
+    @include link-icons;
+
+    padding: 10px 24px;
+    text-align: center;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: color $transition, background $transition, border-color $transition;
+}
+
+// Solid purple.
+%button--primary {
+    @extend %button--base;
+
+    color: white;
+    background: $primary-color;
+    border-color: $primary-color;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+        outline: 2px solid $primary-color;
+    }
+
+    &:hover:not(:disabled):not(.is-disabled) {
+        color: white;
+        background: $link-hover-color;
+        border-color: $link-hover-color;
+    }
+}
+
+// Purple border, white background.
+%button--secondary {
+    @extend %button--base;
+
+    color: $primary-color;
+    background: white;
+    border-color: $primary-color;
+
+    &:focus,
+    &:focus-visible,
+    &:active {
+        outline: 2px solid $primary-color;
+    }
+
+    &:hover:not(:disabled):not(.is-disabled) {
+        color: white;
+        background: $primary-color;
+    }
+}
+
+// Plain text link — used for footer and menu links.
+%button--link {
+    @extend %button;
+    @include link-icons;
+
+    color: $link-color;
+    text-decoration: underline;
+    transition: color $transition;
+
+    &:hover:not(:disabled):not(.is-disabled) {
+        color: $link-hover-color;
+        text-decoration: none;
+    }
+}

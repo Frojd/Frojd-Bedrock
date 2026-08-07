@@ -1,5 +1,5 @@
 - name: Restart PHP
-  service: name=php8.1-fpm state=restarted
+  service: name=php8.3-fpm state=restarted
   become: true
   run_once: true
 
@@ -10,9 +10,9 @@
 
 - name: Flush permalinks
   shell: chdir="{{ ansistrano_release_path.stdout }}"
-    wp --allow-root rewrite flush
+    wp rewrite flush
 
 - name: Flush cache
   shell: chdir="{{ ansistrano_release_path.stdout }}"
-    wp --allow-root cache flush
+    wp cache flush
 

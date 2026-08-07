@@ -1,3 +1,6 @@
+@use "sass:math";
+@use "../shared" as *;
+
 %richtext {
     $root: &;
 
@@ -5,7 +8,7 @@
     @include clearfix;
 
     position: relative;
-    color: $base-color !important;
+    color: $base-color;
 
     // Define spacings first
     > div,
@@ -106,25 +109,7 @@
             color: $link-hover-color;
         }
 
-        @include href-download {
-            position: relative;
-            padding-left: 27px;
-            margin: 0 5px;
-
-            &::before {
-                content: '';
-                width: 17px;
-                height: 14px;
-                margin-right: 10px;
-                position: absolute;
-                top: 3px;
-                left: 0px;
-                display: inline-block;
-                background-repeat: no-repeat;
-                background-image: url('#{$assetsPath}images/download.svg');
-                background-size: contain;
-            }
-        }
+        @include link-icons;
 
         @media print {
             &::after {
@@ -277,7 +262,7 @@
 
     .iframe {
         width: 100%;
-        padding-bottom: #{percentage(9/16)};
+        padding-bottom: #{math.percentage(math.div(9, 16))};
         height: 0;
         position: relative;
 

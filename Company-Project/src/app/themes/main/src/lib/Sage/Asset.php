@@ -10,8 +10,7 @@ use Roots\Sage\Assets\ManifestInterface;
  * @author QWp6t
  */
 class Asset {
-    public static $dist = '/frontend/dist';
-    public static $dist_no_manifest = '/frontend';
+    public static $dist = '/dist';
 
     /** @var ManifestInterface Currently used manifest */
     protected $manifest;
@@ -28,8 +27,7 @@ class Asset {
     }
 
     public function getUri() {
-        return $this->manifest && $this->manifest->get($this->asset)
-            ? get_stylesheet_directory_uri() . self::$dist . "/" . $this->manifest->get($this->asset)
-            : get_stylesheet_directory_uri() . self::$dist_no_manifest . '/' . $this->asset;
+        $file = ($this->manifest ? $this->manifest->get($this->asset) : $this->asset);
+        return get_template_directory_uri() . self::$dist . "/$file";
     }
 }

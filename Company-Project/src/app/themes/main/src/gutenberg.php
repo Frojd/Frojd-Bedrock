@@ -61,6 +61,8 @@ add_filter('allowed_block_types_all', function ($allowedBlocks, $editor) {
         'core/media-text',
         'core/group',
         'core/embed',
+        'core/buttons',
+        'core/button',
 
         // Theme specific
         'sage/preamble',
@@ -79,6 +81,15 @@ add_filter('excerpt_allowed_blocks', function($allowedBlocks) {
 add_action('init', function() {
     wp_set_script_translations('sage-gutenberg', 'sage', get_template_directory() . '/lang');
 
+    // Register a "Link" style for the button block (fill and outline ship with
+    // core). The theme maps fill -> primary, outline -> secondary, link -> link.
+    if (function_exists('register_block_style')) {
+        register_block_style('core/button', [
+            'name'  => 'link',
+            'label' => __('Link', 'sage'),
+        ]);
+    }
+
     // This adds preamble as default block to post types
     $postTypes = ['post', 'page'];
     foreach($postTypes as $postType) {
@@ -93,22 +104,21 @@ add_action('init', function() {
  * Remove some default settings for gutenberg
  */
 add_action('after_setup_theme', function() {
-    // Disable and remove these settings
-    add_theme_support('disable-custom-font-sizes');
-    add_theme_support('disable-custom-colors');
-    add_theme_support('disable-custom-gradients');
-    add_theme_support('editor-font-sizes', []);
-    add_theme_support('editor-color-palette', []);
-    add_theme_support('editor-gradient-presets', []);
+    // The editor lockdown (disabling custom colors/font-sizes/gradients and
+    // emptying the palettes) and the layout sizes live in theme.json. Keep here
+    // only what theme.json can't express:
+
+    // No theme.json equivalent
     add_theme_support('responsive-embeds');
     remove_theme_support('core-block-patterns');
 
-    // Activate settings
+    // Load the theme editor styles (see add_editor_style / editor.scss)
     add_theme_support('editor-styles');
 });
 
 add_action('enqueue_block_editor_assets', function() {
-    wp_enqueue_style('gutenberg-block-style', \App\asset_path('styles/editor.css'));
+    // Editor styles load without the Vite client, so always use the built CSS.
+    wp_enqueue_style('gutenberg-block-style', \App\built_asset_path('styles/editor.scss'));
 
     // Used for editing default blocks
     wp_enqueue_script(

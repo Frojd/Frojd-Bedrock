@@ -22,7 +22,7 @@ $authorName = get_the_author();
             </div>
         </header>
         <div class="article__content">
-            <div class="article__richtext">
+            <div class="article__gutenberg">
                 <?php the_content(); ?>
             </div>
         </div>

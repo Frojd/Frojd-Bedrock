@@ -19,7 +19,9 @@ if( ! defined( 'ABSPATH' ) ) exit;
 if( !class_exists('acf_plugin_icon') ) :
 
 class acf_plugin_icon {
-	
+
+	public $settings;
+
 	/*
 	*  __construct
 	*
@@ -72,8 +74,7 @@ class acf_plugin_icon {
 		
 		// support empty $version
 		if( !$version ) $version = 5;
-		
-		
+
 		// include
 		include_once('fields/acf-icon-v' . $version . '.php');
 		

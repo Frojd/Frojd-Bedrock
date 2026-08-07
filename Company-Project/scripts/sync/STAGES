@@ -1,13 +1,20 @@
+# *_TMP_PATH is where the temporary db dump is written on the remote. Cloudnet
+# hosts have /mnt/persist; on hosts without it (e.g. Oderland) set this to a
+# writable path such as /home/<user>/tmp. Defaults to /tmp if left unset.
 PROD_USER=root
 PROD_HOST=example.com
 PROD_SRC_PATH=/mnt/persist/www/example.com/current
 PROD_UPLOAD_PATH=/mnt/persist/www/example.com/shared/src/app/uploads
+PROD_TMP_PATH=/mnt/persist/tmp
 PROD_DOMAIN=example.com
 
 STAGE_USER=root
 STAGE_HOST=stage.example.com
 STAGE_SRC_PATH=/mnt/persist/www/example.com/current
 STAGE_UPLOAD_PATH=/mnt/persist/www/example.com/shared/src/app/uploads
+STAGE_TMP_PATH=/mnt/persist/tmp
 STAGE_DOMAIN=stage.example.com
 
 LOCAL_DOMAIN=example.com.test:8080
+# Used when answering "Use SSL locally?" — the https host:port for local dev.
+SSL_LOCAL_DOMAIN=example.com.test:8081

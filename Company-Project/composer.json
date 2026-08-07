@@ -20,6 +20,9 @@
     },
     "config": {
         "preferred-install": "dist",
+        "platform": {
+            "php": "8.3"
+        },
         "allow-plugins": {
             "composer/installers": true,
             "johnpbloch/wordpress-core-installer": true
@@ -41,7 +44,7 @@
         }
     ],
     "require": {
-        "php": "8.1.*",
+        "php": "8.3.*",
         "composer/installers": "*",
         "vlucas/phpdotenv": "*",
         "johnpbloch/wordpress": "*",
@@ -53,11 +56,11 @@
         "wpackagist-plugin/duracelltomi-google-tag-manager": "*",
         "wpackagist-plugin/elasticpress": "*",
         "wpackagist-plugin/nginx-cache": "*",
-        "wpackagist-plugin/disable-embeds": "*"
+        "wpackagist-plugin/disable-embeds": "*",
+        "wpackagist-plugin/wp-nested-pages": "*",
+        "wpackagist-plugin/wp-smartcrop": "*"
     },
     "require-dev": {
-        "wpackagist-plugin/debug-bar": "*",
-        "wpackagist-plugin/debug-bar-elasticpress": "*",
         "wpackagist-plugin/query-monitor": "*"
     },
     "extra": {
@@ -73,6 +76,6 @@
         "wordpress-install-dir": "src/wp"
     },
     "scripts": {
-        "build": "cd src/app/themes/main && npm install && npm run build:production"
+        "build": "cd src/app/themes/main/frontend && npm install && npm run build"
     }
 }

@@ -1,7 +1,6 @@
-version: '3.1'
 services:
     search:
-        image: elasticsearch:7.10.1
+        image: elasticsearch:7.17.28
         ports:
             - "8083:9200"
         environment:
@@ -18,11 +17,8 @@ services:
     php-fpm:
         build:
             context: docker/php-fpm
-            args:
-                - XDEBUG_REMOTE_HOST=${XDEBUG_REMOTE_HOST}
-                - XDEBUG_IDEKEY=${XDEBUG_IDEKEY}
         environment:
-            XDEBUG_MODE: develop
+            XDEBUG_MODE: develop,debug
             XDEBUG_CONFIG: "
                 client_host=host.docker.internal
                 start_with_request=yes
@@ -30,11 +26,16 @@ services:
         working_dir: /app
         volumes:
             - ./src:/app/src:cached
-            - ./docker/config/web.env:/app/.env:cached
+            # Fail if web.env is missing instead of creating a stray directory.
+            - type: bind
+              source: ./docker/config/web.env
+              target: /app/.env
+              bind:
+                  create_host_path: false
             - ./vendor:/app/vendor:cached
             - ./config:/app/config:cached
             - ./docker/files/profiles:/app/profiles:delegated
-            - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/8.1/fpm/conf.d/99-overrides.ini:cached
+            - ./docker/php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini:cached
 
     web:
         image: nginx:stable-alpine
@@ -52,24 +53,43 @@ services:
             - ./src:/app/src:cached
 
     wp-cli:
-        image: ghcr.io/frojd/dockerimages/wp-cli-php-8.1:latest
+        image: ghcr.io/frojd/dockerimages/wp-cli-php-8.3:latest
+        # On-demand tool container (run via `docker compose run wp-cli ...` or
+        # `make wp ...`); the profile keeps it out of the default `up` set.
+        profiles: ["tools"]
         links:
             - db
         volumes:
             - ./src:/app/src:delegated
             - ./wp-cli.yml:/app/wp-cli.yml:cached
             - ./vendor:/app/vendor:cached
-            - ./docker/config/web.env:/app/.env:cached
+            # Fail if web.env is missing instead of creating a stray directory.
+            - type: bind
+              source: ./docker/config/web.env
+              target: /app/.env
+              bind:
+                  create_host_path: false
             - ./config:/app/config:cached
             - ./docker/files/db-dumps:/app/db-dumps
 
     composer:
-        image: ghcr.io/frojd/dockerimages/composer-php-8.1:latest
-        command: install
+        image: ghcr.io/frojd/dockerimages/composer-php-8.3:latest
+        # On-demand tool container (run via `docker compose run composer ...` or
+        # `make composer ...`); the profile keeps it out of the default `up` set.
+        profiles: ["tools"]
         volumes:
             - ./src:/app/src
             - ./composer.json:/app/composer.json
             - "./composer.lock:/app/composer.lock"
-            - ./auth.json:/app/auth.json
-            - ./docker/config/web.env:/app/.env
+            # Fail if these are missing instead of creating stray directories.
+            - type: bind
+              source: ./auth.json
+              target: /app/auth.json
+              bind:
+                  create_host_path: false
+            - type: bind
+              source: ./docker/config/web.env
+              target: /app/.env
+              bind:
+                  create_host_path: false
             - ./vendor:/app/vendor

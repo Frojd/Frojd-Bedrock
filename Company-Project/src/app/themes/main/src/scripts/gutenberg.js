@@ -7,7 +7,7 @@ wp.domReady(() => {
     wp.blocks.unregisterBlockStyle('core/quote', ['large', 'default']);
     wp.blocks.unregisterBlockStyle('core/table', ['regular', 'stripes']);
     wp.blocks.unregisterBlockStyle('core/image', ['default', 'rounded']);
-    wp.blocks.unregisterBlockStyle('core/button', ['default', 'fill', 'outline', 'squared']);
+    wp.blocks.unregisterBlockStyle('core/button', ['default', 'fill', 'squared']);
 
     const allowedEmbedBlocks = ['vimeo', 'youtube'];
     wp.blocks.getBlockVariations('core/embed').forEach(function (blockVariation) {
