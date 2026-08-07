@@ -56,11 +56,11 @@
         "wpackagist-plugin/duracelltomi-google-tag-manager": "*",
         "wpackagist-plugin/elasticpress": "*",
         "wpackagist-plugin/nginx-cache": "*",
-        "wpackagist-plugin/disable-embeds": "*"
+        "wpackagist-plugin/disable-embeds": "*",
+        "wpackagist-plugin/wp-nested-pages": "*",
+        "wpackagist-plugin/wp-smartcrop": "*"
     },
     "require-dev": {
-        "wpackagist-plugin/debug-bar": "*",
-        "wpackagist-plugin/debug-bar-elasticpress": "*",
         "wpackagist-plugin/query-monitor": "*"
     },
     "extra": {
