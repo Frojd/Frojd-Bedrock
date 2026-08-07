@@ -28,7 +28,9 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "lint": "eslint scripts",
+    "lint:fix": "eslint scripts --fix"
   },
   "engines": {
     "node": ">= 24"
@@ -37,6 +39,8 @@
     "jquery": "^3.7.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
     "sass": "^1.102.0",
     "terser": "^5.49.1",
     "vite": "^8.2.0",
