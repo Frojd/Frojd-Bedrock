@@ -56,7 +56,6 @@
 
     &__richtext {
         @extend %richtext;
-
         @include textstyle(body-small);
 
         margin-top: 16px;
@@ -99,7 +98,7 @@
                 display: block;
                 width: 100%;
                 height: auto;
-                fill: currentColor;
+                fill: currentcolor;
 
                 * {
                     fill: inherit;

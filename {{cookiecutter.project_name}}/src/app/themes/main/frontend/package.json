@@ -29,8 +29,12 @@
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint scripts",
-    "lint:fix": "eslint scripts --fix"
+    "lint": "npm run -s lint:scripts && npm run -s lint:styles",
+    "lint:fix": "npm run -s fix:scripts && npm run -s fix:styles",
+    "lint:scripts": "eslint scripts",
+    "fix:scripts": "eslint scripts --fix",
+    "lint:styles": "stylelint \"styles/**/*.{css,sass,scss,sss,less}\"",
+    "fix:styles": "stylelint \"styles/**/*.{css,sass,scss,sss,less}\" --fix"
   },
   "engines": {
     "node": ">= 24"
@@ -42,6 +46,8 @@
     "@eslint/js": "^9.17.0",
     "eslint": "^9.17.0",
     "sass": "^1.102.0",
+    "stylelint": "^16.18.0",
+    "stylelint-config-standard-scss": "^14.0.0",
     "terser": "^5.49.1",
     "vite": "^8.2.0",
     "vite-plugin-live-reload": "^3.1.0",

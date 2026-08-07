@@ -42,7 +42,7 @@
         height: 1em;
         margin-left: 0.4em;
         vertical-align: -0.2em;
-        background-color: currentColor;
+        background-color: currentcolor;
         mask-repeat: no-repeat;
         mask-position: center;
         mask-size: contain;
@@ -79,7 +79,7 @@
     @if $key == 'd' {
         @content;
     } @else if map.has-key($breakpoints, $key) {
-        @media (max-width: map.get($breakpoints, $key)-1) {
+        @media (max-width: map.get($breakpoints, $key) - 1) {
             @content;
         }
     } @else {
@@ -110,7 +110,7 @@
     }
 
     @if $includeSpacing {
-        @include spacing();
+        @include spacing;
 
         @include media(M) {
             @include spacing(M);
@@ -135,7 +135,6 @@
 // including media queries
 // Usage: @include textstyle(h1);
 @mixin textstyle($key) {
-
     // Loop through map and set font-size and line-height for each media query
     @if map.has-key($textstyles, $key) {
         $map: get-default($textstyles, $key);
@@ -144,10 +143,12 @@
             @include media($media) {
                 @if map.has-key($style, font-size) {
                     $font-size: get-default($style, font-size);
+
                     font-size: #{math.div($font-size, 10)}rem;
 
                     @if map.has-key($style, line-height) {
                         $line-height: get-default($style, line-height);
+
                         line-height: #{math.div(math.round(math.div($line-height, $font-size) * 100), 100)};
                     }
                 }
