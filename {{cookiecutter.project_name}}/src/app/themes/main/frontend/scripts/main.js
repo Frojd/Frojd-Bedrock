@@ -1,15 +1,15 @@
 /* eslint no-unused-vars: 0 */
 import $ from 'jquery';
 
-import initCookiePopup from './cookie-popup';
+import initNotice from './notice';
 import initScrollTo from './scroll-to';
 import mobileMenu from './mobile-menu';
 import sideMenu from './sidemenu';
 
 $(document).ready(() => {
-    const $cookiePopup = $('.js-cookie-popup');
-    if ($cookiePopup.length) {
-        $cookiePopup.map((i, v) => initCookiePopup(v));
+    const $notice = $('.js-notice');
+    if ($notice.length) {
+        $notice.map((i, v) => initNotice(v));
     }
 
     const $jsScrollTo = $('.js-scroll-to');

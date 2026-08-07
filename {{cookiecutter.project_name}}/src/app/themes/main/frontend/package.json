@@ -34,8 +34,7 @@
     "node": ">= 24"
   },
   "dependencies": {
-    "jquery": "^3.7.1",
-    "store": "^2.0.12"
+    "jquery": "^3.7.1"
   },
   "devDependencies": {
     "sass": "^1.102.0",
