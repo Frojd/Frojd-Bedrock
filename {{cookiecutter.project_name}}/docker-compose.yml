@@ -1,6 +1,6 @@
 services:
     search:
-        image: elasticsearch:7.10.1
+        image: elasticsearch:7.17.28
         ports:
             - "{{cookiecutter.docker_search_port}}:9200"
         environment:
