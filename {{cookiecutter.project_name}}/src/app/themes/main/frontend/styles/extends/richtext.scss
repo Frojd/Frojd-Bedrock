@@ -1,3 +1,6 @@
+@use "sass:math";
+@use "../shared" as *;
+
 %richtext {
     $root: &;
 
@@ -277,7 +280,7 @@
 
     .iframe {
         width: 100%;
-        padding-bottom: #{percentage(9/16)};
+        padding-bottom: #{math.percentage(math.div(9, 16))};
         height: 0;
         position: relative;
 

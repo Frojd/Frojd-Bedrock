@@ -1,3 +1,6 @@
+@use "../shared" as *;
+@use "../extends/richtext";
+
 .notice {
     position: relative;
     width: 100%;

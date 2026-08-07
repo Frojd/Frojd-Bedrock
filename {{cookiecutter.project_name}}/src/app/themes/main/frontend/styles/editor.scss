@@ -1,11 +1,9 @@
-@import 'core/functions';
-@import 'core/mixins';
-@import 'core/variables';
+@use 'shared' as *;
 
-@import 'extends/grid';
-@import 'extends/richtext';
+@use 'extends/grid';
+@use 'extends/richtext';
 
-@import 'global/fonts';
+@use 'global/fonts';
 
 html {
     font-size: 62.5%;
