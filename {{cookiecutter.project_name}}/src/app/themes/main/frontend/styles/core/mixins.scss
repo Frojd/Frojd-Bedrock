@@ -26,6 +26,39 @@
     }
 }
 
+// Adds an external/download icon after external or downloadable links.
+// The icon uses mask-image + currentColor so it matches the link colour.
+// Apply on an <a> (or a selector matching anchors).
+@mixin link-icons() {
+    &::after {
+        content: '';
+        display: none;
+        position: relative;
+        top: 3px;
+        width: 16px;
+        height: 16px;
+        margin-left: 6px;
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: contain;
+    }
+
+    @include href-external {
+        &::after {
+            display: inline-block;
+            mask-image: url('#{$assetsPath}images/external.svg');
+        }
+    }
+
+    @include href-download {
+        &::after {
+            display: inline-block;
+            mask-image: url('#{$assetsPath}images/download.svg');
+        }
+    }
+}
+
 @mixin media($key) {
     @if $key == 'd' {
         @content;

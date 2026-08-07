@@ -81,9 +81,11 @@
 
     &__link {
         @include textstyle(body-small);
+        @include link-icons;
 
         display: block;
         color: $link-color;
+        transition: color $transition;
 
         &:hover {
             color: $link-hover-color;
@@ -93,10 +95,20 @@
             width: 32px;
             height: 32px;
 
+            // Social icon links are images, not text links — no link icon.
+            &::after {
+                display: none !important;
+            }
+
             svg {
                 display: block;
                 width: 100%;
                 height: auto;
+                fill: currentColor;
+
+                * {
+                    fill: inherit;
+                }
             }
         }
     }
