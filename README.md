@@ -34,7 +34,7 @@ cookiecutter https://github.com/Frojd/Frojd-Bedrock.git
 
 3. Insert your custom vars:
 ```
-repo_name [Frojd/Company-project.se]: Org/Example-project.se
+repo_name [Frojd/Company-Project]: Org/Example-project.se
 project_name [Example-Project]:
 project_slug [example_project]:
 description [A short description of the project.]: Example description.
@@ -62,7 +62,7 @@ Choose from 1, 2 [1]: 1
 
 
 ## Update Example
-When changes have been made make sure to update Company-project. This will overwrite all files in Company-project
+When changes have been made make sure to update Company-Project. This will overwrite all files in Company-Project
 ```
 cookiecutter . -f --no-input
 ```
