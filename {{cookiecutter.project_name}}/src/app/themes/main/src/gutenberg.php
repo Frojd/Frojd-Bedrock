@@ -104,17 +104,15 @@ add_action('init', function() {
  * Remove some default settings for gutenberg
  */
 add_action('after_setup_theme', function() {
-    // Disable and remove these settings
-    add_theme_support('disable-custom-font-sizes');
-    add_theme_support('disable-custom-colors');
-    add_theme_support('disable-custom-gradients');
-    add_theme_support('editor-font-sizes', []);
-    add_theme_support('editor-color-palette', []);
-    add_theme_support('editor-gradient-presets', []);
+    // The editor lockdown (disabling custom colors/font-sizes/gradients and
+    // emptying the palettes) and the layout sizes live in theme.json. Keep here
+    // only what theme.json can't express:
+
+    // No theme.json equivalent
     add_theme_support('responsive-embeds');
     remove_theme_support('core-block-patterns');
 
-    // Activate settings
+    // Load the theme editor styles (see add_editor_style / editor.scss)
     add_theme_support('editor-styles');
 });
 
