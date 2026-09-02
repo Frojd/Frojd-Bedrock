@@ -13,7 +13,8 @@ add_filter('gform_ip_address', '__return_empty_string');
 add_filter('gform_add_field_buttons', function($groups) {
     $excludeGroups = ['pricing_fields', 'post_fields'];
     $excludeTypes = [
-        'name', 'page', 'address', 'list', 'html', 'captcha', 'hidden'
+        'name', 'page', 'address', 'list', 'html', 'captcha', 'hidden',
+        'fileupload', 'post_image',
     ];
 
     foreach($groups as $i => $group) {
