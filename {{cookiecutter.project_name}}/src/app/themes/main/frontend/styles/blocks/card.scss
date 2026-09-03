@@ -1,3 +1,6 @@
+@use "sass:math";
+@use "../shared" as *;
+
 .card {
     $root: &;
 
@@ -53,7 +56,7 @@
             content: '';
             display: block;
             height: 0;
-            padding-bottom: #{percentage(9/16)};
+            padding-bottom: #{math.percentage(math.div(9, 16))};
         }
 
         img {

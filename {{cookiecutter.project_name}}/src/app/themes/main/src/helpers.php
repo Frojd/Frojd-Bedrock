@@ -41,12 +41,76 @@ function template_part($template, array $context = [], $layout = 'base') {
 }
 
 /**
+ * Base URL of the Vite dev server (host/port must match frontend/vite.config.js).
+ *
+ * @return string
+ */
+function vite_dev_server_url() {
+    return 'http://localhost:{{cookiecutter.docker_frontend_port}}';
+}
+
+/**
+ * Whether to serve assets from the Vite dev server (HMR). True only when the
+ * environment is development AND the dev server is actually reachable, so the
+ * site falls back to the built dist/ assets when Vite isn't running.
+ *
+ * @return bool
+ */
+function use_vite_dev_server() {
+    if (!defined('IS_DEVELOPMENT') || !IS_DEVELOPMENT) {
+        return false;
+    }
+
+    // Probe once per request; a quick connect attempt with a short timeout so a
+    // missing dev server doesn't slow page loads.
+    static $running;
+    if (isset($running)) {
+        return $running;
+    }
+
+    $url = parse_url(vite_dev_server_url());
+    $port = $url['port'] ?? 80;
+    $host = $url['host'] ?? 'localhost';
+
+    // Vite always runs on the developer's machine, but how we reach it depends
+    // on how the app is served. With Docker, the app is in a container and the
+    // host is host.docker.internal; served directly, it's just $host
+    // (localhost). Try the Docker gateway first, then the configured host, so
+    // both setups work without per-environment config. Emitted asset URLs stay
+    // $host for the browser either way.
+    $running = false;
+    foreach (['host.docker.internal', $host] as $probeHost) {
+        $conn = @fsockopen($probeHost, $port, $errno, $errstr, 0.2);
+        if ($conn) {
+            fclose($conn);
+            $running = true;
+            break;
+        }
+    }
+    return $running;
+}
+
+/**
  * @param $filename
  * @return string
  */
 function asset_path($filename) {
+    if (use_vite_dev_server()) {
+        return vite_dev_server_url() . '/' . ltrim($filename, '/');
+    }
+
+    return built_asset_path($filename);
+}
+
+/**
+ * Always resolve to the built (dist) asset via the manifest, never the Vite dev
+ * server. Use for assets loaded without the Vite client (e.g. editor styles via
+ * add_editor_style / wp_enqueue_style), which can't consume the dev server's
+ * module URLs.
+ */
+function built_asset_path($filename) {
     static $manifest;
-    isset($manifest) || $manifest = new JsonManifest(get_stylesheet_directory() . "/.." . Asset::$dist . '/manifest.json');
+    isset($manifest) || $manifest = new JsonManifest(get_template_directory() . Asset::$dist . '/.vite/manifest.json');
 
     return (string)new Asset($filename, $manifest);
 }
@@ -69,14 +133,18 @@ function array_to_modifiers(array $modifiers, $baseClass) {
 /**
  * @param $attributes array  Eg. ['src' => 'http://', 'alt' => 'Hello']
  *
- * @return string            Eg. src="http://" alt="Hello"
+ * @return string            Eg. src='http://' alt='Hello'
+ *
+ * Values are escaped with esc_attr() so this is safe to pass caller/ACF/user
+ * data. Keys are treated as trusted attribute names — do not pass user input
+ * as a key.
  */
 function array_to_attributes(array $attributes) {
     $attributes = array_filter(array_map(function($k, $v) {
         if(is_bool($v)) {
             return $v ? "$k" : '';
         }
-        return "$k='$v'";
+        return "$k='" . esc_attr($v) . "'";
     }, array_keys($attributes), $attributes));
     if(empty($attributes))
         return '';

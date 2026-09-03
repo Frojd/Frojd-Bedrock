@@ -4,14 +4,10 @@
     <?php App\template_part('partials/head'); ?>
 
     <body <?php body_class(); ?>>
-        <!--[if IE]>
-        <?php App\template_part('partials/popup-browser'); ?>
-        <![endif]-->
-
         <?php
             do_action('get_header');
 
-            App\template_part('partials/popup-cookie');
+            App\template_part('partials/notice');
             App\template_part('partials/header');
         ?>
 

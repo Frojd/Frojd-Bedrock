@@ -1,3 +1,5 @@
+@use "../shared" as *;
+
 .content {
     &__header {
         @include wrap(site);

@@ -8,6 +8,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 if( !class_exists('acf_field_icon') ) :
 
 
+#[\AllowDynamicProperties]
 class acf_field_icon extends acf_field {
 	
 	
@@ -53,6 +54,7 @@ class acf_field_icon extends acf_field {
 		
 		$this->defaults = array(
 			'font_size'	=> 14,
+			'size' => 'medium',
 		);
 		
 		
@@ -106,16 +108,29 @@ class acf_field_icon extends acf_field {
 		
 		acf_render_field_setting( $field, array(
 			'label'			=> __('Directory','acf-icon'),
-			'instructions'	=> __('Directory location of icons in theme, must be in root and defaults to acf-field-icons','acf-icon'),
+			'hint'			=> __('Directory location of icons in theme, must be in root and defaults to acf-field-icons','acf-icon'),
 			'type'			=> 'text',
 			'name'			=> 'directory',
 		));
 		
 		acf_render_field_setting( $field, array(
 			'label'			=> __('File formats','acf-icon'),
-			'instructions'	=> __('Comma separated list of file formats to check for, defaults to svg,jpg,png','acf-icon'),
+			'hint'			=> __('Comma separated list of file formats to check for, defaults to svg,jpg,png','acf-icon'),
 			'type'			=> 'text',
 			'name'			=> 'file_formats',
+		));
+		
+		acf_render_field_setting( $field, array(
+			'label'			=> __('Size','acf-icon'),
+			'hint'			=> __('Set another size displayed in admin, defaults to medium','acf-icon'),
+			'type'			=> 'button_group',
+			'name'			=> 'size',
+			'default'		=> 'medium',
+			'choices'		=> [
+				'small' 		=> __('Small', 'acf-json'),
+				'medium' 		=> __('Medium', 'acf-json'),
+				'large' 		=> __('Large', 'acf-json'),
+			],
 		));
 
 	}
@@ -170,41 +185,72 @@ class acf_field_icon extends acf_field {
 
 			if(!empty($icons)) : ?>
 				<?php
-					$default = pathinfo($icons[0], PATHINFO_BASENAME);
-					if(!$field['required']) {
-						$default = '';
-					}
 
-					$value = $default;
-					if(isset($field['value']) && !empty($field['value'])) {
-						$value = $field['value'];
-					}
+				$default = pathinfo($icons[0], PATHINFO_BASENAME);
+				if(!$field['required']) {
+					$default = '';
+				}
+
+				$value = $default;
+				if(isset($field['value']) && !empty($field['value'])) {
+					$value = $field['value'];
+				}
+
+				$classes = 'acf-field-icons';
+
+				$size = $field['size'] ?? 'medium';
+				$classes .= ' acf-field-icons-size-' . $size;
+
+				$selected_url = '';
+				$selected_name = '';
+				if(!empty($value)) {
+					$selected_url = get_template_directory_uri() . '/' . $path . '/' . $value;
+					$selected_name = pathinfo($value, PATHINFO_FILENAME);
+				}
+
 				?>
-				<div class="acf-field-icons">
+				<div class="<?php echo $classes; ?>">
+					<details class="acf-field-icons-accordion">
+						<summary class="acf-field-icons-summary">
+							<span class="acf-field-icons-summary-preview"<?php echo $selected_url ? ' style="background-image: url(\'' . esc_url($selected_url) . '\');"' : ''; ?>></span>
+							<span class="acf-field-icons-summary-label">
+								<?php if($selected_name) : ?>
+									<?php echo esc_html($selected_name); ?>
+								<?php else : ?>
+									<?php _e('Select icon', 'acf-icon'); ?>
+								<?php endif; ?>
+							</span>
+						</summary>
 
-					<?php if(!$field['required']) : ?>
-						<label for="<?php echo esc_attr($field['name']); ?>">
-							<input type="radio" id="<?php echo esc_attr($field['name']); ?>" name="<?php echo esc_attr($field['name']) ?>" value=""<?php echo empty($value) ? ' checked' : ''; ?> />
-							<div class="acf-field-icon-remove dashicons-no"><?php _e('Remove', 'acf-icon'); ?></div>
-						</label>
-					<?php endif; ?>
+						<div class="acf-field-icons-search">
+							<input type="search" class="acf-field-icons-search-input" placeholder="<?php esc_attr_e('Search icons...', 'acf-icon'); ?>" />
+							<p class="acf-field-icons-no-results" hidden><?php _e('No icons match your search', 'acf-icon'); ?></p>
+						</div>
 
-					<div class="acf-field-icons-list">
-						<?php foreach($icons as $icon) : ?>
-							<?php
-								$pathinfo = pathinfo($icon);
-								$name = $pathinfo['filename'];
-								$file = get_template_directory_uri() . '/' . $path . '/' . $pathinfo['basename'];
-								$checked = $value == $pathinfo['basename'] ? ' checked' : '';
-							?>
-							<label for="<?php echo esc_attr($field['name']) . '-' . $name; ?>">
-								<input type="radio" id="<?php echo esc_attr($field['name']) . '-' . $name; ?>" name="<?php echo esc_attr($field['name']) ?>" value="<?php echo $pathinfo['basename']; ?>"<?php echo $checked; ?> />
-								<div class="acf-field-icon-item">
-									<div class="acf-field-icon-image" style="background-image: url('<?php echo $file; ?>'); ?>"></div>
-								</div>
+						<?php if(!$field['required']) : ?>
+							<label for="<?php echo esc_attr($field['name']); ?>">
+								<input type="radio" id="<?php echo esc_attr($field['name']); ?>" name="<?php echo esc_attr($field['name']) ?>" value=""<?php echo empty($value) ? ' checked' : ''; ?> />
+								<div class="acf-field-icon-remove dashicons-no"><?php _e('Remove', 'acf-icon'); ?></div>
 							</label>
-						<?php endforeach; ?>
-					</div>
+						<?php endif; ?>
+
+						<div class="acf-field-icons-list">
+							<?php foreach($icons as $icon) : ?>
+								<?php
+									$pathinfo = pathinfo($icon);
+									$name = $pathinfo['filename'];
+									$file = get_template_directory_uri() . '/' . $path . '/' . $pathinfo['basename'];
+									$checked = $value == $pathinfo['basename'] ? ' checked' : '';
+								?>
+								<label for="<?php echo esc_attr($field['name']) . '-' . $name; ?>" title="<?= $name; ?>" data-icon-name="<?php echo esc_attr(strtolower($name)); ?>">
+									<input type="radio" id="<?php echo esc_attr($field['name']) . '-' . $name; ?>" name="<?php echo esc_attr($field['name']) ?>" value="<?php echo $pathinfo['basename']; ?>"<?php echo $checked; ?> />
+									<div class="acf-field-icon-item">
+										<div class="acf-field-icon-image" style="background-image: url('<?php echo $file; ?>');"></div>
+									</div>
+								</label>
+							<?php endforeach; ?>
+						</div>
+					</details>
 				</div>
 			<?php else : ?>
 				<p class="error-message"><?php printf(__('No icons were found in /%s with formats %s', 'acf-icon'), $path, $formats); ?>
@@ -239,8 +285,8 @@ class acf_field_icon extends acf_field {
 		
 		
 		// register & include JS
-		//wp_register_script( 'acf-input-icon', "{$url}assets/js/input.js", array('acf-input'), $version );
-		//wp_enqueue_script('acf-input-icon');
+		wp_register_script( 'acf-input-icon', "{$url}assets/js/input.js", array('acf-input'), $version, true );
+		wp_enqueue_script('acf-input-icon');
 		
 		
 		// register & include CSS

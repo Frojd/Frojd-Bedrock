@@ -1,6 +1,6 @@
 webservers:
   hosts:
-    stage1:
+    stage:
       ansible_user: deploy
       ansible_port: 22
       ansible_host: stage.example.com

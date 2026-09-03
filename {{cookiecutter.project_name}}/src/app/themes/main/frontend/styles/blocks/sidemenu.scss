@@ -1,3 +1,5 @@
+@use "../shared" as *;
+
 .sidemenu {
     $root: &;
 
@@ -26,6 +28,7 @@
             position: absolute;
             top: 0;
             right: 0;
+
             // background: url('#{$assetsPath}images/arrow-down--black.svg') no-repeat center center;
             background-size: 18px 18px;
         }
