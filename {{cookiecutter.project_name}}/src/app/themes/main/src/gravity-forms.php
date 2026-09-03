@@ -8,6 +8,12 @@ namespace App\GravityForms;
 add_filter('gform_ip_address', '__return_empty_string');
 
 /**
+ * Disable Gravity Forms' default CSS; form styling is owned by the theme. The
+ * admin setting for this is removed after GF 2.8, so it is set via the filter.
+ */
+add_filter('gform_disable_css', '__return_true');
+
+/**
  * Remove support for some fields in gravity forms
  */
 add_filter('gform_add_field_buttons', function($groups) {
