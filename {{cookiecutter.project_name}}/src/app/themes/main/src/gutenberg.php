@@ -124,7 +124,7 @@ add_action('enqueue_block_editor_assets', function() {
     wp_enqueue_script(
         'sage-gutenberg',
         get_template_directory_uri() . '/src/scripts/gutenberg.js',
-        ['wp-blocks', 'wp-element', 'wp-dom-ready', 'wp-edit-post', 'wp-i18n', 'wp-rich-text', 'wp-block-editor']
+        ['wp-blocks', 'wp-element', 'wp-dom-ready', 'wp-edit-post', 'wp-i18n', 'wp-rich-text', 'wp-block-editor', 'wp-hooks']
     );
 
     // For registering blocks from js
