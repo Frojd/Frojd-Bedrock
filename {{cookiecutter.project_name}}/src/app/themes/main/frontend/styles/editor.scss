@@ -33,6 +33,16 @@ html {
             margin-right: auto;
         }
 
+        // Editor-only: full-width blocks are edge-to-edge on the front end, but
+        // in the narrow editor canvas that's unwieldy, so cap them at 90% and
+        // centre them. Overrides the content-width cap above for full-align
+        // blocks. Purely a visual editing aid — it does not affect the front end.
+        > .wp-block[data-align='full'] {
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         // Editor-only marker so the invisible soft hyphen is visible/findable.
         .soft-hyphen {
             cursor: help;
