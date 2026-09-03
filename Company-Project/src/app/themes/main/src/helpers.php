@@ -133,14 +133,18 @@ function array_to_modifiers(array $modifiers, $baseClass) {
 /**
  * @param $attributes array  Eg. ['src' => 'http://', 'alt' => 'Hello']
  *
- * @return string            Eg. src="http://" alt="Hello"
+ * @return string            Eg. src='http://' alt='Hello'
+ *
+ * Values are escaped with esc_attr() so this is safe to pass caller/ACF/user
+ * data. Keys are treated as trusted attribute names — do not pass user input
+ * as a key.
  */
 function array_to_attributes(array $attributes) {
     $attributes = array_filter(array_map(function($k, $v) {
         if(is_bool($v)) {
             return $v ? "$k" : '';
         }
-        return "$k='$v'";
+        return "$k='" . esc_attr($v) . "'";
     }, array_keys($attributes), $attributes));
     if(empty($attributes))
         return '';

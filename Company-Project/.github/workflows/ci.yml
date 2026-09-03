@@ -59,6 +59,11 @@ jobs:
           exit-code: '1'
           format: 'table'
 
+      # Checks composer.lock against the PHP/WordPress vulnerability DB —
+      # catches plugin/package CVEs that Trivy's generic scanner misses.
+      - name: Composer security audit
+        run: docker run --rm -v "$PWD":/app -w /app composer:2 composer audit --locked --no-interaction
+
   # FROJD-CICD-021: zizmor — GitHub Actions security audit
   security-actions:
     runs-on: ubuntu-latest
