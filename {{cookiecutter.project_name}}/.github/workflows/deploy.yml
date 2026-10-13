@@ -7,6 +7,14 @@
 
 name: Deploy
 
+# run-name sets the bold title in the Actions run list. A manual run shows the
+# chosen environment, the ref and who triggered it; an automatic (push) run
+# shows the triggering ref.
+run-name: >-
+  Deploy #${{ github.run_number }} ${{ github.event_name == 'workflow_dispatch'
+    && format('→ {0} ({1}): Manually run by {2}', inputs.environment, inputs.ref != '' && inputs.ref || github.ref_name, github.actor)
+    || format('({0})', github.ref_name) }}
+
 on:
   workflow_call:
     secrets:
