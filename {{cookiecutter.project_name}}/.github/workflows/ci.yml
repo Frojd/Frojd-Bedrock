@@ -62,8 +62,16 @@ jobs:
 
       # Checks composer.lock against the PHP/WordPress vulnerability DB —
       # catches plugin/package CVEs that Trivy's generic scanner misses.
+      # --locked reads composer.lock only, so no install or ACF auth is needed.
+      # composer.json config.audit.abandoned=report makes abandoned-package
+      # notices informational (composer has no per-package abandoned ignore);
+      # real vulnerability advisories still fail the gate.
+      # safe.directory silences git's dubious-ownership warning on the mount.
       - name: Composer security audit
-        run: docker run --rm -v "$PWD":/app -w /app composer:2 composer audit --locked --no-interaction
+        run: >-
+          docker run --rm -v "$PWD":/app -w /app composer:2 sh -c
+          'git config --global --add safe.directory /app;
+          composer audit --locked --no-interaction'
 
   # FROJD-CICD-021: zizmor — GitHub Actions security audit
   security-actions:
