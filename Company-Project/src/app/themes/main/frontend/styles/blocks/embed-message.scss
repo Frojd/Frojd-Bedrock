@@ -1,0 +1,77 @@
+@use "sass:map";
+@use "sass:math";
+@use "../shared" as *;
+@use "../extends/richtext";
+@use "../extends/button";
+
+.embed-message {
+    $root: &;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $purple-20;
+
+    // Gutenberg embeds render in flow, so give the block a 16:9 box to fill.
+    &--gutenberg {
+        position: relative;
+        padding-top: #{math.percentage(math.div(9, 16))};
+
+        &::before {
+            content: '';
+            display: block;
+            width: 100%;
+        }
+    }
+
+    &__content {
+        @extend %richtext;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 16px;
+        text-align: center;
+
+        @include media(S) {
+            padding: 32px 40px;
+        }
+    }
+
+    &__msg {
+        @include textstyle(body);
+
+        max-width: map.get($maxwidths, content);
+        margin: 0 auto;
+    }
+
+    &__button {
+        @extend %button--primary;
+
+        margin: 16px 0;
+    }
+
+    &__link {
+        @extend %button--link;
+    }
+
+    // Once the visitor reveals the embed, drop the overlay styling so the
+    // iframe fills the box cleanly.
+    &.js-state-embed-visible {
+        background: none;
+
+        #{$root}__content {
+            position: static;
+            display: block;
+            padding: 0;
+        }
+    }
+}

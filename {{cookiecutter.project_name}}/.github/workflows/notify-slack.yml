@@ -1,0 +1,133 @@
+{% raw -%}
+name: Notify Slack
+
+# Reusable workflow that posts a failure summary to Slack.
+# Requires:
+#   - var SLACK_CHANNEL  (channel name, e.g. client-dev)
+# Uses the org-level SLACK_BOT_TOKEN secret (chat:write on the channel).
+
+on:
+  workflow_call:
+    inputs:
+      workflow_name:
+        required: true
+        type: string
+      jobs:
+        required: true
+        type: string
+      commit_sha:
+        required: true
+        type: string
+      commit_message:
+        required: true
+        type: string
+      commit_author:
+        required: true
+        type: string
+    secrets:
+      SLACK_BOT_TOKEN:
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    if: vars.SLACK_CHANNEL != ''
+    steps:
+      - name: Parse job results
+        id: parse
+        env:
+          JOBS_JSON: ${{ inputs.jobs }}
+          REPO: ${{ github.repository }}
+          REF_NAME: ${{ github.ref_name }}
+          SERVER_URL: ${{ github.server_url }}
+          COMMIT_SHA: ${{ inputs.commit_sha }}
+          COMMIT_MESSAGE: ${{ inputs.commit_message }}
+          COMMIT_AUTHOR: ${{ inputs.commit_author }}
+        run: |
+          RESULTS=""
+          while read -r job; do
+            NAME=$(echo "$job" | jq -r '.name')
+            RESULT=$(echo "$job" | jq -r '.result')
+
+            case "$RESULT" in
+              success)   EMOJI=":white_check_mark:" ;;
+              failure)   EMOJI=":x:" ;;
+              cancelled) EMOJI=":no_entry_sign:" ;;
+              *)         EMOJI=":heavy_minus_sign:" ;;
+            esac
+
+            RESULTS="${RESULTS}${EMOJI} ${NAME} (${RESULT})"$'\n'
+          done < <(echo "$JOBS_JSON" | jq -c '.[]')
+
+          {
+            echo "results<<EOF"
+            echo "$RESULTS"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+          # Build the section fields as valid JSON with jq so newlines and any
+          # special characters (quotes, backticks) in dynamic values can't
+          # break the Slack payload. Commit message is reduced to its first
+          # line so multi-line merge commits stay on one line.
+          COMMIT_SUMMARY=$(printf '%s' "$COMMIT_MESSAGE" | head -n1)
+          FIELDS=$(jq -cn \
+            --arg repo "$REPO" \
+            --arg ref "$REF_NAME" \
+            --arg commit_url "$SERVER_URL/$REPO/commit/$COMMIT_SHA" \
+            --arg commit_summary "$COMMIT_SUMMARY" \
+            --arg author "$COMMIT_AUTHOR" \
+            --arg results "$RESULTS" \
+            '[
+              {type:"mrkdwn", text:("*Repository:*\n" + $repo)},
+              {type:"mrkdwn", text:("*Branch/Tag:*\n" + $ref)},
+              {type:"mrkdwn", text:("*Commit:*\n<" + $commit_url + "|" + $commit_summary + ">")},
+              {type:"mrkdwn", text:("*Author:*\n" + $author)},
+              {type:"mrkdwn", text:("*Job Results:*\n" + $results)}
+            ]')
+          {
+            echo "fields<<EOF"
+            echo "$FIELDS"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@485a9d42d3a73031f12ec201c457e2162c45d02d # v2.0.0
+        continue-on-error: true
+        with:
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          method: chat.postMessage
+          payload: |
+            {
+              "channel": ${{ toJSON(vars.SLACK_CHANNEL) }},
+              "text": ${{ toJSON(format('{0} Failed', inputs.workflow_name)) }},
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": ${{ toJSON(format(':x: {0} Failed', inputs.workflow_name)) }}
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": ${{ steps.parse.outputs.fields }}
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "View Workflow Run"
+                      },
+                      "url": ${{ toJSON(format('{0}/{1}/actions/runs/{2}', github.server_url, github.repository, github.run_id)) }}
+                    }
+                  ]
+                }
+              ]
+            }
+{% endraw %}

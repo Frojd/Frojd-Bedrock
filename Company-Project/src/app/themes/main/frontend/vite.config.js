@@ -1,67 +1,91 @@
-// View your website at your own local server
-// for example http://vite-php-setup.test
-
-// http://localhost:3000 is serving Vite on development
-// but accessing it directly will be empty
-// TIP: consider changing the port for each project, see below
-
-// IMPORTANT image urls in CSS works fine
-// BUT you need to create a symlink on dev server to map this folder during dev:
-// ln -s {path_to_project_source}/src/assets {path_to_public_html}/assets
-// on production everything will work just fine
+// Vite builds the theme frontend into ../dist (themes/main/dist). The frontend/
+// directory holds only source; the built site needs just dist/.
+//
+// http://localhost:8086 serves Vite in development (accessing it directly is empty).
+// The port is set from the docker_frontend_port cookiecutter value below.
 
 import {defineConfig} from 'vite'
+import {viteStaticCopy} from 'vite-plugin-static-copy'
 import liveReload from 'vite-plugin-live-reload'
-import legacy from '@vitejs/plugin-legacy'
 import path from 'path'
 
 
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
     plugins: [
-        legacy({ targets: ["defaults"] }),
         liveReload([
-            // edit live reload paths according to your source code
-            // for example:
-            __dirname + '../**/*.php',
-            __dirname + '**/*.scss',
-            __dirname + 'scripts/*.js',
-        ])
+            import.meta.dirname + '/../**/*.php',
+            import.meta.dirname + '/**/*.scss',
+            import.meta.dirname + '/scripts/*.js',
+        ]),
+        // Copy static assets that are referenced by path (not imported) into
+        // dist so they are available from the built theme without a symlink.
+        viteStaticCopy({
+            targets: [
+                {
+                    src: 'assets/images/**/*',
+                    dest: 'assets/images',
+                    rename: { stripBase: 2 },
+                },
+            ],
+        }),
     ],
 
-    // config
+    // In build the theme is served from /app/themes/main/dist/; in dev from the
+    // Vite dev server root.
     base: env.command === 'build'
-        ? '/app/themes/main/frontend/dist/'
+        ? '/app/themes/main/dist/'
         : '/',
 
     build: {
-        // output dir for production build
-        outDir: path.resolve(__dirname, './dist'),
+        outDir: path.resolve(import.meta.dirname, '../dist'),
         emptyOutDir: true,
-        minify: 'terser',
-
-        // emit manifest so PHP can find the hashed files
         manifest: true,
+        minify: 'terser',
+        sourcemap: true,
+        assetsDir: 'assets',
+        // Emit every asset as a hashed file instead of inlining as data URIs,
+        // so assets stay out of the CSS and are cached individually.
+        assetsInlineLimit: 0,
 
         rollupOptions: {
             input: [
                 "./scripts/main.js",
                 "./styles/main.scss",
-            ]
+                "./styles/editor.scss",
+            ],
+            output: {
+                // Isolate jQuery into its own chunk so it is not hoisted into
+                // the entry (which WordPress enqueues with a ?ver query, causing
+                // the entry to execute twice when a lazy chunk imports it back).
+                manualChunks: (id) => {
+                    if (id.includes('node_modules/jquery')) {
+                        return 'jquery';
+                    }
+                },
+                // Keep font filenames stable (no hash) so preloads resolve.
+                assetFileNames: (assetInfo) => {
+                    const ext = assetInfo.name.split('.').pop();
+                    if (['woff', 'woff2', 'ttf', 'otf', 'eot'].includes(ext)) {
+                        return 'assets/fonts/[name][extname]';
+                    }
+                    return 'assets/[name]-[hash][extname]';
+                },
+            },
         },
-        assetsDir: "./frontend/assets",
-        sourcemap: true,
     },
-
 
     server: {
         // required to load scripts from custom host
         cors: true,
 
-        // we need a strict port to match on PHP side
-        // change freely, but update on PHP to match the same port
+        // listen on all interfaces (0.0.0.0), not just localhost, so the app
+        // running in Docker can reach the dev server via host.docker.internal
+        host: true,
+
+        // strict port so it matches the port the PHP side expects
         strictPort: true,
-        port: 3000
+        port: 8086,
     },
     define: {
         'process.env': {},

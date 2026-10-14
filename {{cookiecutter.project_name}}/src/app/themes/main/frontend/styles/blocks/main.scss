@@ -1,3 +1,5 @@
+@use "../shared" as *;
+
 .main {
     .js-state-menu-open & {
         display: none;

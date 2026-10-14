@@ -1,3 +1,6 @@
+@use "../shared" as *;
+@use "../extends/button";
+
 .menu-main {
     $root: &;
 
@@ -14,6 +17,10 @@
         &--hidden {
             display: none;
         }
+    }
+
+    &__link {
+        @extend %button--link;
     }
 
     &__children {

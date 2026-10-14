@@ -1,0 +1,22 @@
+# Trivy ignore file
+# https://aquasecurity.github.io/trivy/latest/docs/configuration/filtering/
+# FROJD-CICD-015 governance:
+#   Every entry must include:
+#     - id: <CVE or AVD-DS-XXXX>
+#     - reason / link to upstream tracking issue
+#     - approved_by: <reviewer>
+#     - review-by: <date>  (re-evaluate at this point)
+#
+# Example:
+#   vulnerabilities:
+#     - id: CVE-2025-12345
+#       # reason: waiting on upstream fix; pinning would break X
+#       # tracking: https://github.com/.../issues/123
+#       # approved_by: @security-team
+#       # review-by: 2026-09-01
+
+vulnerabilities: []
+
+misconfigurations: []
+
+secrets: []

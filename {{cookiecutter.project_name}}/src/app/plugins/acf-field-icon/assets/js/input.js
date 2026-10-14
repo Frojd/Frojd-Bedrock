@@ -2,9 +2,53 @@
 	
 	
 	function initialize_field( $el ) {
-		
-		//$el.doStuff();
-		
+
+		var $container = $el.find('.acf-field-icons').first();
+		if (!$container.length || $container.data('icon-search-initialized')) {
+			return;
+		}
+		$container.data('icon-search-initialized', true);
+
+		var $input = $container.find('.acf-field-icons-search-input');
+		var $labels = $container.find('.acf-field-icons-list > label');
+		var $noResults = $container.find('.acf-field-icons-no-results');
+		var $summaryPreview = $container.find('.acf-field-icons-summary-preview');
+		var $summaryLabel = $container.find('.acf-field-icons-summary-label');
+		var defaultLabel = $summaryLabel.text().trim();
+
+		$input.on('input', function() {
+			var query = $(this).val().toLowerCase().trim();
+			var visible = 0;
+
+			$labels.each(function() {
+				var name = $(this).attr('data-icon-name') || '';
+				var match = query === '' || name.indexOf(query) !== -1;
+				$(this).toggle(match);
+				if (match) visible++;
+			});
+
+			$noResults.prop('hidden', visible !== 0);
+		});
+
+		$container.on('change', 'input[type="radio"]', function() {
+			var $radio = $(this);
+			var $img = $radio.siblings('.acf-field-icon-item').find('.acf-field-icon-image');
+			var bg = $img.length ? $img.css('background-image') : '';
+
+			if ($radio.val() && bg && bg !== 'none') {
+				$summaryPreview.css('background-image', bg).show();
+				var iconName = $radio.closest('label').attr('data-icon-name') || '';
+				$summaryLabel.text(iconName || defaultLabel);
+			} else {
+				$summaryPreview.css('background-image', '').hide();
+				$summaryLabel.text(defaultLabel);
+			}
+		});
+
+		if (!$summaryPreview.attr('style')) {
+			$summaryPreview.hide();
+		}
+
 	}
 	
 	

@@ -7,7 +7,7 @@
             <header class="article__header">
                 <h1 class="article__title"><?= App\title(); ?></h1>
             </header>
-            <div class="article__richtext">
+            <div class="article__gutenberg">
                 <?php the_content(); ?>
             </div>
         </div>

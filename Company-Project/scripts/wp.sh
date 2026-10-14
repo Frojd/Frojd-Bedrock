@@ -5,4 +5,4 @@
 # Example usage `scripts/wp.sh db cli`
 
 COMMAND="wp --allow-root $@"
-docker-compose run --rm wp-cli sh -c "$COMMAND"
+docker compose run --rm wp-cli sh -c "$COMMAND"

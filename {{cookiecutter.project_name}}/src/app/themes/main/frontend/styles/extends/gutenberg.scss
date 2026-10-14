@@ -1,0 +1,24 @@
+@use "../shared" as *;
+@use "richtext";
+@use "button";
+
+// Styling for editable Gutenberg content: richtext plus block-level styles.
+// Extended by frontend content areas and the editor so both stay in sync.
+%gutenberg {
+    @extend %richtext;
+
+    // Button block: default -> primary, outline -> secondary, link -> link.
+    .wp-block-button {
+        &:not(.is-style-outline):not(.is-style-link) .wp-block-button__link {
+            @extend %button--primary;
+        }
+
+        &.is-style-outline .wp-block-button__link {
+            @extend %button--secondary;
+        }
+
+        &.is-style-link .wp-block-button__link {
+            @extend %button--link;
+        }
+    }
+}

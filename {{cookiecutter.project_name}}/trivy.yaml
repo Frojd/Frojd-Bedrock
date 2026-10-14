@@ -1,0 +1,22 @@
+# Trivy scanner configuration
+# https://aquasecurity.github.io/trivy/latest/docs/references/configuration/config-file/
+# FROJD-CICD-015
+
+ignorefile: .trivyignore.yaml
+
+severity:
+  - CRITICAL
+  - HIGH
+
+scan:
+  skip-dirs:
+    - .git
+    - src/wp                  # WordPress core, managed by Composer
+    - vendor                  # root composer deps
+    - "**/vendor"             # nested composer deps (themes/plugins)
+    - "**/vendor_prefixed"    # PHP-Scoper output inside third-party plugins
+    - "**/node_modules"
+    - "**/dist"               # frontend build output
+    - deploy/venv             # Ansible virtualenv if present
+    - docker/files/db-dumps   # local DB dumps
+    - docker/files/profiles   # local profiler output

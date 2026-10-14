@@ -1,0 +1,20 @@
+# Normalize line endings to LF on checkin (matches .editorconfig end_of_line = lf).
+* text=auto eol=lf
+
+# Binary assets — never normalize or diff as text.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.pdf binary
+
+# Generated / vendored — collapse in diffs and exclude from language stats.
+src/app/themes/main/dist/** linguist-generated=true -diff
+src/app/themes/main/frontend/package-lock.json linguist-generated=true -diff
+composer.lock linguist-generated=true -diff

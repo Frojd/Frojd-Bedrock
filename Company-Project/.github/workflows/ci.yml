@@ -1,0 +1,118 @@
+# CI: quality gates (security) that, on deployable refs, call the reusable
+# deploy workflow. See frojd-standards 02-CI_CD_STANDARD.md.
+
+name: CI
+
+on:
+  push:
+    branches: ['**']
+    tags: ['v*']
+    paths-ignore:
+      - '**.md'
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Lint the theme frontend and assert the production build produces its assets.
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version-file: src/app/themes/main/frontend/.nvmrc
+      - name: Install, lint and build
+        working-directory: src/app/themes/main/frontend
+        run: |
+          npm ci
+          npm run lint
+          npm run build
+      - name: Assert build output
+        working-directory: src/app/themes/main
+        run: |
+          test -f dist/.vite/manifest.json || { echo "::error::Vite manifest missing after build"; exit 1; }
+          node -e "const m=require('./dist/.vite/manifest.json'); const e=Object.values(m).filter(x=>x.isEntry); if(!e.length){console.error('::error::no entry in manifest');process.exit(1)} for(const x of e){require('fs').accessSync('dist/'+x.file)}"
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+
+      - name: Trivy Filesystem Scan
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          trivy-config: trivy.yaml
+          scanners: 'vuln,misconfig,secret'
+          severity: 'CRITICAL,HIGH'
+          exit-code: '1'
+          format: 'table'
+
+      # Checks composer.lock against the PHP/WordPress vulnerability DB —
+      # catches plugin/package CVEs that Trivy's generic scanner misses.
+      - name: Composer security audit
+        run: docker run --rm -v "$PWD":/app -w /app composer:2 composer audit --locked --no-interaction
+
+  # FROJD-CICD-021: zizmor — GitHub Actions security audit
+  security-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: false
+
+      - name: Audit GitHub Actions workflows
+        run: uvx zizmor@1.2.0 --config zizmor.yml .github/workflows/
+
+  # ============================================
+  # DEPLOY - Call deploy workflow after CI passes
+  # ============================================
+  deploy:
+    needs: [frontend, security, security-actions]
+    if: github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/tags/v')
+    uses: ./.github/workflows/deploy.yml
+    secrets:
+      ACF_PRO_KEY: ${{ secrets.ACF_PRO_KEY }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+  # Slack notification on any gate or deploy failure. Only fires for push
+  # events on tracked refs, and only when a Slack channel is configured.
+  notify:
+    needs: [frontend, security, security-actions, deploy]
+    if: >-
+      always() &&
+      github.event_name == 'push' &&
+      (github.ref == 'refs/heads/develop' ||
+       startsWith(github.ref, 'refs/tags/v')) &&
+      contains(needs.*.result, 'failure') &&
+      vars.SLACK_CHANNEL != ''
+    uses: ./.github/workflows/notify-slack.yml
+    secrets:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+    with:
+      workflow_name: "CI / Deploy"
+      commit_sha: ${{ github.sha }}
+      commit_message: ${{ github.event.head_commit.message }}
+      commit_author: ${{ github.event.head_commit.author.name }}
+      jobs: |
+        [
+          {"name": "frontend",         "result": "${{ needs.frontend.result }}"},
+          {"name": "security",         "result": "${{ needs.security.result }}"},
+          {"name": "security-actions", "result": "${{ needs.security-actions.result }}"},
+          {"name": "deploy",           "result": "${{ needs.deploy.result }}"}
+        ]

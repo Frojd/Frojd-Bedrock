@@ -10,7 +10,7 @@
 
     <?php wp_head(); ?>
 
-    <?php if (IS_DEVELOPMENT): ?>
-        <script type="module" src="//localhost:3000/@vite/client"></script>
+    <?php if (\App\use_vite_dev_server()): ?>
+        <script type="module" src="<?= \App\vite_dev_server_url(); ?>/@vite/client"></script>
     <?php endif; ?>
 </head>

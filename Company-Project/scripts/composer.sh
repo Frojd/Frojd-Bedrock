@@ -4,4 +4,4 @@
 #
 # Example usage `./scripts/composer.sh update`
 
-docker-compose run --rm composer "$@"
+docker compose run --rm composer "$@"

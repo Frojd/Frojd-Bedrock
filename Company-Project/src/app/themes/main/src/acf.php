@@ -33,3 +33,13 @@ add_action('after_setup_theme', function () {
         ]);
     }
 });
+
+/**
+ * Bump a timestamp whenever the site notice is saved. The notice partial hashes
+ * this into the notice id, so editing the notice makes it reappear for everyone
+ * who had previously dismissed it.
+ */
+add_filter('acf/update_value/name=notice', function ($value, $post_id, $field, $original) {
+    update_option('notice_updated_date', date('Y-m-d H:i:s'));
+    return $value;
+}, 10, 4);

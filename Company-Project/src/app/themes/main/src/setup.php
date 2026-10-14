@@ -10,24 +10,23 @@ use Roots\Sage\Template\Wrapper;
  */
 add_action('wp_enqueue_scripts', function () {
     $verTag = \App\get_ver_tag();
-    if (IS_DEVELOPMENT) {
-        wp_enqueue_style('sage/main.css', '//localhost:3000/styles/main.scss', false, $verTag);
-        wp_register_script('sage/main.js', '//localhost:3000/scripts/main.js', $verTag, true);
-    } else {
-        wp_enqueue_style('sage/main.css', \App\asset_path('styles/main.scss'), false, $verTag);
-        wp_register_script('sage/main.js', \App\asset_path('scripts/main.js'), $verTag, true);
-    }
+    wp_enqueue_style('sage/main.css', \App\asset_path('styles/main.scss'), false, $verTag);
+    wp_register_script('sage/main.js', \App\asset_path('scripts/main.js'), $verTag, true);
     wp_script_add_data('sage/main.js', 'type', 'module');
     wp_enqueue_script('sage/main.js');
 }, 100);
 
-// Load scripts as type='module'
+// Load flagged scripts as type='module'. Modern WordPress no longer emits a
+// `type` attribute on script tags, so set it if present and otherwise inject it.
 add_filter('script_loader_tag', function ($tag, $handle) {
     $type = wp_scripts()->get_data($handle, 'type');
-    if ($type) {
-        $tag = preg_replace('|type=\W.|', 'type="' . esc_attr($type) . '"', $tag);
+    if (!$type) {
+        return $tag;
     }
-    return $tag;
+    if (strpos($tag, 'type=') !== false) {
+        return preg_replace('/type=(["\']).*?\1/', 'type="' . esc_attr($type) . '"', $tag);
+    }
+    return preg_replace('/<script /', '<script type="' . esc_attr($type) . '" ', $tag, 1);
 }, 10, 2);
 
 /**
@@ -45,7 +44,7 @@ add_action('wp_head', function() {
 ?>
     <link rel="preload" href="<?= \App\asset_path('assets/fonts/filename.woff2'); ?>" as="font" type="font/woff2" crossorigin />
 
-    <link rel="preload" href="<?= \App\asset_path("styles/main.css?ver={$verTag}"); ?>" as="style" />
+    <link rel="preload" href="<?= \App\asset_path('styles/main.scss'); ?>" as="style" />
 
     <link rel="manifest" href="<?= get_template_directory_uri() . "/manifest.webmanifest?ver={$verTag}"; ?>" crossorigin="use-credentials">
 <?php

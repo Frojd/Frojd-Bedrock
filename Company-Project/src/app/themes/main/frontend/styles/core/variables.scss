@@ -1,3 +1,6 @@
+@use 'sass:color';
+@use 'sass:map';
+
 $assetsPath: '../assets/';
 
 // Measurements
@@ -68,7 +71,7 @@ $primary-color: $purple;
 $accent-color: $yellow;
 
 $link-color: $primary-color;
-$link-hover-color: darken($purple, 20%);
+$link-hover-color: color.adjust($purple, $lightness: -20%);
 
 $error-color: $system-error;
 $error-bg: $system-error-10;
@@ -82,9 +85,9 @@ $fontfamilies: (
     serif: #{Times, serif},
 );
 
-$base-font: map-get($fontfamilies, 'sans');
-$heading-font: map-get($fontfamilies, 'sans');
-$richtext-font: map-get($fontfamilies, 'sans');
+$base-font: map.get($fontfamilies, 'sans');
+$heading-font: map.get($fontfamilies, 'sans');
+$richtext-font: map.get($fontfamilies, 'sans');
 
 $base-size: 1.6rem;
 

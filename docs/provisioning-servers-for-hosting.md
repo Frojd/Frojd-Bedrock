@@ -6,10 +6,10 @@ In this guide we'll explain how to use the included provisioning script to insta
 ## Requirements (webserver, aka ansible host)
 
 The server should have these applications/packages installed:
-- Linux (Ubuntu 20.04+ is preffered)
+- Linux (Ubuntu 24.04+ is preferred)
 - Nginx
 - PHP-FPM
-- PHP 7.4+
+- PHP 8.3+
 - Mysql
 
 Linux should have these users (with passwordless login using RSA keys):

@@ -56,6 +56,7 @@ $sage_includes = [
     'src/gravity-forms.php',
     'src/gutenberg.php',
     'src/helpers.php',
+    'src/media.php',
     'src/nginx-cache.php',
     'src/permissions.php',
     'src/security.php',

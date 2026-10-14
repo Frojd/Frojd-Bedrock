@@ -305,7 +305,7 @@
         },
         {
             "key": "field_59008cbf69b14",
-            "label": "Misc",
+            "label": "Notice",
             "name": "",
             "type": "tab",
             "instructions": "",
@@ -321,10 +321,10 @@
         },
         {
             "key": "field_58fdd59c4754c",
-            "label": "Cookie popup text",
-            "name": "cookie_popup_text",
-            "type": "wysiwyg",
-            "instructions": "",
+            "label": "Notice",
+            "name": "notice",
+            "type": "group",
+            "instructions": "A dismissible notice shown at the top of the site. Editing it makes it reappear for visitors who dismissed the previous version.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -332,30 +332,55 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "basic",
-            "media_upload": 0,
-            "delay": 0
-        },
-        {
-            "key": "field_58fdd5b34754d",
-            "label": "Old browser text",
-            "name": "browser_popup_text",
-            "type": "wysiwyg",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "basic",
-            "media_upload": 0,
-            "delay": 0
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_58fdd59c47500",
+                    "label": "Show notice",
+                    "name": "show",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": ""
+                },
+                {
+                    "key": "field_58fdd5b34754d",
+                    "label": "Text",
+                    "name": "text",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_58fdd59c47500",
+                                "operator": "==",
+                                "value": "1"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "delay": 0
+                }
+            ]
         }
     ],
     "location": [

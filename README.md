@@ -10,12 +10,12 @@ Bedrock is a modern WordPress stack inspired by [Twelve-Factor App](http://12fac
 - Wordpress
 - Bedrock
 - Sage
-- Docker and Docker-compose support
+- Docker and Docker Compose support
 - [12-Factor](https://12factor.net/) based
 - Settings primed for production
 - Third part integrations:
     - [Sentry](https://sentry.io/)
-    - [Circle CI](https://circleci.com/)
+    - [GitHub Actions](https://github.com/features/actions)
 - Deploy scripts using [ansistrano](https://github.com/ansistrano)
 - Orchestration using [ansible](https://github.com/ansible/ansible)
 - Scripts for syncing data from remote to local machine
@@ -34,7 +34,7 @@ cookiecutter https://github.com/Frojd/Frojd-Bedrock.git
 
 3. Insert your custom vars:
 ```
-repo_name [Frojd/Company-project.se]: Org/Example-project.se
+repo_name [Frojd/Company-Project]: Org/Example-project.se
 project_name [Example-Project]:
 project_slug [example_project]:
 description [A short description of the project.]: Example description.
@@ -42,8 +42,8 @@ public_site_name [Example Project]
 public_site_description: Example public description
 domain_prod [example.com]:
 domain_stage [stage.example.com]:
-ssh_prod [example.com]: host.com
-ssh_stage [stage.example.com]: stage.host.com
+ssh_host_prod [example.com]: host.com
+ssh_host_stage [stage.example.com]: stage.host.com
 deploy_dir [example.com]: host.com
 db_name_prod [example_com]: host_com
 db_name_stage [example_com]: host_com
@@ -79,8 +79,8 @@ This boilerplate uses [semantic versioning](http://semver.org/).
 
 ## Guides
 
-- [Provision and configure a webserver for hosting](https://github.com/Frojd/Frojd-Bedrock/blob/master/docs/provisioning-servers-for-hosting.md)
-- [Setting up deployment on CircleCI](https://github.com/Frojd/Frojd-Bedrock/blob/master/docs/setting-up-deployment-with-circleci.md)
+- [Provision and configure a webserver for hosting](https://github.com/Frojd/Frojd-Bedrock/blob/main/docs/provisioning-servers-for-hosting.md)
+- [Setting up deployment with GitHub Actions](https://github.com/Frojd/Frojd-Bedrock/blob/main/docs/setting-up-deployment-with-github-actions.md)
 
 
 ## Contributing

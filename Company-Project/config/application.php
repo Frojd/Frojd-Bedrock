@@ -9,6 +9,7 @@ define('VENDOR_DIR', ROOT_DIR . '/vendor');
  * Use Dotenv to set required environment variables and load .env file in root
  * .env.local will override .env if it exists
  */
+$root_dir = ROOT_DIR;
 if (file_exists($root_dir . '/.env')) {
     $env_files = file_exists(ROOT_DIR . '/.env.local')
         ? ['.env', '.env.local']
@@ -90,6 +91,12 @@ define('AUTOMATIC_UPDATER_DISABLED', true);
 define('DISABLE_WP_CRON', true);
 define('WP_POST_REVISIONS', 10);
 define('WP_MEMORY_LIMIT', '124M');
+define('FS_METHOD', 'direct');
+
+/**
+ * ACF PRO
+ */
+define('ACF_PRO_LICENSE', getenv('ACF_PRO_KEY', ''));
 
 /* Cookie script */
 define('COOKIE_SCRIPT', getenv('COOKIE_SCRIPT', ''));
@@ -121,15 +128,21 @@ if (!defined('ABSPATH')) {
 define('SENTRY_DSN', getenv('SENTRY_DSN') ?: null);
 if (SENTRY_DSN) {
   define("WP_SENTRY_PHP_DSN", SENTRY_DSN);
+  define("WP_SENTRY_BROWSER_DSN", SENTRY_DSN);
 
+  $sentry_env = WP_ENV;
   if (defined('CURRENT_SITE') && !empty(CURRENT_SITE)) {
-    $env = CURRENT_SITE . "-" . WP_ENV . "-php";
+    $sentry_env = CURRENT_SITE . "-" . $sentry_env;
   }
-  define("WP_SENTRY_ENV", $env);
+  define("WP_SENTRY_ENV", $sentry_env);
+  define("WP_SENTRY_VERSION", APP_VERSION);
 
   define("WP_SENTRY_TRACES_SAMPLE_RATE", WP_ENV == "production" ? .2 : 1.0);
   define("WP_SENTRY_PROFILES_SAMPLE_RATE", WP_ENV == "production" ? .2 : 1.0);
-
-  define("WP_SENTRY_BROWSER_DSN", true);
   define("WP_SENTRY_BROWSER_TRACES_SAMPLE_RATE", WP_ENV == "production" ? .05 : 1.0);
+
+  // You can _optionally_ enable or disable the JavaScript tracker in certain parts of your site with these constants:
+  define('WP_SENTRY_BROWSER_ADMIN_ENABLED', true);
+  define('WP_SENTRY_BROWSER_LOGIN_ENABLED', true);
+  define('WP_SENTRY_BROWSER_FRONTEND_ENABLED', true);
 }

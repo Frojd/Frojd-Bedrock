@@ -1,3 +1,7 @@
+@use "../shared" as *;
+@use "../extends/button";
+@use "../extends/richtext";
+
 .footer {
     $root: &;
 
@@ -52,7 +56,6 @@
 
     &__richtext {
         @extend %richtext;
-
         @include textstyle(body-small);
 
         margin-top: 16px;
@@ -77,23 +80,29 @@
     }
 
     &__link {
+        @extend %button--link;
         @include textstyle(body-small);
 
         display: block;
-        color: $link-color;
-
-        &:hover {
-            color: $link-hover-color;
-        }
 
         &--icon {
             width: 32px;
             height: 32px;
 
+            // Social icon links are images, not text links — no link icon.
+            &::after {
+                display: none !important;
+            }
+
             svg {
                 display: block;
                 width: 100%;
                 height: auto;
+                fill: currentcolor;
+
+                * {
+                    fill: inherit;
+                }
             }
         }
     }

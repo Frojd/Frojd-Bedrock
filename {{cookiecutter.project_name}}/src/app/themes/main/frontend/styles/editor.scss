@@ -1,45 +1,63 @@
-@import 'core/functions';
-@import 'core/mixins';
-@import 'core/variables';
-
-@import 'extends/grid';
-@import 'extends/richtext';
-
-@import 'global/fonts';
+@use 'sass:map';
+@use 'shared' as *;
+@use 'extends/gutenberg';
+@use 'global/fonts';
 
 html {
     font-size: 62.5%;
 }
 
+// Classic (TinyMCE) editor body.
 .mce-content-body {
     margin: 9px 10px;
     max-width: 100%;
     color: $base-color;
     font-family: $base-font;
 
-    @extend %richtext;
+    @extend %gutenberg;
 }
 
-.block-editor {
-
+// Block editor canvas. WordPress wraps editor styles in .editor-styles-wrapper
+// (inside the editor iframe); the content lives in .is-root-container.
+.editor-styles-wrapper {
     .is-root-container {
-        @extend %richtext;
-
-        @include wrap(content, false, false);
-    }
-
-    .wp-block {
-        @extend %richtext;
-
-        @include wrap(content, false, false);
+        @extend %gutenberg;
 
         color: $base-color;
         font-family: $base-font;
 
-        .editor-post-title {
-            &__input {
-                color: $base-color;
-                font-family: $base-font;
+        // Constrain blocks to the same width as the front end.
+        > .wp-block {
+            max-width: map.get($maxwidths, content);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        // Editor-only: full-width blocks are edge-to-edge on the front end, but
+        // in the narrow editor canvas that's unwieldy, so cap them at 90% and
+        // centre them. Overrides the content-width cap above for full-align
+        // blocks. Purely a visual editing aid — it does not affect the front end.
+        > .wp-block[data-align='full'] {
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        // Editor-only marker so the invisible soft hyphen is visible/findable.
+        .soft-hyphen {
+            cursor: help;
+
+            &::before {
+                content: '↪';
+                font-family: sans-serif;
+                font-size: 0.65em;
+                opacity: 0.5;
+                vertical-align: middle;
+                transition: opacity 120ms ease;
+            }
+
+            &:hover::before {
+                opacity: 1;
             }
         }
     }

@@ -1,5 +1,15 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'functions' as *;
+@use 'variables' as *;
+
 @mixin href-external() {
-    &[href]:not([href^='mailto:']):not([href^='tel:']):not([href='']):not([href^='#']):not([href^='/']):not([href^='http://example.com']):not([href^='https://example.com']):not([href*='www.example.com']):not([href*='stage.example.com']) {
+    // Matches links pointing off-site. All :not() parts must stay contiguous —
+    // any whitespace between them becomes a descendant combinator and the
+    // selector silently stops matching. Domains are anchored (^=http(s)://) or
+    // matched with the www. prefix so unrelated domains that merely contain the
+    // name aren't excluded.
+    &[href]:not([type='submit']):not([type='button']):not([href^='mailto:']):not([href^='tel:']):not([href='']):not([href^='#']):not([href^='/']):not([href^='?']):not([href^='http://example.com']):not([href^='https://example.com']):not([href^='http://www.example.com']):not([href^='https://www.example.com']):not([href^='http://stage.example.com']):not([href^='https://stage.example.com']) {
         @content;
     }
 }
@@ -21,11 +31,43 @@
     }
 }
 
+// Adds an external/download icon after external or downloadable links.
+// The icon uses mask-image + currentColor so it matches the link colour.
+// Apply on an <a> (or a selector matching anchors).
+@mixin link-icons() {
+    &::after {
+        content: '';
+        display: none;
+        width: 1em;
+        height: 1em;
+        margin-left: 0.4em;
+        vertical-align: -0.2em;
+        background-color: currentcolor;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: contain;
+    }
+
+    @include href-external {
+        &::after {
+            display: inline-block;
+            mask-image: url('#{$assetsPath}images/external.svg');
+        }
+    }
+
+    @include href-download {
+        &::after {
+            display: inline-block;
+            mask-image: url('#{$assetsPath}images/download.svg');
+        }
+    }
+}
+
 @mixin media($key) {
     @if $key == 'd' {
         @content;
-    } @else if map-has-key($breakpoints, $key) {
-        @media (min-width: map-get($breakpoints, $key)) {
+    } @else if map.has-key($breakpoints, $key) {
+        @media (min-width: map.get($breakpoints, $key)) {
             @content;
         }
     } @else {
@@ -36,8 +78,8 @@
 @mixin media-max($key) {
     @if $key == 'd' {
         @content;
-    } @else if map-has-key($breakpoints, $key) {
-        @media (max-width: map-get($breakpoints, $key)-1) {
+    } @else if map.has-key($breakpoints, $key) {
+        @media (max-width: map.get($breakpoints, $key) - 1) {
             @content;
         }
     } @else {
@@ -59,7 +101,7 @@
     $spacing: 0;
 
     @if $spacingToWidth {
-        $spacing: map-get($gutters, M) * 2;
+        $spacing: map.get($gutters, M) * 2;
     }
 
     @if $center {
@@ -68,7 +110,7 @@
     }
 
     @if $includeSpacing {
-        @include spacing();
+        @include spacing;
 
         @include media(M) {
             @include spacing(M);
@@ -76,14 +118,14 @@
     }
 
     @each $size in $list {
-        @if map-has-key($maxwidths, $size) {
-            max-width: (map-get($maxwidths, $size) + $spacing);
+        @if map.has-key($maxwidths, $size) {
+            max-width: (map.get($maxwidths, $size) + $spacing);
         }
     }
 }
 
 @mixin spacing($bp: d) {
-    $spacing: map-get($gutters, $bp);
+    $spacing: map.get($gutters, $bp);
 
     padding-left: $spacing;
     padding-right: $spacing;
@@ -93,20 +135,21 @@
 // including media queries
 // Usage: @include textstyle(h1);
 @mixin textstyle($key) {
-
     // Loop through map and set font-size and line-height for each media query
-    @if map-has-key($textstyles, $key) {
+    @if map.has-key($textstyles, $key) {
         $map: get-default($textstyles, $key);
 
         @each $media, $style in $map {
             @include media($media) {
-                @if map-has-key($style, font-size) {
+                @if map.has-key($style, font-size) {
                     $font-size: get-default($style, font-size);
-                    font-size: #{$font-size / 10}rem;
 
-                    @if map-has-key($style, line-height) {
+                    font-size: #{math.div($font-size, 10)}rem;
+
+                    @if map.has-key($style, line-height) {
                         $line-height: get-default($style, line-height);
-                        line-height: #{round($line-height / $font-size * 100) / 100};
+
+                        line-height: #{math.div(math.round(math.div($line-height, $font-size) * 100), 100)};
                     }
                 }
 
