@@ -25,7 +25,7 @@
         },
         "allow-plugins": {
             "composer/installers": true,
-            "johnpbloch/wordpress-core-installer": true
+            "roots/wordpress-core-installer": true
         }
     },
     "autoload": {
@@ -47,7 +47,7 @@
         "php": "8.3.*",
         "composer/installers": "*",
         "vlucas/phpdotenv": "*",
-        "johnpbloch/wordpress": "*",
+        "roots/wordpress": "*",
         "sentry/sdk": "*",
         "stayallive/wp-sentry": "*",
         "wpengine/advanced-custom-fields-pro": "*",
